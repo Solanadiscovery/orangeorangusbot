@@ -202,3 +202,9 @@ class BotTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class XNoLinks(unittest.TestCase):
+    def test_links_stripped(self):
+        b = xapi.body_for({"type": "text", "text": "Join us https://t.me/OrangeOrangus now t.me/x"}, "#OrangeOrangus")
+        self.assertNotIn("t.me", b["text"]); self.assertNotIn("http", b["text"])

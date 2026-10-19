@@ -1,5 +1,5 @@
 """X API v2 (OAuth 1.0a utente): pubblicazione di post e sondaggi."""
-import base64, hashlib, hmac, json, os, time, urllib.error, urllib.parse, urllib.request, uuid
+import base64, hashlib, hmac, json, os, re, time, urllib.error, urllib.parse, urllib.request, uuid
 
 KEYS = ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_SECRET")
 URL = "https://api.x.com/2/tweets"
@@ -20,9 +20,18 @@ def auth_header(method, url):
     return "OAuth " + ", ".join(f'{q(k)}="{q(v)}"' for k, v in oauth.items())
 
 
+LINK = re.compile(r"\s*(https?://\S+|\bt\.me/\S+)")
+
+
+def no_links(text):
+    """Telegram link is in the X bio: posts never carry URLs."""
+    return LINK.sub("", text).strip()
+
+
 def body_for(item, footer):
     if item["type"] == "poll":
-        return {"text": item["question"], "poll": {"options": [o[:25] for o in item["options"]], "duration_minutes": 1440}}
+        return {"text": no_links(item["question"]), "poll": {"options": [o[:25] for o in item["options"]], "duration_minutes": 1440}}
+    item = {**item, "text": no_links(item["text"])}
     text = item["text"] if not footer or len(item["text"]) + len(footer) + 2 > 280 else f"{item['text']}\n\n{footer}"
     return {"text": text[:280]}
 
