@@ -1,11 +1,13 @@
 """Pubblica i post di OrangeOrangus sul canale Telegram.
 
-Durante il countdown (3 giorni prima del lancio + giorno del lancio) usa campaign.json,
-4 post al giorno con sondaggi e quiz. Negli altri giorni usa content.json, 2 post al giorno.
+Campagna a traguardi (campaign.json): finché il canale non raggiunge "goal" membri,
+4 post al giorno con barra di avanzamento, sondaggi, quiz e inviti a ripostare su X.
+Ad ogni traguardo pubblica un annuncio (una sola volta, salvato in state.json).
+Raggiunto il goal, torna ai 2 post al giorno di content.json.
 
-Variabili d'ambiente: BOT_TOKEN, CHAT_ID (es. @orangeorangus o -100...), SLOT (ora UTC, impostata dal workflow).
+Variabili d'ambiente: BOT_TOKEN, CHAT_ID (es. @orangeorangus o -100...), SLOT (ora UTC, dal workflow).
 Uso: python post.py            -> pubblica il post di questo orario
-     python post.py --dry-run  -> mostra il post senza inviarlo
+     python post.py --dry-run  -> mostra il post senza inviarlo (membri finti: 137)
 """
 import datetime, json, os, sys, urllib.error, urllib.request, uuid
 from pathlib import Path
@@ -29,20 +31,42 @@ def current_slot(now):
     return past[-1] if past else "08"
 
 
-def pick_post(now, slot):
-    """Restituisce il post da pubblicare, oppure None se in questo orario non c'è nulla."""
-    content = load("content.json")
-    campaign = load("campaign.json")
-    if campaign["launch_date"]:
-        offset = str((now.date() - datetime.date.fromisoformat(campaign["launch_date"])).days)
-        if offset in campaign["days"]:
-            post = campaign["days"][offset].get(slot)
-            return dict(post, footer=content["footer"]) if post else None
+def fill(text, count, c):
+    goal = c["goal"]
+    done = min(10, count * 10 // goal)
+    return text.format(count=count, goal=goal, left=max(goal - count, 0), m=count,
+                       bar=f"{'🟧' * done}{'⬜' * (10 - done)} {count}/{goal}",
+                       x=f"\n👉 {c['x_url']}" if c["x_url"] else "")
+
+
+def pick_posts(now, slot, count, state):
+    """Restituisce la lista di post da pubblicare in questo orario."""
+    content, c = load("content.json"), load("campaign.json")
+    footer = content["footer"]
+    if c["active"] and c["goal"] not in state["announced"]:
+        out = []
+        new = [m for m in c["milestones"] if count >= m and m not in state["announced"]]
+        if new:  # annuncia solo il traguardo più alto appena raggiunto
+            m = max(new)
+            text = c["goal_text"] if m == c["goal"] else c["milestone_text"].replace("{m}", str(m))
+            out.append({"text": fill(text, count, c), "footer": footer})
+            state["announced"] += new
+        if not state.get("started"):  # primo avvio: spiega subito l'obiettivo
+            state["started"] = True
+            slot, i = "intro", 0
+        if slot == "intro" or slot in CAMPAIGN_SLOTS and c["goal"] not in state["announced"]:
+            i = 0 if slot == "intro" else (now.timetuple().tm_yday * len(CAMPAIGN_SLOTS) + CAMPAIGN_SLOTS.index(slot)) % len(c["posts"])
+            post = dict(c["posts"][i], footer=footer)
+            for k in ("text", "poll", "quiz"):
+                if k in post:
+                    post[k] = fill(post[k], count, c)
+            out.append(post)
+        return out
     if slot not in REGULAR_SLOTS:
-        return None
+        return []
     posts = content[DAYS[now.weekday()]][REGULAR_SLOTS[slot]]
     post = posts[now.isocalendar()[1] % len(posts)]  # ruota i post settimana dopo settimana
-    return dict(post, footer=content["footer"])
+    return [dict(post, footer=footer)]
 
 
 def api(method, fields, photo=None):
@@ -84,18 +108,21 @@ def send(chat, post):
 def main():
     now = datetime.datetime.now(datetime.timezone.utc)
     slot = current_slot(now)
-    post = pick_post(now, slot)
-    if post is None:
-        print(f"Nessun post previsto alle {slot}:00 UTC.")
-        return
-    if "--dry-run" in sys.argv:
-        print(json.dumps(post, ensure_ascii=False, indent=1))
-        return
+    state = load("state.json")
+    dry = "--dry-run" in sys.argv
     chat = os.environ.get("CHAT_ID", "").strip()
-    if not chat:
+    if not dry and not chat:
         sys.exit("CHAT_ID mancante: aggiungilo nei Secrets del repository.")
-    send(chat, post)
-    print("Pubblicato.")
+    count = 137 if dry else api("getChatMemberCount", {"chat_id": chat})["result"]
+    posts = pick_posts(now, slot, count, state)
+    for post in posts:
+        if dry:
+            print(json.dumps(post, ensure_ascii=False, indent=1))
+        else:
+            send(chat, post)
+    if not dry:
+        (ROOT / "state.json").write_text(json.dumps(state) + "\n")
+    print(f"Membri: {count}. Post pubblicati: {len(posts)} (slot {slot}:00 UTC).")
 
 
 if __name__ == "__main__":

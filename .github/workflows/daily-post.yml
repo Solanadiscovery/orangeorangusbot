@@ -1,12 +1,14 @@
 name: Daily Telegram post
 on:
-  schedule:  # ore UTC; 12, 16 e 20 pubblicano solo durante il countdown
+  schedule:  # ore UTC; 12, 16 e 20 pubblicano solo durante la campagna
     - cron: "0 8 * * *"
     - cron: "0 12 * * *"
     - cron: "0 16 * * *"
     - cron: "0 18 * * *"
     - cron: "0 20 * * *"
   workflow_dispatch:       # avvio manuale per test
+permissions:
+  contents: write  # per salvare state.json (traguardi già annunciati)
 jobs:
   post:
     runs-on: ubuntu-latest
@@ -16,6 +18,8 @@ jobs:
           SCHED="${{ github.event.schedule }}"
           [ -n "$SCHED" ] && export SLOT=$(printf %02d "$(echo "$SCHED" | cut -d' ' -f2)")
           python post.py
+          git config user.name "orangeorangus-bot"; git config user.email "bot@users.noreply.github.com"
+          git diff --quiet state.json || (git commit -m "Update milestones" state.json && git push)
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
