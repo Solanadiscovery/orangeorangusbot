@@ -28,3 +28,7 @@ X API è a pagamento a consumo: ricarica pochi crediti. Il bot non pubblica link
 ## Contatore live
 Il bot crea un messaggio "LIVE TROOP COUNTDOWN" e il workflow "Live member counter" lo aggiorna ogni minuto con i membri reali, anche quando qualcuno esce.
 Avvio manuale da Actions = aggiorna subito il contatore. Con "Pubblica solo su X" = prova su X.
+
+## Come gira il bot
+Il workflow "Live bot" resta sempre acceso (si riavvia da solo ogni ~5h40): pubblica i post agli orari previsti
+(08, 12, 16, 18, 20 UTC) e aggiorna il contatore ogni minuto. "Daily Telegram post" ora serve solo per avvii manuali.

@@ -1,11 +1,5 @@
 name: Daily Telegram post
 on:
-  schedule:  # ore UTC; 12, 16 e 20 pubblicano solo durante la campagna
-    - cron: "0 8 * * *"
-    - cron: "0 12 * * *"
-    - cron: "0 16 * * *"
-    - cron: "0 18 * * *"
-    - cron: "0 20 * * *"
   workflow_dispatch:       # avvio manuale per test
     inputs:
       only_x:

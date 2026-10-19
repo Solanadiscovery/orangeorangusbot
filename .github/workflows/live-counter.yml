@@ -1,18 +1,26 @@
-name: Live member counter
+name: Live bot (posts + counter)
 on:
   schedule:
-    - cron: "0 */5 * * *"   # riavvio ogni 5 ore (ogni avvio dura ~5,5 ore)
+    - cron: "0 */5 * * *"   # riserva: riavvia il bot se si fosse fermato
   workflow_dispatch:
+permissions:
+  contents: write   # salva state.json
+  actions: write    # il bot riavvia se stesso
 concurrency:
   group: live-counter
   cancel-in-progress: true   # il nuovo avvio sostituisce il precedente
 jobs:
-  counter:
+  bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 340
+    timeout-minutes: 355
     steps:
       - uses: actions/checkout@v4
       - run: python counter.py
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          GITHUB_TOKEN: ${{ github.token }}
