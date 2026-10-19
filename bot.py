@@ -199,6 +199,16 @@ class Bot:
             except tg.TelegramError as e:
                 self.alert("pin_failed", f"Non riesco a fissare il countdown: {e.description}")
 
+    def og_existing(self, count):
+        """Una sola volta: nomina OG Peeler chi era già nel canale (la Bot API non elenca i membri, quindi un annuncio)."""
+        og, goal = self.cfg.get("og", {}), self.cfg["countdown"]["goal"]
+        if not og.get("enabled") or self.state.get("og_existing_done") or count >= goal:
+            return
+        self.state["og_existing_done"] = True
+        self.persist("OG Peelers announced")  # salvato prima: mai due annunci
+        tg.call("sendMessage", {"chat_id": self.chat, "text": og["text_existing"].format(count=count, goal=goal, left=goal - count),
+                                "link_preview_options": {"is_disabled": True}})
+
     def milestones(self, count):
         c = self.cfg["countdown"]
         if c["mode"] != "members":
@@ -207,7 +217,7 @@ class Bot:
         if not new:
             return
         m = max(new)
-        text = c["text_goal_post"] if m == c["goal"] else c["text_milestone_post"].format(m=m, goal=c["goal"])
+        text = c["text_goal_post"].format(goal=c["goal"]) if m == c["goal"] else c["text_milestone_post"].format(m=m, goal=c["goal"])
         self.state["announced"] += new
         self.persist(f"Milestone {m}")  # salvato prima di pubblicare: mai due annunci uguali
         self.send_telegram({"type": "text", "text": text})
@@ -278,6 +288,7 @@ class Bot:
         try:
             count = self.member_count()
             self.update_countdown(count)
+            self.og_existing(count)
             self.ensure_pinned()
             self.milestones(count)
         except Exception as e:

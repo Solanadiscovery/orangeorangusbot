@@ -20,7 +20,7 @@
     "text_time": "🚀 THE COUNTDOWN IS ON\n\n⏳ Time remaining: {d}d {h}h {m}m\n\n🔄 Updates every minute\n\n👉 Join the Troop: https://t.me/OrangeOrangus",
     "text_done_time": "🚀 THE COUNTDOWN IS OVER\n\nWatch the pinned messages: official news comes ONLY from admins.\n\n👉 Join the Troop: https://t.me/OrangeOrangus",
     "text_milestone_post": "🎉 MILESTONE: {m} PEELERS!\nThe Troop keeps growing. Next stop: {goal}. Keep inviting! 🍊",
-    "text_goal_post": "🍊🦧 WE DID IT! The jungle is unlocked.\nThe OrangeOrangus token announcement is coming from the admins: watch the PINNED messages.\nNever trust DMs."
+    "text_goal_post": "🍊🦧 WE DID IT! The jungle is unlocked.\n\nHuge thanks to our {goal} OG Peelers: you built this from zero. 🏅\n\nThe OrangeOrangus token announcement is coming from the admins: watch the PINNED messages.\nNever trust DMs."
   },
   "telegram": {
     "times": [
@@ -58,7 +58,11 @@
   },
   "welcome": {
     "enabled": true,
-    "text": "🎉 Welcome to the jungle, {names}! 🦧🍊\n\nYou just joined the Troop as Peeler #{count}. Only {left} Peelers left until the OrangeOrangus token is announced 🔓\n\nEvery share brings the reveal closer. Send the Troop to your friends and groups 👇\nhttps://t.me/OrangeOrangus\n\nPeel the hype. Release the ape. 🍊",
+    "text": "🎉 Welcome to the jungle, {names}! 🦧🍊\n\nYou're OG Peeler #{count} of {goal}: one of the first members of the Troop. Only {left} OG spots left before the OrangeOrangus token is announced 🔓\n\nEvery share brings the reveal closer. Send the Troop to your friends and groups 👇\nhttps://t.me/OrangeOrangus\n\nPeel the hype. Release the ape. 🍊",
     "text_after_goal": "🎉 Welcome to the jungle, {names}! 🦧🍊\n\nYou're Peeler #{count}. Read the PINNED messages for official info and never trust DMs.\n\nPeel the hype. Release the ape. 🍊"
+  },
+  "og": {
+    "enabled": true,
+    "text_existing": "🏅 OG PEELERS 🏅\n\nTo the first {count} members already here: you are officially OG Peelers. You were here before anyone else, and the jungle won't forget it. 🦧🍊\n\nThe OG title goes to the first {goal} members only. {left} OG spots left 👇\nhttps://t.me/OrangeOrangus"
   }
 }

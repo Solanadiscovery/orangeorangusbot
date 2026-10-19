@@ -39,7 +39,8 @@ class BotTest(unittest.TestCase):
         for f in ("config.json", "history.json"):
             shutil.copy(REPO / f, self.dir / f)
         shutil.copytree(REPO / "content", self.dir / "content")
-        (self.dir / "state.json").write_text(json.dumps({"counter_id": 30, "counter_created": True, "announced": []}))
+        (self.dir / "state.json").write_text(json.dumps({"counter_id": 30, "counter_created": True, "announced": [],
+                                                         "og_existing_done": True}))
         self.patches = [mock.patch.object(bot, "ROOT", self.dir),
                         mock.patch.dict(os.environ, {"CHAT_ID": "@test", "BOT_TOKEN": "x", "ADMIN_USER_ID": "1"}, clear=False)]
         for p in self.patches:
@@ -165,9 +166,21 @@ class BotTest(unittest.TestCase):
         welcomes = [f for m, f in fake.calls if m == "sendMessage" and "Welcome" in f.get("text", "")]
         self.assertEqual(len(welcomes), 2)
         self.assertIn("Ana, Bo", welcomes[0]["text"])
-        self.assertIn("492 Peelers left", welcomes[0]["text"])
+        self.assertIn("OG Peeler #8 of 500", welcomes[0]["text"])
         self.assertIn("t.me/OrangeOrangus", welcomes[0]["text"])
         self.assertEqual([f["message_id"] for m, f in fake.calls if m == "deleteMessage"], [welcomes and 101])
+
+    def test_og_announcement_once(self):
+        state = json.loads((self.dir / "state.json").read_text())
+        state.pop("og_existing_done")
+        (self.dir / "state.json").write_text(json.dumps(state))
+        fake = FakeTelegram(members=9)
+        at = datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)
+        self.make(at, fake)
+        self.make(at + datetime.timedelta(minutes=1), fake)
+        og = [f["text"] for m, f in fake.calls if m == "sendMessage" and "OG PEELERS" in f.get("text", "")]
+        self.assertEqual(len(og), 1)
+        self.assertIn("first 9 members", og[0])
 
     def test_milestone_announced_once(self):
         fake = FakeTelegram(members=60)
