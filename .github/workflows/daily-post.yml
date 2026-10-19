@@ -1,15 +1,21 @@
 name: Daily Telegram post
 on:
-  schedule:
-    - cron: "0 8 * * *"    # mattina, 08:00 UTC
-    - cron: "0 18 * * *"   # sera, 18:00 UTC
+  schedule:  # ore UTC; 12, 16 e 20 pubblicano solo durante il countdown
+    - cron: "0 8 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 16 * * *"
+    - cron: "0 18 * * *"
+    - cron: "0 20 * * *"
   workflow_dispatch:       # avvio manuale per test
 jobs:
   post:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python post.py
+      - run: |
+          SCHED="${{ github.event.schedule }}"
+          [ -n "$SCHED" ] && export SLOT=$(printf %02d "$(echo "$SCHED" | cut -d' ' -f2)")
+          python post.py
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
