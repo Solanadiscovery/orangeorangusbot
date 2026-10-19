@@ -5,11 +5,13 @@ Campagna a traguardi (campaign.json): finché il canale non raggiunge "goal" mem
 Ad ogni traguardo pubblica un annuncio (una sola volta, salvato in state.json).
 Raggiunto il goal, torna ai 2 post al giorno di content.json.
 
+Ogni post viene pubblicato anche su X se ci sono le chiavi X_* (altrimenti solo Telegram).
+
 Variabili d'ambiente: BOT_TOKEN, CHAT_ID (es. @orangeorangus o -100...), SLOT (ora UTC, dal workflow).
 Uso: python post.py            -> pubblica il post di questo orario
      python post.py --dry-run  -> mostra il post senza inviarlo (membri finti: 137)
 """
-import datetime, json, os, sys, urllib.error, urllib.request, uuid
+import base64, datetime, hashlib, hmac, json, os, sys, time, urllib.error, urllib.parse, urllib.request, uuid
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -105,6 +107,35 @@ def send(chat, post):
     return api("sendMessage", {"chat_id": chat, "text": text, "disable_web_page_preview": True})
 
 
+X_KEYS = ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_SECRET")
+X_FOOTER = "🍊 Peel the hype. Release the ape.\nJoin the Troop on Telegram (link in bio)."
+
+
+def x_post(post):
+    """Pubblica su X (API v2, OAuth 1.0a). Niente link: su X costano molto di più."""
+    key, secret, token, token_secret = (os.environ[k].strip() for k in X_KEYS)
+    if "poll" in post or "quiz" in post:
+        body = {"text": post.get("poll") or post["quiz"],
+                "poll": {"options": [o[:25] for o in post["options"]], "duration_minutes": 240}}
+    else:
+        body = {"text": (post["text"] + "\n\n" + X_FOOTER)[:280]}
+    url = "https://api.x.com/2/tweets"
+    oauth = {"oauth_consumer_key": key, "oauth_nonce": uuid.uuid4().hex, "oauth_signature_method": "HMAC-SHA1",
+             "oauth_timestamp": str(int(time.time())), "oauth_token": token, "oauth_version": "1.0"}
+    q = lambda v: urllib.parse.quote(v, safe="")
+    params = "&".join(f"{q(k)}={q(v)}" for k, v in sorted(oauth.items()))
+    base = f"POST&{q(url)}&{q(params)}"
+    oauth["oauth_signature"] = base64.b64encode(
+        hmac.new(f"{q(secret)}&{q(token_secret)}".encode(), base.encode(), hashlib.sha1).digest()).decode()
+    auth = "OAuth " + ", ".join(f'{q(k)}="{q(v)}"' for k, v in oauth.items())
+    req = urllib.request.Request(url, json.dumps(body).encode(), {"Authorization": auth, "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:  # X non blocca Telegram: segnala e continua
+        print(f"Errore X {e.code}: {e.read().decode()}")
+
+
 def main():
     now = datetime.datetime.now(datetime.timezone.utc)
     slot = current_slot(now)
@@ -120,6 +151,8 @@ def main():
             print(json.dumps(post, ensure_ascii=False, indent=1))
         else:
             send(chat, post)
+            if all(os.environ.get(k, "").strip() for k in X_KEYS):
+                x_post(post)
     if not dry:
         (ROOT / "state.json").write_text(json.dumps(state) + "\n")
     print(f"Membri: {count}. Post pubblicati: {len(posts)} (slot {slot}:00 UTC).")

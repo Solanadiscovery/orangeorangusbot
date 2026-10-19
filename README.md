@@ -19,3 +19,8 @@ Pubblica 2 post al giorno, tutti i giorni (08:00 e 18:00 UTC), sul canale Telegr
 ## Sicurezza
 Non condividere mai il token e non scriverlo nei file. Se esce, rigeneralo con `/revoke` su BotFather.
 Il bot non pubblica link: aggiungi link ufficiali solo dopo averli verificati.
+
+## X (opzionale)
+Se aggiungi nei Secrets `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`, ogni post esce anche su X.
+Chiavi da https://developer.x.com → app con permessi "Read and write" → Keys and tokens (genera Access Token dopo aver impostato i permessi).
+X API è a pagamento a consumo: ricarica pochi crediti. Il bot non pubblica link su X (costano molto di più).
