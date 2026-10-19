@@ -54,7 +54,22 @@
       "poll",
       "culture"
     ],
-    "footer": "Telegram in bio 👆 #OrangeOrangus"
+    "footer": "Telegram in bio 👆",
+    "cashtag": "$OrangeOrangus",
+    "hashtags": [
+      "#OrangeOrangus"
+    ],
+    "viral_hashtags": [
+      "#Solana",
+      "#memecoin",
+      "#crypto",
+      "#SOL",
+      "#memecoins",
+      "#CryptoCommunity",
+      "#Web3",
+      "#altcoins"
+    ],
+    "viral_per_post": 3
   },
   "welcome": {
     "enabled": true,

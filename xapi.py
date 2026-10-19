@@ -29,19 +29,46 @@ def no_links(text):
 
 
 def body_for(item, footer):
+    """footer: the x config (dict) or a plain footer string."""
     if item["type"] == "poll":
-        return {"text": with_footer(no_links(item["question"]), footer),
+        return {"text": with_footer(no_links(item["question"]), footer, item.get("id", "")),
                 "poll": {"options": [o[:25] for o in item["options"]], "duration_minutes": 1440}}
-    return {"text": with_footer(no_links(item["text"]), footer)}
+    return {"text": with_footer(no_links(item["text"]), footer, item.get("id", ""))}
 
 
-def with_footer(text, footer):
-    """Adds the footer ("Telegram in bio" + hashtag) when it fits; avoids saying "in bio" twice."""
-    if footer and "in bio" in text.lower() and "in bio" in footer.lower():
-        footer = " ".join(w for w in footer.split() if w.startswith("#"))
-    if not footer or len(text) + len(footer) + 2 > 280:
-        return text[:280]
-    return f"{text}\n\n{footer}"
+def weight(text):
+    """X counts most emoji and CJK as 2 characters."""
+    return sum(2 if ord(c) > 0x10FF else 1 for c in text)
+
+
+def footer_parts(cfg, key):
+    """Ordered by priority: cashtag, 'Telegram in bio', brand hashtag, then rotating viral hashtags."""
+    if isinstance(cfg, str):
+        return [("bio" if "in bio" in w.lower() else "tag", w) for w in [cfg] if w]
+    viral = cfg.get("viral_hashtags", [])
+    start = sum(map(ord, key)) % len(viral) if viral else 0
+    picks = [viral[(start + i) % len(viral)] for i in range(min(cfg.get("viral_per_post", 3), len(viral)))]
+    parts = [("tag", cfg["cashtag"])] if cfg.get("cashtag") else []
+    if cfg.get("footer"):
+        parts.append(("bio", cfg["footer"]))
+    return parts + [("tag", h) for h in cfg.get("hashtags", []) + picks]
+
+
+def with_footer(text, cfg, key=""):
+    """Adds footer parts by priority while the post stays within 280; the post text itself is never cut."""
+    bio, tags = "", []
+    for kind, part in footer_parts(cfg, key):
+        if kind == "bio" and "in bio" in text.lower():
+            part = " ".join(w for w in part.split() if w.startswith(("#", "$")))
+            kind = "tag"
+            if not part:
+                continue
+        new_bio, new_tags = (part, tags) if kind == "bio" else (bio, tags + part.split())
+        tail = "\n".join(x for x in (new_bio, " ".join(new_tags)) if x)
+        if weight(f"{text}\n\n{tail}") <= 280:
+            bio, tags = new_bio, new_tags
+    tail = "\n".join(x for x in (bio, " ".join(tags)) if x)
+    return f"{text}\n\n{tail}" if tail else text[:280]
 
 
 def post(item, footer=""):

@@ -214,3 +214,13 @@ class XNoLinks(unittest.TestCase):
         self.assertIn("Telegram in bio", xapi.body_for({"type": "poll", "question": "Pick one", "options": ["a", "b"]}, f)["text"])
         t = xapi.body_for({"type": "text", "text": "Join the Troop (link in bio)."}, f)["text"]
         self.assertEqual(t.lower().count("in bio"), 1)
+
+    def test_x_footer_cashtag_hashtags_fit(self):
+        cfg = json.load(open(os.path.join(os.path.dirname(__file__), "..", "config.json")))["x"]
+        for item in json.load(open(os.path.join(os.path.dirname(__file__), "..", "content", "x.json"))):
+            text = xapi.body_for(item, cfg)["text"]
+            self.assertLessEqual(xapi.weight(text), 280)
+            self.assertIn("$OrangeOrangus", text)
+            self.assertNotIn("http", text)
+        long = xapi.body_for({"type": "text", "text": "x" * 250}, cfg)["text"]
+        self.assertTrue(long.startswith("x" * 250) and "$OrangeOrangus" in long and xapi.weight(long) <= 280)

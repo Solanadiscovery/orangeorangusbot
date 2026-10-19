@@ -270,7 +270,7 @@ class Bot:
             elif platform == "telegram":
                 self.send_telegram(item)
             else:
-                xapi.post(item, self.cfg["x"]["footer"])
+                xapi.post(item, self.cfg["x"])
             print(f"Pubblicato {platform} {item['id']}", flush=True)
         except Exception as e:
             self.alert(f"publish_{platform}", f"Pubblicazione {platform} fallita ({item['id']}): {e}")
