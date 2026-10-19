@@ -84,9 +84,7 @@ class Bot:
             if msg.get("chat", {}).get("type") != "private":
                 continue
             sender = str(msg.get("from", {}).get("id"))
-            if sender != self.admin:  # risponde solo con il suo ID: utile per configurare ADMIN_USER_ID
-                print(f"Messaggio privato da un non-admin (ID ...{sender[-3:]})", flush=True)
-                tg.call("sendMessage", {"chat_id": sender, "text": f"🦧 This bot has no public commands.\nYour Telegram ID: {sender}"})
+            if sender != self.admin:  # gli altri utenti vengono ignorati in silenzio
                 continue
             cmd = (msg.get("text") or "").split()[0].lower() if msg.get("text") else ""
             reply = self.handle(cmd)
