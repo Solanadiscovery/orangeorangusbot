@@ -123,7 +123,7 @@ class Bot:
         if not cid:
             if self.state.get("counter_created"):  # già creato in passato: mai un secondo messaggio
                 return self.alert("countdown_missing", "Il messaggio del countdown non è più registrato. Non ne creo un altro: controlla.")
-            msg = tg.call("sendMessage", {"chat_id": self.chat, "text": text})
+            msg = tg.call("sendMessage", {"chat_id": self.chat, "text": text, "link_preview_options": {"is_disabled": True}})
             self.state.update(counter_id=msg["message_id"], counter_created=True)
             self.mem["counter_text"] = text
             tg.call("pinChatMessage", {"chat_id": self.chat, "message_id": msg["message_id"], "disable_notification": True})
@@ -132,7 +132,8 @@ class Bot:
         if text == self.mem.get("counter_text"):
             return
         try:
-            tg.call("editMessageText", {"chat_id": self.chat, "message_id": cid, "text": text})
+            tg.call("editMessageText", {"chat_id": self.chat, "message_id": cid, "text": text,
+                                         "link_preview_options": {"is_disabled": True}})
         except tg.TelegramError as e:
             if "not modified" in e.description:
                 pass
