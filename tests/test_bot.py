@@ -230,6 +230,18 @@ if __name__ == "__main__":
             self.make(datetime.datetime(2026, 10, 20, 10, 5, tzinfo=UTC), fake)      # 12:05
         self.assertEqual(len(sent), 1)
 
+    def test_x_only_hype_never_quiz_or_poll(self):
+        fake = FakeTelegram()
+        env = {k: "k" for k in xapi.KEYS}
+        sent = []
+        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", lambda item, c: sent.append(item)):
+            for day in range(20, 26):
+                for hh in (9, 13, 17, 21):  # UTC: after every X slot (min gap is honoured)
+                    self.make(datetime.datetime(2026, 10, day, hh, 35, tzinfo=UTC), fake)
+        self.assertGreater(len(sent), 4)
+        self.assertTrue(all(i["type"] == "hype" for i in sent))
+        self.assertEqual(len({i["id"] for i in sent}), len(sent))
+
 
 class XNoLinks(unittest.TestCase):
     def test_links_stripped(self):
