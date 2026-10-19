@@ -1,5 +1,5 @@
 """One-off: create the OG Peeler sticker pack owned by the admin."""
-import json, os, sys, uuid, urllib.request, urllib.error
+import json, os, sys, time, uuid, urllib.request, urllib.error
 
 TOKEN = os.environ["BOT_TOKEN"]
 ADMIN = int(os.environ["ADMIN_USER_ID"])
@@ -21,10 +21,14 @@ def call(method, data=None, files=None):
         req = urllib.request.Request(API + method, body, {"Content-Type": f"multipart/form-data; boundary={b}"})
     else:
         req = urllib.request.Request(API + method, json.dumps(data or {}).encode(), {"Content-Type": "application/json"})
-    try:
-        return json.load(urllib.request.urlopen(req, timeout=60))
-    except urllib.error.HTTPError as e:
-        return json.load(e)
+    for i in range(5):
+        try:
+            return json.load(urllib.request.urlopen(req, timeout=60))
+        except urllib.error.HTTPError as e:
+            return json.load(e)
+        except urllib.error.URLError:
+            time.sleep(3 * (i + 1))
+    raise SystemExit(f"{method}: network error")
 
 
 bot = call("getMe")["result"]["username"]
