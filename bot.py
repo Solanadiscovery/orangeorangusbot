@@ -245,6 +245,11 @@ class Bot:
                 return slot.strftime("%Y-%m-%d %H:%M")
         return None
 
+    def too_soon(self, platform):
+        gap = self.cfg[platform].get("min_gap_minutes")
+        last = [datetime.datetime.fromisoformat(e["ts"]) for e in self.history if e.get("platform") == platform]
+        return bool(gap and last and self.clock() - max(last) < datetime.timedelta(minutes=gap))
+
     def publish(self, platform):
         key = self.due_slot(platform)
         slots = self.state.setdefault("slots", {})
@@ -252,6 +257,9 @@ class Bot:
             return
         if platform == "x" and not xapi.enabled():
             return
+        if self.too_soon(platform):
+            slots[platform] = key  # the slot is skipped, never delayed into a burst
+            return self.persist(f"{platform} {key}: troppo vicino al post precedente")
         threshold = self.cfg["similarity_threshold"]
         item = content.pick(self.pools[platform], self.history, self.cfg[platform]["rotation"],
                             self.state.get("last_type", {}).get(platform), threshold)

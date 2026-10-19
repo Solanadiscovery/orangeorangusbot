@@ -57,7 +57,7 @@
   "id": "x-meme-friday-ape",
   "type": "meme",
   "concept": "x-friday-ape",
-  "text": "Friday: the ape is functional but not awake. 🦧💤"
+  "text": "Friday: the week is done, the oranges are still unpeeled. Priorities. 🍊🦧"
  },
  {
   "id": "x-meme-orange-pill",
@@ -165,7 +165,10 @@
   "id": "x-question-why-solana",
   "type": "question",
   "concept": "x-why-solana",
-  "text": "Why are you on Solana? One word answers only. ⚡"
+  "text": "Why are you on Solana? One word answers only. ⚡",
+  "tags": [
+   "#Solana"
+  ]
  },
  {
   "id": "x-question-lore-question",
@@ -249,37 +252,56 @@
   "id": "x-culture-hodl-history",
   "type": "culture",
   "concept": "x-hodl-history",
-  "text": "Fun fact: 'HODL' started as a typo on a Bitcoin forum in 2013. Typos can become culture. 🦧"
+  "text": "Fun fact: 'HODL' started as a typo on a Bitcoin forum in 2013. Typos can become culture. 🦧",
+  "tags": [
+   "#HODL",
+   "#Bitcoin"
+  ]
  },
  {
   "id": "x-culture-pizza-fact",
   "type": "culture",
   "concept": "x-pizza-fact",
-  "text": "Fun fact: in 2010 someone paid 10,000 BTC for two pizzas. Orango would have asked for oranges. 🍕🍊"
+  "text": "Fun fact: in 2010 someone paid 10,000 BTC for two pizzas. Orango would have asked for oranges. 🍕🍊",
+  "tags": [
+   "#Bitcoin"
+  ]
  },
  {
   "id": "x-culture-lamport",
   "type": "culture",
   "concept": "x-lamport",
-  "text": "Fun fact: the smallest unit of SOL is a lamport, named after computer scientist Leslie Lamport. ⚡"
+  "text": "Fun fact: the smallest unit of SOL is a lamport, named after computer scientist Leslie Lamport. ⚡",
+  "tags": [
+   "#Solana"
+  ]
  },
  {
   "id": "x-culture-doge-origin",
   "type": "culture",
   "concept": "x-doge-origin",
-  "text": "Fun fact: Dogecoin started as a joke in 2013. Memes are serious business. 🐕"
+  "text": "Fun fact: Dogecoin started as a joke in 2013. Memes are serious business. 🐕",
+  "tags": [
+   "#Dogecoin"
+  ]
  },
  {
   "id": "x-culture-seed-rule",
   "type": "culture",
   "concept": "x-seed-rule",
-  "text": "Crypto rule #1: your seed phrase is for you only. Not support, not admins, not Orango. 🛡"
+  "text": "Crypto rule #1: your seed phrase is for you only. Not support, not admins, not Orango. 🛡",
+  "tags": [
+   "#CryptoSecurity"
+  ]
  },
  {
   "id": "x-culture-dyor-culture",
   "type": "culture",
   "concept": "x-dyor-culture",
-  "text": "DYOR isn't a slogan, it's survival. Read, check, verify. Then meme. 🧠🍊"
+  "text": "DYOR isn't a slogan, it's survival. Read, check, verify. Then meme. 🧠🍊",
+  "tags": [
+   "#DYOR"
+  ]
  },
  {
   "id": "x-poll-hype-level",

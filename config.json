@@ -59,17 +59,16 @@
     "hashtags": [
       "#OrangeOrangus"
     ],
-    "viral_hashtags": [
+    "allowed_hashtags": [
       "#Solana",
-      "#memecoin",
-      "#crypto",
-      "#SOL",
-      "#memecoins",
-      "#CryptoCommunity",
-      "#Web3",
-      "#altcoins"
+      "#HODL",
+      "#Bitcoin",
+      "#Dogecoin",
+      "#CryptoSecurity",
+      "#DYOR"
     ],
-    "viral_per_post": 3
+    "max_topic_hashtags": 2,
+    "min_gap_minutes": 180
   },
   "welcome": {
     "enabled": true,

@@ -203,6 +203,33 @@ class BotTest(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+    def test_x_error_does_not_cause_duplicate_post(self):
+        fake = FakeTelegram()
+        env = {k: "k" for k in xapi.KEYS}
+        calls = []
+
+        def boom(item, cfg):
+            calls.append(item["id"])
+            raise RuntimeError("X 503")
+        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", boom):
+            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)      # slot 11:30: fails
+            self.make(datetime.datetime(2026, 10, 20, 9, 40, tzinfo=UTC), fake)      # same slot, restart: no retry
+        self.assertEqual(len(calls), 1)
+        hist = json.loads((self.dir / "history.json").read_text())
+        self.assertEqual([h["id"] for h in hist if h["platform"] == "x"].count(calls[0]), 1)
+
+    def test_x_min_gap_blocks_bursts(self):
+        fake = FakeTelegram()
+        env = {k: "k" for k in xapi.KEYS}
+        sent = []
+        cfg = json.loads((self.dir / "config.json").read_text())
+        cfg["x"]["times"] = ["11:30", "12:00"]  # misconfigured: two posts 30 min apart
+        (self.dir / "config.json").write_text(json.dumps(cfg))
+        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", lambda item, c: sent.append(item)):
+            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)      # 11:35
+            self.make(datetime.datetime(2026, 10, 20, 10, 5, tzinfo=UTC), fake)      # 12:05
+        self.assertEqual(len(sent), 1)
+
 
 class XNoLinks(unittest.TestCase):
     def test_links_stripped(self):
@@ -215,12 +242,30 @@ class XNoLinks(unittest.TestCase):
         t = xapi.body_for({"type": "text", "text": "Join the Troop (link in bio)."}, f)["text"]
         self.assertEqual(t.lower().count("in bio"), 1)
 
-    def test_x_footer_cashtag_hashtags_fit(self):
-        cfg = json.load(open(os.path.join(os.path.dirname(__file__), "..", "config.json")))["x"]
-        for item in json.load(open(os.path.join(os.path.dirname(__file__), "..", "content", "x.json"))):
+    def test_x_hashtags_topical_allowed_and_not_repetitive(self):
+        cfg = json.load(open(REPO / "config.json"))["x"]
+        pool = json.load(open(REPO / "content" / "x.json"))
+        combos = set()
+        for item in pool:
             text = xapi.body_for(item, cfg)["text"]
+            tags = [w for w in text.splitlines()[-1].split() if w.startswith("#")]
             self.assertLessEqual(xapi.weight(text), 280)
-            self.assertIn("$ORANGU", text)
             self.assertNotIn("http", text)
-        long = xapi.body_for({"type": "text", "text": "x" * 250}, cfg)["text"]
-        self.assertTrue(long.startswith("x" * 250) and "$ORANGU" in long and xapi.weight(long) <= 280)
+            self.assertIn("Telegram in bio", text) if "in bio" not in item.get("text", "").lower() else None
+            self.assertLessEqual(len(tags), 1 + cfg["max_topic_hashtags"])
+            allowed = {h.lower() for h in cfg["allowed_hashtags"] + cfg["hashtags"]}
+            self.assertTrue(all(h.lower().rstrip('.!?,') in allowed for h in tags), tags)
+            combos.add(tuple(tags))
+        # a generic post gets no extra hashtag; an off-list or untagged one is ignored
+        plain = xapi.body_for({"type": "text", "text": "Orango peels."}, cfg)["text"]
+        self.assertNotIn("#Solana", plain)
+        rogue = xapi.body_for({"type": "text", "text": "Orango peels.", "tags": ["#100x", "#Solana"]}, cfg)["text"]
+        self.assertNotIn("#100x", rogue)
+        self.assertIn("#Solana", rogue)
+        self.assertGreater(len(combos), 2)  # not the same combination everywhere
+
+    def test_x_text_never_cut_when_long(self):
+        cfg = json.load(open(REPO / "config.json"))["x"]
+        long = xapi.body_for({"type": "text", "text": "x" * 250, "tags": ["#Solana"]}, cfg)["text"]
+        self.assertTrue(long.startswith("x" * 250))
+        self.assertLessEqual(xapi.weight(long), 280)
