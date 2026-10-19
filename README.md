@@ -26,5 +26,5 @@ Chiavi da https://developer.x.com → app con permessi "Read and write" → Keys
 X API è a pagamento a consumo: ricarica pochi crediti. Il bot non pubblica link su X (costano molto di più).
 
 ## Contatore live
-Il bot crea un messaggio "LIVE TROOP COUNTDOWN" e lo aggiorna ogni 15 minuti con i membri reali (prova a fissarlo da solo).
+Il bot crea un messaggio "LIVE TROOP COUNTDOWN" e il workflow "Live member counter" lo aggiorna ogni minuto con i membri reali, anche quando qualcuno esce.
 Avvio manuale da Actions = aggiorna subito il contatore. Con "Pubblica solo su X" = prova su X.

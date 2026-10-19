@@ -6,7 +6,6 @@ on:
     - cron: "0 16 * * *"
     - cron: "0 18 * * *"
     - cron: "0 20 * * *"
-    - cron: "*/15 * * * *"  # solo aggiornamento del contatore live
   workflow_dispatch:       # avvio manuale per test
     inputs:
       only_x:
@@ -22,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           SCHED="${{ github.event.schedule }}"
-          if [ "$SCHED" = "*/15 * * * *" ] || [ -z "$SCHED" ] && [ -z "$ONLY_X" ]; then export SLOT=counter  # avvio manuale = aggiorna il contatore
+          if [ -z "$SCHED" ] && [ -z "$ONLY_X" ]; then export SLOT=counter  # avvio manuale = aggiorna il contatore
           elif [ -n "$SCHED" ]; then export SLOT=$(printf %02d "$(echo "$SCHED" | cut -d' ' -f2)"); fi
           python post.py
           git config user.name "orangeorangus-bot"; git config user.email "bot@users.noreply.github.com"
