@@ -67,5 +67,7 @@
   ],
   "milestone_text": "🎉 MILESTONE: {m} PEELERS!\nThe Troop is growing. {bar}\nNext stop: {goal}. Keep reposting and inviting! 🍊",
   "goal_text": "🍊🦧 WE DID IT! {goal} PEELERS!\nThe jungle is unlocked. The OrangeOrangus token announcement is coming from the admins: watch the PINNED message.\nNever trust DMs. Only the pinned message is official.",
-  "x_intro": "🚨 THE JUNGLE IS LOCKED 🦧🍊\n\nThe OrangeOrangus token gets announced ONLY when our Telegram Troop hits {goal} members. Not a minute before.\n\n{left} spots to the reveal. Get in early 👇\nhttps://t.me/OrangeOrangus\n\nPeel the hype. Release the ape. #OrangeOrangus #Solana"
+  "x_intro": "🚨 THE JUNGLE IS LOCKED 🦧🍊\n\nThe OrangeOrangus token gets announced ONLY when our Telegram Troop hits {goal} members. Not a minute before.\n\n{left} spots to the reveal. Get in early 👇\nhttps://t.me/OrangeOrangus\n\nPeel the hype. Release the ape. #OrangeOrangus #Solana",
+  "counter_text": "🍊 LIVE TROOP COUNTDOWN 🦧\n\n{bar}\n\n{left} Peelers left until the OrangeOrangus token is announced.\nInvite friends, repost on X, unlock the jungle!\n\n🔄 Updates automatically",
+  "counter_done": "🍊 JUNGLE UNLOCKED 🦧\n\n{bar}\n\nGoal reached! The token announcement comes ONLY from admins in the pinned messages. Never trust DMs."
 }

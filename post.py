@@ -35,7 +35,7 @@ def current_slot(now):
 
 def fill(text, count, c):
     goal = c["goal"]
-    done = min(10, count * 10 // goal)
+    done = min(10, max(count * 10 // goal, 1 if count else 0))
     return text.format(count=count, goal=goal, left=max(goal - count, 0), m=count,
                        bar=f"{'🟧' * done}{'⬜' * (10 - done)} {count}/{goal}",
                        x=f"\n👉 {c['x_url']}" if c["x_url"] else "")
@@ -138,6 +138,33 @@ def x_post(post):
         print(f"Errore X {e.code}: {e.read().decode()}")
 
 
+def update_counter(chat, count, state, c):
+    """Messaggio contatore unico: creato una volta, poi modificato a ogni avvio con i membri reali."""
+    text = fill(c["counter_text"] if count < c["goal"] else c["counter_done"], count, c)
+    if state.get("counter_id"):
+        token = os.environ["BOT_TOKEN"].strip().removeprefix("bot")
+        req = urllib.request.Request(f"https://api.telegram.org/bot{token}/editMessageText",
+                                     json.dumps({"chat_id": chat, "message_id": state["counter_id"], "text": text}).encode(),
+                                     {"Content-Type": "application/json"})
+        try:
+            urllib.request.urlopen(req).close()
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()
+            if "not modified" not in body:  # stesso numero di prima: nessun errore
+                print(f"Contatore non aggiornato: {body}")
+        return
+    msg = api("sendMessage", {"chat_id": chat, "text": text})["result"]
+    state["counter_id"] = msg["message_id"]
+    try:  # se il bot non ha il permesso di fissare, lo fissate voi a mano
+        api_quiet = urllib.request.Request(
+            f"https://api.telegram.org/bot{os.environ['BOT_TOKEN'].strip().removeprefix('bot')}/pinChatMessage",
+            json.dumps({"chat_id": chat, "message_id": msg["message_id"], "disable_notification": True}).encode(),
+            {"Content-Type": "application/json"})
+        urllib.request.urlopen(api_quiet).close()
+    except urllib.error.HTTPError as e:
+        print(f"Contatore non fissato: {e.read().decode()}")
+
+
 def main():
     now = datetime.datetime.now(datetime.timezone.utc)
     slot = current_slot(now)
@@ -149,6 +176,12 @@ def main():
     if not dry and not chat:
         sys.exit("CHAT_ID mancante: aggiungilo nei Secrets del repository.")
     count = 137 if dry else api("getChatMemberCount", {"chat_id": chat})["result"]
+    if not dry and not only_x and load("campaign.json")["active"]:
+        update_counter(chat, count, state, load("campaign.json"))
+    if slot == "counter":  # avvio frequente: solo aggiornamento del contatore
+        (ROOT / "state.json").write_text(json.dumps(state) + "\n")
+        print(f"Membri: {count}. Contatore aggiornato.")
+        return
     posts = None
     if x_on and not state.get("x_started"):  # primo post su X: invito al canale Telegram
         c = load("campaign.json")
