@@ -150,10 +150,11 @@ def main():
         if dry:
             print(json.dumps(post, ensure_ascii=False, indent=1))
         else:
-            send(chat, post)
+            if not os.environ.get("ONLY_X"):  # ONLY_X: prova manuale solo su X
+                send(chat, post)
             if all(os.environ.get(k, "").strip() for k in X_KEYS):
                 x_post(post)
-    if not dry:
+    if not dry and not os.environ.get("ONLY_X"):
         (ROOT / "state.json").write_text(json.dumps(state) + "\n")
     print(f"Membri: {count}. Post pubblicati: {len(posts)} (slot {slot}:00 UTC).")
 

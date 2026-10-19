@@ -7,6 +7,11 @@ on:
     - cron: "0 18 * * *"
     - cron: "0 20 * * *"
   workflow_dispatch:       # avvio manuale per test
+    inputs:
+      only_x:
+        description: "Pubblica solo su X (prova)"
+        type: boolean
+        default: false
 permissions:
   contents: write  # per salvare state.json (traguardi già annunciati)
 jobs:
@@ -27,3 +32,4 @@ jobs:
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          ONLY_X: ${{ inputs.only_x && '1' || '' }}
