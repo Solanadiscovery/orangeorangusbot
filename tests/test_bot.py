@@ -19,7 +19,7 @@ class FakeTelegram:
         if method == "getChatMemberCount":
             return self.members
         if method == "getUpdates":
-            return []
+            return self.updates.pop(0) if getattr(self, "updates", None) else []
         if method == "getChat":
             return {"pinned_message": {"message_id": 30}}
         if method == "editMessageText" and self.edit_error:
@@ -153,6 +153,21 @@ class BotTest(unittest.TestCase):
         hist = json.loads((self.dir / "history.json").read_text())
         tg_item = [h for h in hist if h["platform"] == "telegram"][-1]
         self.assertLess(content.similarity(tg_item["text"], content.text_of(sent[0])), 0.72)
+
+    def test_welcome_one_message_and_previous_deleted(self):
+        join = lambda uid, name: {"update_id": uid, "chat_member": {
+            "old_chat_member": {"status": "left"}, "new_chat_member": {"status": "member", "user": {"first_name": name}}}}
+        fake = FakeTelegram(members=8)
+        fake.updates = [[join(1, "Ana"), join(2, "Bo")], [join(3, "Cy")]]
+        at = datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)
+        self.make(at, fake)
+        self.make(at + datetime.timedelta(minutes=1), fake)
+        welcomes = [f for m, f in fake.calls if m == "sendMessage" and "Welcome" in f.get("text", "")]
+        self.assertEqual(len(welcomes), 2)
+        self.assertIn("Ana, Bo", welcomes[0]["text"])
+        self.assertIn("492 Peelers left", welcomes[0]["text"])
+        self.assertIn("t.me/OrangeOrangus", welcomes[0]["text"])
+        self.assertEqual([f["message_id"] for m, f in fake.calls if m == "deleteMessage"], [welcomes and 101])
 
     def test_milestone_announced_once(self):
         fake = FakeTelegram(members=60)

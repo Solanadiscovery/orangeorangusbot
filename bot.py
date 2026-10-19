@@ -85,13 +85,21 @@ class Bot:
 
     # --- comandi admin (chat privata con il bot) ------------------------------
     def commands(self):
-        if not self.admin:
-            return
         updates = tg.call("getUpdates", {"offset": self.state.get("update_offset", 0), "timeout": 0,
-                                         "allowed_updates": ["message"]})
+                                         "allowed_updates": ["message", "chat_member"]})
+        joined = []
         for u in updates:
             self.state["update_offset"], self.dirty = u["update_id"] + 1, True
+            cm = u.get("chat_member")
+            if cm and cm["new_chat_member"]["status"] == "member" and cm["old_chat_member"]["status"] in ("left", "kicked"):
+                joined.append(cm["new_chat_member"]["user"].get("first_name") or "Peeler")
+                continue
             msg = u.get("message") or {}
+            if msg.get("new_chat_members"):  # gruppi: ingresso segnalato anche come messaggio di servizio
+                joined += [m.get("first_name") or "Peeler" for m in msg["new_chat_members"] if not m.get("is_bot")]
+                continue
+            if not self.admin:
+                continue
             if msg.get("chat", {}).get("type") != "private":
                 continue
             sender = str(msg.get("from", {}).get("id"))
@@ -101,6 +109,26 @@ class Bot:
             reply = self.handle(cmd)
             if reply:
                 tg.call("sendMessage", {"chat_id": self.admin, "text": reply})
+        if joined:
+            self.welcome(list(dict.fromkeys(joined)))
+
+    def welcome(self, names):
+        """Un solo messaggio di benvenuto per gli ingressi del minuto; il precedente viene cancellato (niente spam)."""
+        c = self.cfg["welcome"]
+        if not c.get("enabled"):
+            return
+        count = self.member_count()
+        goal = self.cfg["countdown"]["goal"]
+        who = ", ".join(names[:5]) + (f" +{len(names) - 5}" if len(names) > 5 else "")
+        text = (c["text"] if count < goal else c["text_after_goal"]).format(names=who, count=count, left=max(goal - count, 0), goal=goal)
+        old = self.state.get("welcome_id")
+        msg = tg.call("sendMessage", {"chat_id": self.chat, "text": text, "link_preview_options": {"is_disabled": True}})
+        self.state["welcome_id"], self.dirty = msg["message_id"], True
+        if old:
+            try:
+                tg.call("deleteMessage", {"chat_id": self.chat, "message_id": old})
+            except tg.TelegramError:
+                pass
 
     def handle(self, cmd):
         if cmd in ("/pause", "/resume"):

@@ -55,5 +55,10 @@
       "culture"
     ],
     "footer": "#OrangeOrangus"
+  },
+  "welcome": {
+    "enabled": true,
+    "text": "🎉 Welcome to the jungle, {names}! 🦧🍊\n\nYou just joined the Troop as Peeler #{count}. Only {left} Peelers left until the OrangeOrangus token is announced 🔓\n\nEvery share brings the reveal closer. Send the Troop to your friends and groups 👇\nhttps://t.me/OrangeOrangus\n\nPeel the hype. Release the ape. 🍊",
+    "text_after_goal": "🎉 Welcome to the jungle, {names}! 🦧🍊\n\nYou're Peeler #{count}. Read the PINNED messages for official info and never trust DMs.\n\nPeel the hype. Release the ape. 🍊"
   }
 }
