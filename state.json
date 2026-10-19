@@ -3,10 +3,14 @@
  "counter_created": true,
  "announced": [],
  "slots": {
-  "telegram": "2026-10-19 18:00"
+  "telegram": "2026-10-19 18:00",
+  "x": "2026-10-19 19:30"
  },
  "x_intro_done": true,
  "update_offset": 166176575,
  "og_existing_done": true,
- "welcome_id": 230
+ "welcome_id": 230,
+ "last_type": {
+  "x": "meme"
+ }
 }
