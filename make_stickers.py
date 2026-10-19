@@ -43,7 +43,15 @@ def announce():
         "Add it and flex your OG status in every chat 🦧🍊\n👇\n" + link}).get("ok"))
 
 
-if call("getStickerSet", {"name": name}).get("ok"):
+cur = call("getStickerSet", {"name": name})
+if cur.get("ok"):
+    if os.environ.get("REPLACE") == "1":
+        for i, old in enumerate(cur["result"]["stickers"][:len(STICKERS)]):
+            f, e = STICKERS[i]
+            r = call("replaceStickerInSet", {"user_id": ADMIN, "name": name, "old_sticker": old["file_id"],
+                     "sticker": json.dumps({"sticker": "attach://s", "format": "static", "emoji_list": [e]})},
+                     {"s": os.path.join("stickers", f)})
+            print(f, r.get("ok"), r.get("description", ""))
     print("exists", link); announce(); sys.exit(0)
 items = [{"sticker": f"attach://s{i}", "format": "static", "emoji_list": [e]} for i, (_, e) in enumerate(STICKERS)]
 files = {f"s{i}": os.path.join("stickers", f) for i, (f, _) in enumerate(STICKERS)}

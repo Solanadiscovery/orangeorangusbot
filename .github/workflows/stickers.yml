@@ -4,6 +4,8 @@ on:
     inputs:
       announce:
         default: '0'
+      replace:
+        default: '0'
 jobs:
   create:
     runs-on: ubuntu-latest
@@ -13,5 +15,6 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          REPLACE: ${{ inputs.replace }}
           ANNOUNCE: ${{ inputs.announce }}
           ADMIN_USER_ID: ${{ secrets.ADMIN_USER_ID }}
