@@ -208,3 +208,9 @@ class XNoLinks(unittest.TestCase):
     def test_links_stripped(self):
         b = xapi.body_for({"type": "text", "text": "Join us https://t.me/OrangeOrangus now t.me/x"}, "#OrangeOrangus")
         self.assertNotIn("t.me", b["text"]); self.assertNotIn("http", b["text"])
+
+    def test_footer_telegram_in_bio(self):
+        f = "Telegram in bio 👆 #OrangeOrangus"
+        self.assertIn("Telegram in bio", xapi.body_for({"type": "poll", "question": "Pick one", "options": ["a", "b"]}, f)["text"])
+        t = xapi.body_for({"type": "text", "text": "Join the Troop (link in bio)."}, f)["text"]
+        self.assertEqual(t.lower().count("in bio"), 1)

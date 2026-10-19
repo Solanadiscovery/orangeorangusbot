@@ -30,10 +30,18 @@ def no_links(text):
 
 def body_for(item, footer):
     if item["type"] == "poll":
-        return {"text": no_links(item["question"]), "poll": {"options": [o[:25] for o in item["options"]], "duration_minutes": 1440}}
-    item = {**item, "text": no_links(item["text"])}
-    text = item["text"] if not footer or len(item["text"]) + len(footer) + 2 > 280 else f"{item['text']}\n\n{footer}"
-    return {"text": text[:280]}
+        return {"text": with_footer(no_links(item["question"]), footer),
+                "poll": {"options": [o[:25] for o in item["options"]], "duration_minutes": 1440}}
+    return {"text": with_footer(no_links(item["text"]), footer)}
+
+
+def with_footer(text, footer):
+    """Adds the footer ("Telegram in bio" + hashtag) when it fits; avoids saying "in bio" twice."""
+    if footer and "in bio" in text.lower() and "in bio" in footer.lower():
+        footer = " ".join(w for w in footer.split() if w.startswith("#"))
+    if not footer or len(text) + len(footer) + 2 > 280:
+        return text[:280]
+    return f"{text}\n\n{footer}"
 
 
 def post(item, footer=""):
