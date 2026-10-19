@@ -1,0 +1,176 @@
+"""Test offline: le chiamate a Telegram e X sono simulate. Esegui con: python -m unittest discover tests"""
+import datetime, json, os, shutil, sys, tempfile, unittest
+from pathlib import Path
+from unittest import mock
+
+REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO))
+import bot, content, countdown, tg, xapi
+
+UTC = datetime.timezone.utc
+
+
+class FakeTelegram:
+    def __init__(self, members=7, edit_error=None):
+        self.calls, self.members, self.edit_error, self.next_id = [], members, edit_error, 100
+
+    def __call__(self, method, fields, **_):
+        self.calls.append((method, fields))
+        if method == "getChatMemberCount":
+            return self.members
+        if method == "getUpdates":
+            return []
+        if method == "getChat":
+            return {"pinned_message": {"message_id": 30}}
+        if method == "editMessageText" and self.edit_error:
+            raise tg.TelegramError(400, self.edit_error)
+        if method in ("sendMessage", "sendPoll"):
+            self.next_id += 1
+            return {"message_id": self.next_id}
+        return True
+
+    def methods(self):
+        return [m for m, _ in self.calls]
+
+
+class BotTest(unittest.TestCase):
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp())
+        for f in ("config.json", "history.json"):
+            shutil.copy(REPO / f, self.dir / f)
+        shutil.copytree(REPO / "content", self.dir / "content")
+        (self.dir / "state.json").write_text(json.dumps({"counter_id": 30, "counter_created": True, "announced": []}))
+        self.patches = [mock.patch.object(bot, "ROOT", self.dir),
+                        mock.patch.dict(os.environ, {"CHAT_ID": "@test", "BOT_TOKEN": "x", "ADMIN_USER_ID": "1"}, clear=False)]
+        for p in self.patches:
+            p.start()
+        os.environ.pop("GITHUB_ACTIONS", None)
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
+        shutil.rmtree(self.dir)
+
+    def make(self, when, fake):
+        with mock.patch.object(tg, "call", fake):
+            b = bot.Bot(now=when)
+            b.tick()
+        return b
+
+    # --- countdown -----------------------------------------------------------
+    def test_countdown_edits_same_message_never_sends_new(self):
+        fake = FakeTelegram(members=7)
+        b = self.make(datetime.datetime(2026, 10, 19, 6, 0, tzinfo=UTC), fake)
+        fake.members = 6  # qualcuno esce: il numero scende
+        with mock.patch.object(tg, "call", fake):
+            b.tick()
+        edits = [f for m, f in fake.calls if m == "editMessageText"]
+        self.assertEqual(len(edits), 2)
+        self.assertTrue(all(f["message_id"] == 30 for f in edits))
+        self.assertIn("494 Peelers left", edits[-1]["text"])
+        self.assertNotIn("sendMessage", fake.methods())
+
+    def test_unchanged_count_does_not_edit_again(self):
+        fake = FakeTelegram(members=7)
+        b = self.make(datetime.datetime(2026, 10, 19, 6, 0, tzinfo=UTC), fake)
+        with mock.patch.object(tg, "call", fake):
+            b.tick()
+        self.assertEqual(fake.methods().count("editMessageText"), 1)
+
+    def test_missing_countdown_alerts_admin_and_does_not_recreate(self):
+        fake = FakeTelegram(edit_error="Bad Request: message to edit not found")
+        self.make(datetime.datetime(2026, 10, 19, 6, 0, tzinfo=UTC), fake)
+        sends = [f for m, f in fake.calls if m == "sendMessage"]
+        self.assertEqual(len(sends), 1)
+        self.assertEqual(sends[0]["chat_id"], "1")  # solo l'avviso all'admin
+        self.assertNotIn("pinChatMessage", fake.methods())
+
+    def test_time_mode_uses_absolute_target(self):
+        cfg = {"countdown": {"mode": "time", "target": "2026-11-01T20:00:00+01:00",
+                             "text_time": "{d}d {h}h {m}m", "text_done_time": "done"}}
+        now = datetime.datetime(2026, 10, 19, 16, 30, tzinfo=UTC)
+        self.assertEqual(countdown.render(cfg, now, 0), ("13d 02h 30m", False))
+        self.assertEqual(countdown.render(cfg, datetime.datetime(2026, 11, 2, tzinfo=UTC), 0), ("done", True))
+
+    # --- anti-ripetizione ----------------------------------------------------
+    def test_exact_and_similar_duplicates_rejected(self):
+        hist = [{"id": "a", "concept": "c1", "text": "gm to every Peeler waking up somewhere in the world!"}]
+        self.assertIn("identico", content.is_duplicate({"id": "b", "concept": "c2", "text": "GM to every peeler waking up somewhere in the world"}, hist, 0.72))
+        self.assertIn("simile", content.is_duplicate({"id": "c", "concept": "c3", "text": "gm to every Peeler waking up anywhere in the world 🌍"}, hist, 0.72))
+        self.assertIn("già usato", content.is_duplicate({"id": "d", "concept": "c1", "text": "totally different words here"}, hist, 0.72))
+        self.assertIsNone(content.is_duplicate({"id": "e", "concept": "c4", "text": "Rug Gorilla opened a banana stand"}, hist, 0.72))
+
+    # --- pubblicazioni ---------------------------------------------------------
+    def test_slot_publishes_once_and_survives_restart(self):
+        fake = FakeTelegram()
+        at = datetime.datetime(2026, 10, 20, 8, 5, tzinfo=UTC)  # 10:05 a Roma
+        self.make(at, fake)
+        self.make(at + datetime.timedelta(minutes=1), fake)  # "riavvio": nuovo Bot, stato riletto dal disco
+        self.assertEqual(fake.methods().count("sendPoll") + fake.methods().count("sendMessage"), 1)
+        hist = json.loads((self.dir / "history.json").read_text())
+        self.assertEqual(hist[-1]["platform"], "telegram")
+
+    def test_never_repeats_until_pool_exhausted_then_alerts(self):
+        fake = FakeTelegram()
+        pool = json.loads((self.dir / "content/telegram.json").read_text())
+        rome = bot.ZoneInfo("Europe/Rome")
+        for i in range(len(pool) // 4 + 3):
+            for h in (10, 14, 18, 22):  # orari locali: valgono anche dopo il cambio dell'ora legale
+                self.make(datetime.datetime(2026, 10, 20, h, 5, tzinfo=rome) + datetime.timedelta(days=i), fake)
+        hist = [h for h in json.loads((self.dir / "history.json").read_text()) if h["platform"] == "telegram"]
+        ids = [h["id"] for h in hist]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertTrue(any("finiti" in f.get("text", "") for m, f in fake.calls if m == "sendMessage" and f["chat_id"] == "1"))
+
+    def test_preview_mode_sends_only_to_admin(self):
+        state = json.loads((self.dir / "state.json").read_text())
+        state["preview"] = True
+        (self.dir / "state.json").write_text(json.dumps(state))
+        fake = FakeTelegram()
+        self.make(datetime.datetime(2026, 10, 20, 8, 5, tzinfo=UTC), fake)
+        posts = [f for m, f in fake.calls if m in ("sendMessage", "sendPoll")]
+        self.assertEqual(len(posts), 1)
+        self.assertEqual(posts[0]["chat_id"], "1")
+        self.assertIn("ANTEPRIMA", posts[0]["text"])
+
+    def test_pause_stops_posts_but_not_countdown(self):
+        state = json.loads((self.dir / "state.json").read_text())
+        state["paused"] = True
+        (self.dir / "state.json").write_text(json.dumps(state))
+        fake = FakeTelegram()
+        self.make(datetime.datetime(2026, 10, 20, 8, 5, tzinfo=UTC), fake)
+        self.assertNotIn("sendPoll", fake.methods())
+        self.assertIn("editMessageText", fake.methods())
+
+    def test_x_and_telegram_get_different_content(self):
+        fake = FakeTelegram()
+        sent = []
+        env = {k: "k" for k in xapi.KEYS}
+        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", lambda item, footer: sent.append(item)):
+            self.make(datetime.datetime(2026, 10, 20, 8, 5, tzinfo=UTC), fake)
+            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)  # 11:35 a Roma: slot X
+        self.assertEqual(len(sent), 1)
+        hist = json.loads((self.dir / "history.json").read_text())
+        tg_item = [h for h in hist if h["platform"] == "telegram"][-1]
+        self.assertLess(content.similarity(tg_item["text"], content.text_of(sent[0])), 0.72)
+
+    def test_milestone_announced_once(self):
+        fake = FakeTelegram(members=60)
+        at = datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)
+        self.make(at, fake)
+        self.make(at + datetime.timedelta(minutes=1), fake)
+        self.assertEqual(sum(1 for m, f in fake.calls if m == "sendMessage" and "MILESTONE: 50" in f.get("text", "")), 1)
+
+    def test_rate_limit_retries_with_backoff(self):
+        import urllib.error, io
+        err = urllib.error.HTTPError("u", 429, "x", {}, io.BytesIO(b'{"parameters":{"retry_after":3},"description":"Too Many Requests"}'))
+        ok = mock.MagicMock()
+        ok.__enter__.return_value = io.BytesIO(b'{"result": 5}')
+        slept = []
+        with mock.patch("urllib.request.urlopen", side_effect=[err, ok]):
+            self.assertEqual(tg.call("getChatMemberCount", {}, sleep=slept.append), 5)
+        self.assertEqual(slept, [3])
+
+
+if __name__ == "__main__":
+    unittest.main()

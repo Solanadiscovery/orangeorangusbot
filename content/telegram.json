@@ -1,0 +1,794 @@
+[
+ {
+  "id": "tg-quiz-btc-max-supply",
+  "type": "quiz",
+  "concept": "btc-max-supply",
+  "question": "🧠 What is Bitcoin's maximum supply?",
+  "options": [
+   "21 million",
+   "100 million",
+   "1 billion",
+   "No limit"
+  ],
+  "correct": 0,
+  "explanation": "Hard-capped at 21,000,000 BTC."
+ },
+ {
+  "id": "tg-quiz-sol-smallest-unit",
+  "type": "quiz",
+  "concept": "sol-smallest-unit",
+  "question": "🧠 What is the smallest unit of SOL called?",
+  "options": [
+   "Gwei",
+   "Satoshi",
+   "Lamport",
+   "Pip"
+  ],
+  "correct": 2,
+  "explanation": "Named after computer scientist Leslie Lamport."
+ },
+ {
+  "id": "tg-quiz-btc-smallest-unit",
+  "type": "quiz",
+  "concept": "btc-smallest-unit",
+  "question": "🧠 The smallest unit of Bitcoin is called...",
+  "options": [
+   "Wei",
+   "Satoshi",
+   "Finney",
+   "Bit-bit"
+  ],
+  "correct": 1,
+  "explanation": "1 BTC = 100,000,000 satoshis."
+ },
+ {
+  "id": "tg-quiz-pizza-day",
+  "type": "quiz",
+  "concept": "pizza-day",
+  "question": "🍕 How many BTC were paid for two pizzas on May 22, 2010?",
+  "options": [
+   "10",
+   "100",
+   "10,000",
+   "1 million"
+  ],
+  "correct": 2,
+  "explanation": "Bitcoin Pizza Day: 10,000 BTC for two pizzas."
+ },
+ {
+  "id": "tg-quiz-hodl-origin",
+  "type": "quiz",
+  "concept": "hodl-origin",
+  "question": "🧠 Where does the word HODL come from?",
+  "options": [
+   "A typo in a 2013 forum post",
+   "An exchange slogan",
+   "A Wall Street term",
+   "A Solana update"
+  ],
+  "correct": 0,
+  "explanation": "A famous misspelled 'HOLD' on BitcoinTalk in 2013."
+ },
+ {
+  "id": "tg-quiz-doge-year",
+  "type": "quiz",
+  "concept": "doge-year",
+  "question": "🐕 In what year was Dogecoin created?",
+  "options": [
+   "2009",
+   "2013",
+   "2017",
+   "2021"
+  ],
+  "correct": 1,
+  "explanation": "Created in December 2013 as a joke."
+ },
+ {
+  "id": "tg-quiz-vitalik",
+  "type": "quiz",
+  "concept": "vitalik",
+  "question": "🧠 Who is the best-known co-founder of Ethereum?",
+  "options": [
+   "Satoshi Nakamoto",
+   "Vitalik Buterin",
+   "Elon Musk",
+   "Anatoly Yakovenko"
+  ],
+  "correct": 1,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-solana-founder",
+  "type": "quiz",
+  "concept": "solana-founder",
+  "question": "🧠 Who co-founded Solana?",
+  "options": [
+   "Anatoly Yakovenko",
+   "Charles Hoskinson",
+   "Vitalik Buterin",
+   "Changpeng Zhao"
+  ],
+  "correct": 0,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-poh",
+  "type": "quiz",
+  "concept": "poh",
+  "question": "🧠 Which mechanism helps Solana order transactions fast?",
+  "options": [
+   "Proof of History",
+   "Proof of Banana",
+   "Proof of Burn",
+   "Proof of Space"
+  ],
+  "correct": 0,
+  "explanation": "Proof of History works alongside Proof of Stake."
+ },
+ {
+  "id": "tg-quiz-dyor",
+  "type": "quiz",
+  "concept": "dyor",
+  "question": "🧠 What does DYOR mean?",
+  "options": [
+   "Do Your Own Research",
+   "Don't Yell On Reddit",
+   "Dump Your Old Rewards",
+   "Do You Own Rugs"
+  ],
+  "correct": 0,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-fud",
+  "type": "quiz",
+  "concept": "fud",
+  "question": "🧠 What does FUD stand for?",
+  "options": [
+   "Fear, Uncertainty, Doubt",
+   "Fast Unlimited Deposits",
+   "Funny Unique Degens",
+   "Full Utility Delivery"
+  ],
+  "correct": 0,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-seed-phrase",
+  "type": "quiz",
+  "concept": "seed-phrase",
+  "question": "🛡 Someone asks for your seed phrase to 'verify' your wallet. You...",
+  "options": [
+   "Send it, they seem nice",
+   "Share half of it",
+   "Never share it, block them",
+   "Post it in the group"
+  ],
+  "correct": 2,
+  "explanation": "Nobody legit ever needs your seed phrase."
+ },
+ {
+  "id": "tg-quiz-genesis-block",
+  "type": "quiz",
+  "concept": "genesis-block",
+  "question": "🧠 When was Bitcoin's genesis block mined?",
+  "options": [
+   "January 2009",
+   "October 2008",
+   "March 2010",
+   "July 2012"
+  ],
+  "correct": 0,
+  "explanation": "January 3, 2009."
+ },
+ {
+  "id": "tg-quiz-halving",
+  "type": "quiz",
+  "concept": "halving",
+  "question": "🧠 How often does the Bitcoin halving happen?",
+  "options": [
+   "Every year",
+   "Every 210,000 blocks",
+   "Every 1 million blocks",
+   "Never"
+  ],
+  "correct": 1,
+  "explanation": "Roughly every 4 years."
+ },
+ {
+  "id": "tg-quiz-spl",
+  "type": "quiz",
+  "concept": "spl",
+  "question": "🧠 What is the token standard on Solana called?",
+  "options": [
+   "ERC-20",
+   "BEP-20",
+   "SPL",
+   "TRC-20"
+  ],
+  "correct": 2,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-rug-pull",
+  "type": "quiz",
+  "concept": "rug-pull",
+  "question": "🦍 What is a 'rug pull'?",
+  "options": [
+   "A carpet sale",
+   "Devs draining liquidity and vanishing",
+   "A yoga move",
+   "A wallet update"
+  ],
+  "correct": 1,
+  "explanation": "Rug Gorilla's favourite move. Not in this jungle."
+ },
+ {
+  "id": "tg-quiz-wagmi",
+  "type": "quiz",
+  "concept": "wagmi",
+  "question": "🧠 What does WAGMI mean?",
+  "options": [
+   "We're All Gonna Make It",
+   "Wallets Are Getting More Insecure",
+   "Who Ate My Ice cream",
+   "Web App Global Mining"
+  ],
+  "correct": 0,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-eth-merge",
+  "type": "quiz",
+  "concept": "eth-merge",
+  "question": "🧠 In 2022 'The Merge' moved Ethereum to...",
+  "options": [
+   "Proof of Work",
+   "Proof of Stake",
+   "Proof of History",
+   "Solana"
+  ],
+  "correct": 1,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-orango-food",
+  "type": "quiz",
+  "concept": "orango-food",
+  "question": "🍊 Lore quiz: what does Orango love peeling the most?",
+  "options": [
+   "Bananas",
+   "Coconuts",
+   "Oranges",
+   "Contracts"
+  ],
+  "correct": 2,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-troop-name",
+  "type": "quiz",
+  "concept": "troop-name",
+  "question": "🦧 Lore quiz: what are OrangeOrangus community members called?",
+  "options": [
+   "Apes",
+   "Peelers",
+   "Bananas",
+   "Jungle Kings"
+  ],
+  "correct": 1,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-satoshi-paper",
+  "type": "quiz",
+  "concept": "satoshi-paper",
+  "question": "🧠 When was the Bitcoin whitepaper published?",
+  "options": [
+   "2008",
+   "2010",
+   "2005",
+   "2013"
+  ],
+  "correct": 0,
+  "explanation": "October 31, 2008."
+ },
+ {
+  "id": "tg-quiz-gas-name",
+  "type": "quiz",
+  "concept": "gas-name",
+  "question": "🧠 On Ethereum, transaction fees are called...",
+  "options": [
+   "Gas",
+   "Juice",
+   "Peel",
+   "Rent"
+  ],
+  "correct": 0,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-cold-wallet",
+  "type": "quiz",
+  "concept": "cold-wallet",
+  "question": "🛡 A hardware (cold) wallet is mainly used to...",
+  "options": [
+   "Mine crypto",
+   "Keep keys offline and safer",
+   "Get airdrops",
+   "Speed up trades"
+  ],
+  "correct": 1,
+  "explanation": ""
+ },
+ {
+  "id": "tg-quiz-phishing-link",
+  "type": "quiz",
+  "concept": "phishing-link",
+  "question": "🛡 A DM says 'claim your free OrangeOrangus tokens' with a link. It's most likely...",
+  "options": [
+   "A gift from the team",
+   "A scam",
+   "A bug",
+   "An airdrop guaranteed"
+  ],
+  "correct": 1,
+  "explanation": "Official info is only in pinned messages."
+ },
+ {
+  "id": "tg-meme-monday",
+  "type": "meme",
+  "concept": "monday",
+  "text": "Monday mood: Orango opening the charts with one eye closed. 🙈🍊"
+ },
+ {
+  "id": "tg-meme-diamond-peel",
+  "type": "meme",
+  "concept": "diamond-peel",
+  "text": "They told me to get diamond hands. I got diamond peels instead. 💎🍊"
+ },
+ {
+  "id": "tg-meme-dex-screener",
+  "type": "meme",
+  "concept": "dex-screener",
+  "text": "Me: I'll check the charts for 5 minutes.\nAlso me, 3 hours later: 🦧📈📉📈"
+ },
+ {
+  "id": "tg-meme-wife-changing",
+  "type": "meme",
+  "concept": "wife-changing",
+  "text": "Not life-changing. Not wife-changing. Just jungle-changing. 🌴"
+ },
+ {
+  "id": "tg-meme-gm-reply",
+  "type": "meme",
+  "concept": "gm-reply",
+  "text": "Nobody:\nAbsolutely nobody:\nThe Troop at 7am: gm gm gm gm gm 🍊"
+ },
+ {
+  "id": "tg-meme-buy-high",
+  "type": "meme",
+  "concept": "buy-high",
+  "text": "Orango's trading course, lesson 1: don't take trading advice from an orangutan. 🦧📚"
+ },
+ {
+  "id": "tg-meme-rug-gorilla-cv",
+  "type": "meme",
+  "concept": "rug-gorilla-cv",
+  "text": "Rug Gorilla's CV:\n- Experience: 47 projects\n- Skills: running\n- References: none, all deleted 🦍💨"
+ },
+ {
+  "id": "tg-meme-wen-lambo",
+  "type": "meme",
+  "concept": "wen-lambo",
+  "text": "Wen lambo?\nOrango: wen banana. Priorities. 🍌"
+ },
+ {
+  "id": "tg-meme-two-buttons",
+  "type": "meme",
+  "concept": "two-buttons",
+  "text": "Two buttons meme:\n🔴 Touch grass\n🔴 Refresh the chart\nOrango, sweating: 🦧💦"
+ },
+ {
+  "id": "tg-meme-brain-cells",
+  "type": "meme",
+  "concept": "brain-cells",
+  "text": "My last two brain cells deciding whether to check Telegram or sleep: 🧠🧠🍊"
+ },
+ {
+  "id": "tg-meme-sunday-peel",
+  "type": "meme",
+  "concept": "sunday-peel",
+  "text": "Sunday plan: peel oranges, ignore FUD, repeat. 🍊🍊🍊"
+ },
+ {
+  "id": "tg-meme-bear-market",
+  "type": "meme",
+  "concept": "bear-market",
+  "text": "Bears in the forest. Apes in the jungle. Different neighbourhoods. 🐻🌴🦧"
+ },
+ {
+  "id": "tg-meme-tutorial",
+  "type": "meme",
+  "concept": "tutorial",
+  "text": "How to spot Rug Gorilla:\n1. Big promises\n2. Bigger DMs\n3. Gone by Tuesday 🦍"
+ },
+ {
+  "id": "tg-meme-gas-fees",
+  "type": "meme",
+  "concept": "gas-fees",
+  "text": "Paying $0.0001 in fees on Solana and still checking if it went through. Old habits. 🦧"
+ },
+ {
+  "id": "tg-meme-alarm",
+  "type": "meme",
+  "concept": "alarm",
+  "text": "Alarm at 6am: ignored.\nTelegram notification from the Troop: instantly awake. 🔔🍊"
+ },
+ {
+  "id": "tg-meme-starter-pack",
+  "type": "meme",
+  "concept": "starter-pack",
+  "text": "Peeler starter pack:\n🍊 orange PFP\n🕶 sunglasses at night\n🛡 never clicks DMs\n🦧 says gm to everyone"
+ },
+ {
+  "id": "tg-meme-explain-family",
+  "type": "meme",
+  "concept": "explain-family",
+  "text": "Me explaining OrangeOrangus to my family: 'so there's this orangutan...'\nFamily: 👁👄👁"
+ },
+ {
+  "id": "tg-meme-patience",
+  "type": "meme",
+  "concept": "patience",
+  "text": "Orango has been peeling the same orange for 3 hours. Patience is a jungle skill. 🍊⏳"
+ },
+ {
+  "id": "tg-meme-fomo-vs-jomo",
+  "type": "meme",
+  "concept": "fomo-vs-jomo",
+  "text": "FOMO: fear of missing out.\nJOMO: joy of memeing out. Orango chose JOMO. 😎"
+ },
+ {
+  "id": "tg-meme-chart-art",
+  "type": "meme",
+  "concept": "chart-art",
+  "text": "Some see candles. Orango sees a banana-shaped pattern. Art is subjective. 🍌📊"
+ },
+ {
+  "id": "tg-meme-night-shift",
+  "type": "meme",
+  "concept": "night-shift",
+  "text": "3am in the Peel Jungle: owls awake, Orango awake, the Troop definitely awake. 🦉🦧"
+ },
+ {
+  "id": "tg-meme-vacation",
+  "type": "meme",
+  "concept": "vacation",
+  "text": "Orango tried to take a vacation. He opened Telegram 'just once'. 🏝📱"
+ },
+ {
+  "id": "tg-meme-cooking",
+  "type": "meme",
+  "concept": "cooking",
+  "text": "Orango's only recipe: orange. Served peeled. Chef's kiss. 👨‍🍳🍊"
+ },
+ {
+  "id": "tg-meme-parallel-universe",
+  "type": "meme",
+  "concept": "parallel-universe",
+  "text": "In a parallel universe Rug Gorilla is honest and Orango is on time. We don't live there. 🌌"
+ },
+ {
+  "id": "tg-poll-fav-fruit",
+  "type": "poll",
+  "concept": "fav-fruit",
+  "question": "🍓 Which fruit should be the rarest tile in the Jungle Game?",
+  "options": [
+   "🍊 Golden orange",
+   "🍌 Royal banana",
+   "🥭 Mystic mango",
+   "🍍 Spiky pineapple"
+  ]
+ },
+ {
+  "id": "tg-poll-orango-skill",
+  "type": "poll",
+  "concept": "orango-skill",
+  "question": "🦧 What's Orango's true superpower?",
+  "options": [
+   "Peeling at light speed",
+   "Spotting scams",
+   "Meme mastery",
+   "Sleeping anywhere"
+  ]
+ },
+ {
+  "id": "tg-poll-chain-love",
+  "type": "poll",
+  "concept": "chain-love",
+  "question": "⛓ Why do you like Solana the most?",
+  "options": [
+   "Speed ⚡",
+   "Low fees 💸",
+   "Community 🫂",
+   "Memes 😂"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-style",
+  "type": "poll",
+  "concept": "meme-style",
+  "question": "😂 Favourite meme format?",
+  "options": [
+   "Drake",
+   "Distracted boyfriend",
+   "Expanding brain",
+   "This is fine"
+  ]
+ },
+ {
+  "id": "tg-poll-sticker",
+  "type": "poll",
+  "concept": "sticker",
+  "question": "🎨 Which Orango sticker should we make first?",
+  "options": [
+   "Orango gm ☀️",
+   "Orango facepalm 🤦",
+   "Orango dancing 💃",
+   "Orango sleeping 😴"
+  ]
+ },
+ {
+  "id": "tg-poll-contest-prize",
+  "type": "poll",
+  "concept": "contest-prize",
+  "question": "🏆 Best reward for meme contest winners?",
+  "options": [
+   "Pinned post",
+   "Special role",
+   "Custom sticker",
+   "Shoutout on X"
+  ]
+ },
+ {
+  "id": "tg-poll-posting-time",
+  "type": "poll",
+  "concept": "posting-time",
+  "question": "⏰ When are you most active here?",
+  "options": [
+   "Morning",
+   "Afternoon",
+   "Evening",
+   "Night owl 🦉"
+  ]
+ },
+ {
+  "id": "tg-poll-rug-gorilla-fate",
+  "type": "poll",
+  "concept": "rug-gorilla-fate",
+  "question": "🦍 What should happen to Rug Gorilla in the next lore chapter?",
+  "options": [
+   "Gets caught",
+   "Becomes our friend",
+   "Disappears forever",
+   "Opens a banana stand"
+  ]
+ },
+ {
+  "id": "tg-poll-new-character",
+  "type": "poll",
+  "concept": "new-character",
+  "question": "🌴 Which new jungle character do you want in the lore?",
+  "options": [
+   "A wise toucan 🦜",
+   "A sneaky snake 🐍",
+   "A lazy sloth 🦥",
+   "A DJ parrot 🎧"
+  ]
+ },
+ {
+  "id": "tg-poll-x-or-tg",
+  "type": "poll",
+  "concept": "x-or-tg",
+  "question": "📱 Where do you hang out more?",
+  "options": [
+   "Telegram",
+   "X",
+   "Both equally",
+   "Wherever the memes are"
+  ]
+ },
+ {
+  "id": "tg-poll-game-mode",
+  "type": "poll",
+  "concept": "game-mode",
+  "question": "🎮 What would you play first in a fruit puzzle game?",
+  "options": [
+   "Endless mode",
+   "Daily challenge",
+   "Story levels",
+   "Versus a friend"
+  ]
+ },
+ {
+  "id": "tg-poll-crypto-years",
+  "type": "poll",
+  "concept": "crypto-years",
+  "question": "🕰 How long have you been in crypto?",
+  "options": [
+   "Less than 1 year",
+   "1-3 years",
+   "3-5 years",
+   "Since forever 🦖"
+  ]
+ },
+ {
+  "id": "tg-poll-hype-level",
+  "type": "poll",
+  "concept": "hype-level",
+  "question": "🔥 Rate your hype level today",
+  "options": [
+   "Orange 🍊",
+   "Very orange 🍊🍊",
+   "Maximum orange 🍊🍊🍊",
+   "Sleeping 😴"
+  ]
+ },
+ {
+  "id": "tg-poll-lore-name",
+  "type": "poll",
+  "concept": "lore-name",
+  "question": "📜 Name of the next lore chapter?",
+  "options": [
+   "The Golden Peel",
+   "Night of the Gorilla",
+   "The Lost Banana",
+   "Jungle Uprising"
+  ]
+ },
+ {
+  "id": "tg-poll-emoji",
+  "type": "poll",
+  "concept": "emoji",
+  "question": "🍊 Official Troop emoji?",
+  "options": [
+   "🍊",
+   "🦧",
+   "🌴",
+   "🍌"
+  ]
+ },
+ {
+  "id": "tg-poll-music",
+  "type": "poll",
+  "concept": "music",
+  "question": "🎵 Jungle soundtrack for building?",
+  "options": [
+   "Lo-fi beats",
+   "Rock",
+   "Techno",
+   "Silence + birds"
+  ]
+ },
+ {
+  "id": "tg-poll-security",
+  "type": "poll",
+  "concept": "security",
+  "question": "🛡 Do you use a hardware wallet?",
+  "options": [
+   "Yes",
+   "Not yet",
+   "What's that?",
+   "Planning to"
+  ]
+ },
+ {
+  "id": "tg-poll-weekend",
+  "type": "poll",
+  "concept": "weekend",
+  "question": "🌴 Weekend plan?",
+  "options": [
+   "Memes",
+   "Touching grass",
+   "Charts",
+   "All of the above"
+  ]
+ },
+ {
+  "id": "tg-poll-color",
+  "type": "poll",
+  "concept": "color",
+  "question": "🎨 Best secondary colour for OrangeOrangus?",
+  "options": [
+   "Lime green 💚",
+   "Golden yellow 💛",
+   "Jungle green 🌲",
+   "Sky blue 💙"
+  ]
+ },
+ {
+  "id": "tg-poll-recruit",
+  "type": "poll",
+  "concept": "recruit",
+  "question": "👥 How did you find OrangeOrangus?",
+  "options": [
+   "X",
+   "A friend",
+   "Telegram search",
+   "Orango found me"
+  ]
+ },
+ {
+  "id": "tg-engage-intro-yourself",
+  "type": "engage",
+  "concept": "intro-yourself",
+  "text": "👋 New Peelers: introduce yourself! Where are you from and what brought you to the jungle?"
+ },
+ {
+  "id": "tg-engage-share-meme",
+  "type": "engage",
+  "concept": "share-meme",
+  "text": "📸 Got an Orango meme? Drop it in the comments or post it on X with #OrangeOrangus. Best ones get pinned."
+ },
+ {
+  "id": "tg-engage-invite-one",
+  "type": "engage",
+  "concept": "invite-one",
+  "text": "🫂 One small mission today: invite ONE friend who loves memes. That's how jungles grow."
+ },
+ {
+  "id": "tg-engage-feedback",
+  "type": "engage",
+  "concept": "feedback",
+  "text": "💬 What would make this channel more fun? Ideas welcome, the Troop decides."
+ },
+ {
+  "id": "tg-engage-repost-x",
+  "type": "engage",
+  "concept": "repost-x",
+  "text": "🔁 Seen OrangeOrangus on X today? Like, reply, repost. Every interaction helps the jungle get noticed."
+ },
+ {
+  "id": "tg-engage-safety-reminder",
+  "type": "engage",
+  "concept": "safety-reminder",
+  "text": "🛡 Reminder: admins NEVER DM first. Official links live only in pinned messages. Stay safe, Peelers."
+ },
+ {
+  "id": "tg-engage-lore-idea",
+  "type": "engage",
+  "concept": "lore-idea",
+  "text": "📜 Write one line of OrangeOrangus lore. The best line becomes canon in the next chapter."
+ },
+ {
+  "id": "tg-engage-shoutout",
+  "type": "engage",
+  "concept": "shoutout",
+  "text": "🙌 Shoutout to everyone who joined this week. The jungle is louder because of you."
+ },
+ {
+  "id": "tg-engage-rate-day",
+  "type": "engage",
+  "concept": "rate-day",
+  "text": "🍊 Rate your day from 1 to 10 oranges. Orango is at 🍊🍊🍊🍊🍊🍊🍊."
+ },
+ {
+  "id": "tg-engage-question-team",
+  "type": "engage",
+  "concept": "question-team",
+  "text": "❓ Got a question about OrangeOrangus? Ask below, we collect them for the next update."
+ },
+ {
+  "id": "tg-engage-caption-contest",
+  "type": "engage",
+  "concept": "caption-contest",
+  "text": "✍️ Caption contest: Orango is staring at a banana with suspicion. What is he thinking?"
+ },
+ {
+  "id": "tg-engage-countdown-check",
+  "type": "engage",
+  "concept": "countdown-check",
+  "text": "📌 Checked the pinned countdown lately? Every new Peeler moves it. Share the channel!"
+ }
+]

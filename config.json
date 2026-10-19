@@ -1,0 +1,30 @@
+{
+  "_help": "Orari nel fuso 'timezone'. paused/preview: valori iniziali (i comandi admin /pause /resume /preview_on /preview_off hanno la precedenza).",
+  "paused": false,
+  "preview": false,
+  "timezone": "Europe/Rome",
+  "similarity_threshold": 0.72,
+  "countdown": {
+    "mode": "members",
+    "_mode_help": "members = conta i membri fino a goal; time = tempo fino a target (data confermata dall'admin, es. 2026-11-01T20:00:00+01:00)",
+    "goal": 500,
+    "milestones": [50, 100, 250, 500],
+    "target": "",
+    "text_members": "🍊 LIVE TROOP COUNTDOWN 🦧\n\n{bar}\n\n{left} Peelers left until the OrangeOrangus token is announced.\nInvite friends, repost on X, unlock the jungle!\n\n🔄 Updates automatically",
+    "text_done_members": "🍊 JUNGLE UNLOCKED 🦧\n\n{bar}\n\nGoal reached! The token announcement comes ONLY from admins in the pinned messages. Never trust DMs.",
+    "text_time": "🚀 THE COUNTDOWN IS ON\n\n⏳ Time remaining: {d}d {h}h {m}m\n\n🔄 Updates every minute",
+    "text_done_time": "🚀 THE COUNTDOWN IS OVER\n\nWatch the pinned messages: official news comes ONLY from admins.",
+    "text_milestone_post": "🎉 MILESTONE: {m} PEELERS!\nThe Troop keeps growing. Next stop: {goal}. Keep inviting! 🍊",
+    "text_goal_post": "🍊🦧 WE DID IT! The jungle is unlocked.\nThe OrangeOrangus token announcement is coming from the admins: watch the PINNED messages.\nNever trust DMs."
+  },
+  "telegram": {
+    "times": ["10:00", "14:00", "18:00", "22:00"],
+    "rotation": ["quiz", "meme", "poll", "meme", "engage"],
+    "footer": "🍊 Peel the hype. Release the ape.\n⚠️ Official links only in pinned messages. Admins never DM first."
+  },
+  "x": {
+    "times": ["11:30", "15:30", "19:30", "23:00"],
+    "rotation": ["meme", "community", "question", "teaser", "challenge", "poll", "culture"],
+    "footer": "#OrangeOrangus"
+  }
+}

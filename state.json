@@ -1,1 +1,9 @@
-{"announced": [], "started": true, "x_started": true, "counter_id": 30, "last_post": "2026-10-19T16"}
+{
+ "counter_id": 30,
+ "counter_created": true,
+ "announced": [],
+ "slots": {
+  "telegram": "2026-10-19 18:00"
+ },
+ "x_intro_done": true
+}

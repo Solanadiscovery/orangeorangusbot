@@ -1,34 +1,38 @@
-# OrangeOrangus Telegram bot
+# OrangeOrangus bot (Telegram + X)
 
-Pubblica 2 post al giorno, tutti i giorni (08:00 e 18:00 UTC), sul canale Telegram. Costo: €0 (GitHub Actions gratuito).
+Un solo processo sempre attivo (workflow **Live bot**) che ogni minuto:
+1. legge i comandi dell'admin;
+2. aggiorna il **countdown fissato** modificando sempre lo stesso messaggio (mai uno nuovo);
+3. pubblica i contenuti programmati su Telegram e su X, **senza mai ripetere** un contenuto già usato.
 
-## Setup (una volta)
-1. Su Telegram apri **@BotFather** → `/newbot` → copia il token.
-2. Aggiungi il bot come **amministratore** del canale (permesso "Pubblica messaggi").
-3. Crea un repository GitHub **privato** e carica questi file.
-4. Nel repo: Settings → Secrets and variables → Actions → aggiungi
-   - `BOT_TOKEN` = token di BotFather
-   - `CHAT_ID` = `@nomecanale` (o l'ID numerico `-100...`)
-5. Actions → "Daily Telegram post" → **Run workflow** per un test.
+Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: €0 su GitHub (repo pubblico), X a consumo.
 
-## Contenuti
-- `content.json`: per ogni giorno c'è una lista `am` (mattina) e `pm` (sera). Aggiungi più post a una lista e il bot li alterna settimana dopo settimana.
-- `images/`: metti qui le immagini dei meme con i nomi usati in `content.json`. Se manca l'immagine, il bot invia solo il testo.
-- Orario: modifica `cron` in `.github/workflows/daily-post.yml` (in UTC).
+## File
+| File | Cosa contiene |
+|---|---|
+| `config.json` | fuso orario, orari, rotazione dei formati, countdown, soglia di somiglianza |
+| `content/telegram.json`, `content/x.json` | contenuti (quiz, meme, sondaggi, ecc.), separati per piattaforma |
+| `history.json` | tutto ciò che è stato pubblicato (testo, tipo, concetto, data) |
+| `state.json` | ID del messaggio countdown, slot pubblicati, traguardi, pausa/anteprima |
+| `bot.py` | ciclo principale; `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
+| `tests/` | test offline (`python -m unittest discover tests`), eseguiti a ogni avvio |
 
-## Sicurezza
-Non condividere mai il token e non scriverlo nei file. Se esce, rigeneralo con `/revoke` su BotFather.
-Il bot non pubblica link: aggiungi link ufficiali solo dopo averli verificati.
+## Secrets (Settings → Secrets → Actions)
+`BOT_TOKEN`, `CHAT_ID`, `ADMIN_USER_ID` (il tuo ID Telegram numerico, da @userinfobot), `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`.
 
-## X (opzionale)
-Se aggiungi nei Secrets `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`, ogni post esce anche su X.
-Chiavi da https://developer.x.com → app con permessi "Read and write" → Keys and tokens (genera Access Token dopo aver impostato i permessi).
-X API è a pagamento a consumo: ricarica pochi crediti. Il bot non pubblica link su X (costano molto di più).
+## Comandi admin (scrivi al bot in privato)
+`/status` stato e contenuti rimasti · `/pause` `/resume` pubblicazioni · `/preview_on` `/preview_off` i post arrivano solo a te · `/next` prossimi contenuti.
+Il bot avvisa l'admin se il countdown non si trova, se una pubblicazione fallisce o se i contenuti stanno finendo.
 
-## Contatore live
-Il bot crea un messaggio "LIVE TROOP COUNTDOWN" e il workflow "Live member counter" lo aggiorna ogni minuto con i membri reali, anche quando qualcuno esce.
-Avvio manuale da Actions = aggiorna subito il contatore. Con "Pubblica solo su X" = prova su X.
+## Anti-ripetizione
+Prima di pubblicare, ogni contenuto è confrontato con tutto lo storico (entrambe le piattaforme):
+stesso ID o stesso concetto → scartato; testo identico dopo normalizzazione → scartato;
+somiglianza (sequenza o parole in comune) ≥ `similarity_threshold` → scartato. Lo slot viene salvato **prima** dell'invio, quindi un riavvio non crea doppioni.
 
-## Come gira il bot
-Il workflow "Live bot" resta sempre acceso (si riavvia da solo ogni ~5h40): pubblica i post agli orari previsti
-(08, 12, 16, 18, 20 UTC) e aggiorna il contatore ogni minuto. "Daily Telegram post" ora serve solo per avvii manuali.
+## Countdown
+`countdown.mode`: `members` (membri reali fino a `goal`) oppure `time` (tempo fino a `target`, data assoluta con fuso, es. `2026-11-01T20:00:00+01:00`).
+Si aggiorna ogni minuto (limiti Telegram), solo se il testo cambia. Se il messaggio sparisce il bot **non** ne crea un altro: avvisa l'admin.
+Il bot non annuncia mai da solo un lancio: a fine countdown mostra solo il testo di completamento.
+
+## Aggiungere contenuti
+Aggiungi elementi a `content/*.json` con `id` e `concept` unici. Tipi Telegram: `quiz`, `poll`, `meme`, `engage`. Tipi X: `meme`, `community`, `question`, `teaser`, `challenge`, `poll`, `culture`.

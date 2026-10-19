@@ -1,0 +1,42 @@
+[
+ {
+  "id": "legacy-intro",
+  "concept": "jungle-locked-intro",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "THE JUNGLE IS LOCKED. When the Troop hits 500 members, the OrangeOrangus token gets announced. Invite your friends!",
+  "ts": "2026-10-19T14:55:00+00:00"
+ },
+ {
+  "id": "legacy-villain-quiz",
+  "concept": "villain-quiz",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "Quiz Who is the villain of the Peel Jungle?",
+  "ts": "2026-10-19T12:30:00+00:00"
+ },
+ {
+  "id": "legacy-impatient",
+  "concept": "impatient-progress",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "Orango is getting impatient... Peelers left. Share the channel link in your groups and let's unlock it together.",
+  "ts": "2026-10-19T16:12:00+00:00"
+ },
+ {
+  "id": "legacy-x-intro",
+  "concept": "x-intro",
+  "type": "teaser",
+  "platform": "x",
+  "text": "THE JUNGLE IS LOCKED The OrangeOrangus token gets announced ONLY when our Telegram Troop hits 500 members. Not a minute before. Get in early",
+  "ts": "2026-10-19T15:13:00+00:00"
+ },
+ {
+  "id": "legacy-x-rugquiz",
+  "concept": "x-villain-quiz",
+  "type": "poll",
+  "platform": "x",
+  "text": "Quiz Who is the villain of the Peel Jungle?",
+  "ts": "2026-10-19T16:12:00+00:00"
+ }
+]
