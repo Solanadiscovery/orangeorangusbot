@@ -112,11 +112,13 @@ X_FOOTER = "🍊 Peel the hype. Release the ape.\nJoin the Troop on Telegram (li
 
 
 def x_post(post):
-    """Pubblica su X (API v2, OAuth 1.0a). Niente link: su X costano molto di più."""
+    """Pubblica su X (API v2, OAuth 1.0a). Link solo nel post di apertura: su X costano molto di più."""
     key, secret, token, token_secret = (os.environ[k].strip() for k in X_KEYS)
     if "poll" in post or "quiz" in post:
         body = {"text": post.get("poll") or post["quiz"],
                 "poll": {"options": [o[:25] for o in post["options"]], "duration_minutes": 240}}
+    elif post.get("raw"):
+        body = {"text": post["text"]}
     else:
         body = {"text": (post["text"] + "\n\n" + X_FOOTER)[:280]}
     url = "https://api.x.com/2/tweets"
@@ -141,20 +143,33 @@ def main():
     slot = current_slot(now)
     state = load("state.json")
     dry = "--dry-run" in sys.argv
+    only_x = bool(os.environ.get("ONLY_X"))  # prova manuale solo su X
+    x_on = all(os.environ.get(k, "").strip() for k in X_KEYS)
     chat = os.environ.get("CHAT_ID", "").strip()
     if not dry and not chat:
         sys.exit("CHAT_ID mancante: aggiungilo nei Secrets del repository.")
     count = 137 if dry else api("getChatMemberCount", {"chat_id": chat})["result"]
-    posts = pick_posts(now, slot, count, state)
+    posts = None
+    if x_on and not state.get("x_started"):  # primo post su X: invito al canale Telegram
+        c = load("campaign.json")
+        intro = {"text": fill(c["x_intro"], count, c), "raw": True}
+        if dry:
+            print(json.dumps(intro, ensure_ascii=False, indent=1))
+        elif x_post(intro):
+            state["x_started"] = True
+        if only_x:
+            posts = []
+    if posts is None:  # in prova solo X lo stato dei traguardi non viene toccato
+        posts = pick_posts(now, slot, count, json.loads(json.dumps(state)) if only_x else state)
     for post in posts:
         if dry:
             print(json.dumps(post, ensure_ascii=False, indent=1))
-        else:
-            if not os.environ.get("ONLY_X"):  # ONLY_X: prova manuale solo su X
-                send(chat, post)
-            if all(os.environ.get(k, "").strip() for k in X_KEYS):
-                x_post(post)
-    if not dry and not os.environ.get("ONLY_X"):
+            continue
+        if not only_x:
+            send(chat, post)
+        if x_on:
+            x_post(post)
+    if not dry:
         (ROOT / "state.json").write_text(json.dumps(state) + "\n")
     print(f"Membri: {count}. Post pubblicati: {len(posts)} (slot {slot}:00 UTC).")
 

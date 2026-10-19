@@ -2,22 +2,70 @@
   "active": true,
   "_note": "Campagna a traguardi: il bot legge i membri reali del canale. goal = membri per l'annuncio del token. x_url = link del post su X da ripostare (vuoto = invito generico).",
   "goal": 500,
-  "milestones": [50, 100, 250, 500],
+  "milestones": [
+    50,
+    100,
+    250,
+    500
+  ],
   "x_url": "",
   "posts": [
-    {"text": "🚨 THE JUNGLE IS LOCKED.\nWhen the Troop hits {goal} members, the OrangeOrangus token gets announced.\n\n{bar}\n{left} Peelers to go. Invite your friends! 🍊"},
-    {"text": "🔁 RAID TIME\nRepost OrangeOrangus on X and tag 2 friends who need more orange in their life.{x}\n\nEvery new Peeler brings the announcement closer.\n{bar}"},
-    {"poll": "What's Orango's first move when the token is announced? 🦧", "options": ["Peel more oranges 🍊", "Hunt Rug Gorilla 🦍", "Start a meme war 😂", "Nap in the jungle 😴"]},
-    {"text": "📈 Troop check!\n{bar}\nOnly {left} more Peelers until the token is revealed. React 🔥 if you're inviting someone today."},
-    {"text": "🎨 MEME CHALLENGE\nMake an Orango meme, post it on X with #OrangeOrangus and drop it here. Best ones get pinned.{x}"},
-    {"quiz": "Quiz 🧠 Who is the villain of the Peel Jungle?", "options": ["Banana Bandit 🍌", "Rug Gorilla 🦍", "Coconut King 🥥"], "correct": 1},
-    {"text": "🦧 Orango is getting impatient...\n{bar}\n{left} Peelers left. Share the channel link in your groups and let's unlock it together."},
-    {"text": "🛡 SAFETY FIRST\nWhen we unlock, the contract address will appear ONLY in the pinned message from admins. Anyone DMing you 'early access' is Rug Gorilla. Block and report."},
-    {"poll": "How fast do we hit {goal}? 👀", "options": ["Today 🔥", "Tomorrow 🍊", "This week 🦧", "Orango is still sleeping 😴"]},
-    {"text": "🔁 Repost. Tag. Invite.\nThat's all it takes. {left} Peelers away from the reveal.{x}\n{bar}"},
-    {"text": "🎮 Psst... the token is not the only thing ripening in the jungle. Something playable is growing in the background. That's all Orango will say. 👀"},
-    {"text": "🌙 Night in the Peel Jungle.\nThe Troop is {count} strong. Tomorrow we get closer to {goal}.\nRepost on X before you sleep 🍊{x}"}
+    {
+      "text": "🚨 THE JUNGLE IS LOCKED.\nWhen the Troop hits {goal} members, the OrangeOrangus token gets announced.\n\n{bar}\n{left} Peelers to go. Invite your friends! 🍊"
+    },
+    {
+      "text": "🔁 RAID TIME\nRepost OrangeOrangus on X and tag 2 friends who need more orange in their life.{x}\n\nEvery new Peeler brings the announcement closer.\n{bar}"
+    },
+    {
+      "poll": "What's Orango's first move when the token is announced? 🦧",
+      "options": [
+        "Peel more oranges 🍊",
+        "Hunt Rug Gorilla 🦍",
+        "Start a meme war 😂",
+        "Nap in the jungle 😴"
+      ]
+    },
+    {
+      "text": "📈 Troop check!\n{bar}\nOnly {left} more Peelers until the token is revealed. React 🔥 if you're inviting someone today."
+    },
+    {
+      "text": "🎨 MEME CHALLENGE\nMake an Orango meme, post it on X with #OrangeOrangus and drop it here. Best ones get pinned.{x}"
+    },
+    {
+      "quiz": "Quiz 🧠 Who is the villain of the Peel Jungle?",
+      "options": [
+        "Banana Bandit 🍌",
+        "Rug Gorilla 🦍",
+        "Coconut King 🥥"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "🦧 Orango is getting impatient...\n{bar}\n{left} Peelers left. Share the channel link in your groups and let's unlock it together."
+    },
+    {
+      "text": "🛡 SAFETY FIRST\nWhen we unlock, the contract address will appear ONLY in the pinned message from admins. Anyone DMing you 'early access' is Rug Gorilla. Block and report."
+    },
+    {
+      "poll": "How fast do we hit {goal}? 👀",
+      "options": [
+        "Today 🔥",
+        "Tomorrow 🍊",
+        "This week 🦧",
+        "Orango is still sleeping 😴"
+      ]
+    },
+    {
+      "text": "🔁 Repost. Tag. Invite.\nThat's all it takes. {left} Peelers away from the reveal.{x}\n{bar}"
+    },
+    {
+      "text": "🎮 Psst... the token is not the only thing ripening in the jungle. Something playable is growing in the background. That's all Orango will say. 👀"
+    },
+    {
+      "text": "🌙 Night in the Peel Jungle.\nThe Troop is {count} strong. Tomorrow we get closer to {goal}.\nRepost on X before you sleep 🍊{x}"
+    }
   ],
   "milestone_text": "🎉 MILESTONE: {m} PEELERS!\nThe Troop is growing. {bar}\nNext stop: {goal}. Keep reposting and inviting! 🍊",
-  "goal_text": "🍊🦧 WE DID IT! {goal} PEELERS!\nThe jungle is unlocked. The OrangeOrangus token announcement is coming from the admins: watch the PINNED message.\nNever trust DMs. Only the pinned message is official."
+  "goal_text": "🍊🦧 WE DID IT! {goal} PEELERS!\nThe jungle is unlocked. The OrangeOrangus token announcement is coming from the admins: watch the PINNED message.\nNever trust DMs. Only the pinned message is official.",
+  "x_intro": "🚨 THE JUNGLE IS LOCKED 🦧🍊\n\nThe OrangeOrangus token gets announced ONLY when our Telegram Troop hits {goal} members. Not a minute before.\n\n{left} spots to the reveal. Get in early 👇\nhttps://t.me/OrangeOrangus\n\nPeel the hype. Release the ape. #OrangeOrangus #Solana"
 }
