@@ -1,0 +1,15 @@
+name: Daily Telegram post
+on:
+  schedule:
+    - cron: "0 8 * * *"    # mattina, 08:00 UTC
+    - cron: "0 18 * * *"   # sera, 18:00 UTC
+  workflow_dispatch:       # avvio manuale per test
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python post.py
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
