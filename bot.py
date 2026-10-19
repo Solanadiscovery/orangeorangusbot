@@ -18,6 +18,17 @@ ROOT = Path(__file__).parent
 RUN_SECONDS = 5 * 3600 + 40 * 60
 SLOT_WINDOW = datetime.timedelta(minutes=30)
 PIN_CHECK_EVERY = 1800
+HELP = """🦧 Comandi admin OrangeOrangus
+
+/status → stato del bot: pausa, anteprima, countdown, contenuti nuovi rimasti, ultimi post
+/pause → ferma i post su Telegram e X (il countdown continua ad aggiornarsi)
+/resume → riattiva i post
+/preview_on → modalità prova: i post arrivano solo a te in privato, non sul canale né su X
+/preview_off → torna a pubblicare sul canale e su X
+/next → mostra i prossimi contenuti che verranno pubblicati
+/help → questo elenco
+
+Solo tu puoi usare questi comandi: gli altri utenti vengono ignorati."""
 
 
 def load(name, default=None):
@@ -106,7 +117,7 @@ class Bot:
                     f"Countdown: modalità {self.cfg['countdown']['mode']}, messaggio {self.state.get('counter_id')}\n"
                     f"Contenuti nuovi rimasti: Telegram {left['telegram']}, X {left['x']}\n"
                     f"Ultimi slot: {self.state.get('slots', {})}")
-        return "Comandi: /status /pause /resume /preview_on /preview_off /next"
+        return HELP
 
     def preview_text(self):
         out = []
