@@ -1,8 +1,8 @@
 {
   "active": true,
   "_note": "Campagna a traguardi: il bot legge i membri reali del canale. goal = membri per l'annuncio del token. x_url = link del post su X da ripostare (vuoto = invito generico).",
-  "goal": 500,
-  "milestones": [50, 100, 250, 500],
+  "goal": 200,
+  "milestones": [50, 100, 150, 200],
   "x_url": "",
   "posts": [
     {"text": "🚨 THE JUNGLE IS LOCKED.\nWhen the Troop hits {goal} members, the OrangeOrangus token gets announced.\n\n{bar}\n{left} Peelers to go. Invite your friends! 🍊"},
