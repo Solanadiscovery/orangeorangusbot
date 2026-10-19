@@ -46,5 +46,13 @@
   "platform": "x",
   "text": "Some people meditate. Orango peels oranges for 3 hours. Same energy. 🍊🧘",
   "ts": "2026-10-19T17:30:14.439713+00:00"
+ },
+ {
+  "id": "tg-quiz-btc-max-supply",
+  "concept": "btc-max-supply",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What is Bitcoin's maximum supply?",
+  "ts": "2026-10-19T20:00:39.012674+00:00"
  }
 ]
