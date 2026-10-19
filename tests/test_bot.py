@@ -220,7 +220,7 @@ class XNoLinks(unittest.TestCase):
         for item in json.load(open(os.path.join(os.path.dirname(__file__), "..", "content", "x.json"))):
             text = xapi.body_for(item, cfg)["text"]
             self.assertLessEqual(xapi.weight(text), 280)
-            self.assertIn("$OrangeOrangus", text)
+            self.assertIn("$ORANGU", text)
             self.assertNotIn("http", text)
         long = xapi.body_for({"type": "text", "text": "x" * 250}, cfg)["text"]
-        self.assertTrue(long.startswith("x" * 250) and "$OrangeOrangus" in long and xapi.weight(long) <= 280)
+        self.assertTrue(long.startswith("x" * 250) and "$ORANGU" in long and xapi.weight(long) <= 280)
