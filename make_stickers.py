@@ -30,11 +30,26 @@ def call(method, data=None, files=None):
 bot = call("getMe")["result"]["username"]
 name = f"og_peelers_by_{bot}"
 link = f"https://t.me/addstickers/{name}"
+
+
+def announce():
+    if os.environ.get("ANNOUNCE") != "1":
+        return
+    chat = os.environ["CHAT_ID"]
+    st = call("getStickerSet", {"name": name})["result"]["stickers"][0]["file_id"]
+    call("sendSticker", {"chat_id": chat, "sticker": st})
+    print(call("sendMessage", {"chat_id": chat, "disable_web_page_preview": True, "text":
+        "🏅 OG PEELER STICKERS ARE HERE 🏅\n\nOfficial sticker pack for the OG Peelers, the first 500 of the Troop. "
+        "Add it and flex your OG status in every chat 🦧🍊\n👇\n" + link}).get("ok"))
+
+
 if call("getStickerSet", {"name": name}).get("ok"):
-    print("exists", link); sys.exit(0)
+    print("exists", link); announce(); sys.exit(0)
 items = [{"sticker": f"attach://s{i}", "format": "static", "emoji_list": [e]} for i, (_, e) in enumerate(STICKERS)]
 files = {f"s{i}": os.path.join("stickers", f) for i, (f, _) in enumerate(STICKERS)}
 r = call("createNewStickerSet", {"user_id": ADMIN, "name": name, "title": "OG Peeler - OrangeOrangus",
                                  "stickers": json.dumps(items)}, files)
 print(r if not r.get("ok") else f"created {link}")
+if r.get("ok"):
+    announce()
 sys.exit(0 if r.get("ok") else 1)
