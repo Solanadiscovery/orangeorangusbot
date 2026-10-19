@@ -81,7 +81,12 @@ class Bot:
         for u in updates:
             self.state["update_offset"], self.dirty = u["update_id"] + 1, True
             msg = u.get("message") or {}
-            if str(msg.get("from", {}).get("id")) != self.admin or msg.get("chat", {}).get("type") != "private":
+            if msg.get("chat", {}).get("type") != "private":
+                continue
+            sender = str(msg.get("from", {}).get("id"))
+            if sender != self.admin:  # risponde solo con il suo ID: utile per configurare ADMIN_USER_ID
+                print(f"Messaggio privato da un non-admin (ID ...{sender[-3:]})", flush=True)
+                tg.call("sendMessage", {"chat_id": sender, "text": f"🦧 This bot has no public commands.\nYour Telegram ID: {sender}"})
                 continue
             cmd = (msg.get("text") or "").split()[0].lower() if msg.get("text") else ""
             reply = self.handle(cmd)
