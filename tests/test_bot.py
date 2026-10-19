@@ -199,10 +199,6 @@ class BotTest(unittest.TestCase):
             self.assertEqual(tg.call("getChatMemberCount", {}, sleep=slept.append), 5)
         self.assertEqual(slept, [3])
 
-
-if __name__ == "__main__":
-    unittest.main()
-
     def test_x_error_does_not_cause_duplicate_post(self):
         fake = FakeTelegram()
         env = {k: "k" for k in xapi.KEYS}
@@ -281,3 +277,7 @@ class XNoLinks(unittest.TestCase):
         long = xapi.body_for({"type": "text", "text": "x" * 250, "tags": ["#Solana"]}, cfg)["text"]
         self.assertTrue(long.startswith("x" * 250))
         self.assertLessEqual(xapi.weight(long), 280)
+
+
+if __name__ == "__main__":
+    unittest.main()
