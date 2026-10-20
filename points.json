@@ -35,6 +35,23 @@
    "badges": [
     "first"
    ]
+  },
+  "8757795848": {
+   "name": "M",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-20T09:16:55.718372+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
