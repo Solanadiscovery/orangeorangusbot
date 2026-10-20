@@ -18,6 +18,23 @@
    "badges": [
     "first"
    ]
+  },
+  "8585972796": {
+   "name": "Omar",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-20T09:10:18.127342+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
