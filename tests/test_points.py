@@ -216,6 +216,7 @@ class PointsTest(unittest.TestCase):
 
     def test_reminder_every_two_hours_and_replaces_previous(self):
         posts = lambda: [f for m, f in self.fake.calls if m == "sendMessage" and f["chat_id"] == "@test"]
+        self.p.cfg["promo"]["anchor_hour"] = 11  # T0 is 11:00 in Rome
         self.p.tick(); self.p.tick()
         self.assertEqual(len(posts()), 1)
         self.assertIn("t.me/OrangeOrangusBot?start=points", posts()[0]["text"])
@@ -229,6 +230,18 @@ class PointsTest(unittest.TestCase):
         self.assertEqual(len(posts()), 2)
         self.assertNotEqual(posts()[0]["text"], posts()[1]["text"])
         self.assertEqual([f["message_id"] for m, f in self.fake.calls if m == "deleteMessage"], [101])
+
+    def test_reminder_starts_at_anchor_hour(self):
+        self.assertEqual(self.p.cfg["promo"]["anchor_hour"], 13)
+        self.p.d["promo_slot"] = self.p.hour_key()  # as when opening / after the 11:00 reminder
+        self.p.tick()
+        self.assertFalse([1 for m, f in self.fake.calls if m == "sendMessage"])
+        self.b.now = T0 + datetime.timedelta(hours=1, minutes=2)
+        self.p.tick()  # 12:xx
+        self.assertFalse([1 for m, f in self.fake.calls if m == "sendMessage"])
+        self.b.now = T0 + datetime.timedelta(hours=2, minutes=2)
+        self.p.tick()  # 13:xx
+        self.assertEqual(len([1 for m, f in self.fake.calls if m == "sendMessage"]), 1)
 
     def test_no_reminder_when_closed(self):
         self.p.d["open"] = False
