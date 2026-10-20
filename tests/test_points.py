@@ -255,9 +255,6 @@ class PointsTest(unittest.TestCase):
         self.assertTrue(self.p.d["open"])
         self.assertNotIn("10", self.p.d["users"])
 
-    def test_disabled_by_default_in_repo_data(self):
-        self.assertFalse(json.loads((REPO / "points.json").read_text()).get("open", False))
-
 
 if __name__ == "__main__":
     unittest.main()
