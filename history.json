@@ -118,5 +118,13 @@
   "platform": "telegram",
   "text": "🦧 What's Orango's true superpower?",
   "ts": "2026-10-20T20:00:06.227425+00:00"
+ },
+ {
+  "id": "x-hype-early-jungle",
+  "concept": "x-hype-early-jungle",
+  "type": "hype",
+  "platform": "x",
+  "text": "Early is a feeling. Being in the jungle before the reveal beats reading about it after. 👀🍊",
+  "ts": "2026-10-20T21:00:45.733575+00:00"
  }
 ]
