@@ -72,5 +72,23 @@
   "og": {
     "enabled": true,
     "text_existing": "🏅 OG PEELERS 🏅\n\nTo the first {count} members already here: you are officially OG Peelers. You were here before anyone else, and the jungle won't forget it. 🦧🍊\n\nThe OG title goes to the first {goal} members only. {left} OG spots left 👇\nhttps://t.me/OrangeOrangus"
+  },
+  "points": {
+    "_help": "Peel Points: apri/chiudi con /points_on e /points_off dall'admin (chiuso di default). x_handle non serve: il post deve contenere uno dei testi in required_any.",
+    "group_link": "https://t.me/OrangeOrangus",
+    "daily_cap": 100,
+    "points_join": 10,
+    "points_checkin": 5,
+    "points_post": 20,
+    "points_invite": 30,
+    "max_invites": 10,
+    "hold_hours": 24,
+    "max_post_age_hours": 48,
+    "review_every": 5,
+    "required_any": [
+      "#OrangeOrangus",
+      "$ORANGU"
+    ],
+    "announce": "🍊 PEEL POINTS ARE LIVE! 🦧\n\nComplete missions, earn Peel Points and climb the top 10: join the Troop, daily check-in, post on X, invite friends.\n\n👉 Start here: https://t.me/{bot}?start=points\n\nPeel Points are community points with no monetary value. Nothing is promised in exchange for them: any future use will be announced only by the admins in the pinned messages. Never trust DMs."
   }
 }

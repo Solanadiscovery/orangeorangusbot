@@ -12,7 +12,7 @@ import datetime, json, os, subprocess, sys, time, urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-import content, countdown, tg, xapi
+import content, countdown, points, tg, xapi
 
 ROOT = Path(__file__).parent
 RUN_SECONDS = 5 * 3600 + 40 * 60
@@ -45,6 +45,7 @@ class Bot:
         self.cfg = load("config.json")
         self.state = load("state.json", {})
         self.history = load("history.json", [])
+        self.points = points.Points(self, load("points.json", {}))
         self.pools = {p: load(f"content/{p}.json") for p in ("telegram", "x")}
         self.chat = os.environ.get("CHAT_ID", "").strip()
         self.admin = os.environ.get("ADMIN_USER_ID", "").strip()
@@ -59,9 +60,10 @@ class Bot:
     def persist(self, msg="Bot state"):
         save("state.json", self.state)
         save("history.json", self.history)
+        save("points.json", self.points.d)
         if os.environ.get("GITHUB_ACTIONS"):
             for cmd in (["config", "user.name", "orangeorangus-bot"], ["config", "user.email", "bot@users.noreply.github.com"],
-                        ["add", "state.json", "history.json"], ["commit", "-qm", msg],
+                        ["add", "state.json", "history.json", "points.json"], ["commit", "-qm", msg],
                         ["pull", "-q", "--rebase", "origin", "main"], ["push", "-q", "origin", "HEAD:main"]):
                 subprocess.run(["git", *cmd], check=False)
         self.dirty = False
@@ -86,23 +88,29 @@ class Bot:
     # --- comandi admin (chat privata con il bot) ------------------------------
     def commands(self):
         updates = tg.call("getUpdates", {"offset": self.state.get("update_offset", 0), "timeout": 0,
-                                         "allowed_updates": ["message", "chat_member"]})
+                                         "allowed_updates": ["message", "chat_member", "callback_query"]})
         joined = []
         for u in updates:
             self.state["update_offset"], self.dirty = u["update_id"] + 1, True
+            if u.get("callback_query"):
+                self.safe_points(lambda cb=u["callback_query"]: self.points.on_callback(cb))
+                continue
             cm = u.get("chat_member")
             if cm and cm["new_chat_member"]["status"] == "member" and cm["old_chat_member"]["status"] in ("left", "kicked"):
                 joined.append(cm["new_chat_member"]["user"].get("first_name") or "Peeler")
+                self.safe_points(lambda cm=cm: self.points.on_join(cm))
                 continue
             msg = u.get("message") or {}
             if msg.get("new_chat_members"):  # gruppi: ingresso segnalato anche come messaggio di servizio
                 joined += [m.get("first_name") or "Peeler" for m in msg["new_chat_members"] if not m.get("is_bot")]
                 continue
-            if not self.admin:
-                continue
             if msg.get("chat", {}).get("type") != "private":
                 continue
             sender = str(msg.get("from", {}).get("id"))
+            if (msg.get("text") or "").startswith("/") and self.safe_points(lambda m=msg: self.points.on_message(m, bool(self.admin) and sender == self.admin)):
+                continue
+            if not self.admin:
+                continue
             if sender != self.admin:  # gli altri utenti vengono ignorati in silenzio
                 continue
             cmd = (msg.get("text") or "").split()[0].lower() if msg.get("text") else ""
@@ -111,6 +119,15 @@ class Bot:
                 tg.call("sendMessage", {"chat_id": self.admin, "text": reply})
         if joined:
             self.welcome(list(dict.fromkeys(joined)))
+
+    def safe_points(self, fn):
+        """Peel Points never stop countdown or posts: any error is logged and the admin is alerted once an hour."""
+        try:
+            return fn()
+        except Exception as e:
+            print(f"Errore Peel Points: {e}", flush=True)
+            self.alert("points_error", f"Errore nei Peel Points: {e}")
+            return False
 
     def welcome(self, names):
         """Un solo messaggio di benvenuto per gli ingressi del minuto; il precedente viene cancellato (niente spam)."""
@@ -288,7 +305,7 @@ class Bot:
 
     # --- ciclo -------------------------------------------------------------------
     def tick(self):
-        for step in (self.commands, lambda: self.publish("telegram"), lambda: self.publish("x")):
+        for step in (self.commands, lambda: self.safe_points(self.points.tick), lambda: self.publish("telegram"), lambda: self.publish("x")):
             try:
                 step()
             except Exception as e:
