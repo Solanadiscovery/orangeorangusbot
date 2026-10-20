@@ -185,6 +185,35 @@ class PointsTest(unittest.TestCase):
         self.assertIn("no monetary value", posts[0])
         self.assertTrue(self.p.d["open"])
 
+    def test_badges_levels_and_streak(self):
+        self.say(10, "/checkin")
+        self.assertIn("First Peel", self.fake.to(10)[-1])
+        for d in (1, 2):
+            self.b.now = T0 + datetime.timedelta(days=d)
+            self.say(10, "/checkin")
+        self.assertTrue(any("On Fire" in x for x in self.fake.to(10)))
+        self.assertEqual(self.p.d["users"]["10"]["streak"], 3)
+        self.b.now = T0 + datetime.timedelta(days=5)  # streak broken, best streak stays
+        self.say(10, "/checkin")
+        self.assertEqual(self.p.d["users"]["10"]["streak"], 1)
+        self.assertEqual(self.p.d["users"]["10"]["best_streak"], 3)
+        self.p.d["users"]["10"]["pts"] = 160
+        self.say(10, "/points")
+        self.assertTrue(any("LEVEL UP" in x and "Climber" in x for x in self.fake.to(10)))
+        self.say(10, "/badges")
+        out = self.fake.to(10)[-1]
+        self.assertIn("🔥 On Fire", out); self.assertIn("🔒 Unstoppable", out); self.assertIn("Next level: 🦧 Troop Elite at 400", out)
+        n = len(self.fake.to(10)); self.say(10, "/points")
+        self.assertEqual(len(self.fake.to(10)), n + 1)  # no repeated badge/level messages
+
+    def test_x_and_invite_badges(self):
+        self.link()
+        self.say(10, f"/post https://x.com/ana/status/{tid(T0 - datetime.timedelta(hours=1))}")
+        self.assertTrue(any("X Voice" in x for x in self.fake.to(10)))
+        u = self.p.d["users"]["10"]; u["invites"] = 3
+        self.say(10, "/badges")
+        self.assertIn("🤝 Recruiter", self.fake.to(10)[-1])
+
     def test_hourly_reminder_once_per_hour_and_replaces_previous(self):
         posts = lambda: [f for m, f in self.fake.calls if m == "sendMessage" and f["chat_id"] == "@test"]
         self.p.tick(); self.p.tick()

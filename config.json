@@ -98,6 +98,33 @@
         "🚨🦧 DON'T MISS OUT, PEELERS! 🦧🚨\n\n🏆 Every point counts: the leaderboard moves FAST! 🔥\n\n🎯 CLAIM YOUR POINTS TODAY:\n💬 Join the Troop → +{points_join}\n📅 Daily check-in → +{points_checkin}\n✍️ Post on X → +{points_post}\n🤝 Invite a friend → +{points_invite} each\n\n👉 Start now: https://t.me/{bot}?start=points\n🦧 Peel the hype. Release the ape. 🍊\n\nℹ️ Peel Points are community points with no monetary value. Official news only in the pinned messages. Never trust DMs.",
         "🍊⚡ THE JUNGLE IS COMPETING! ⚡🍊\n\n🥇 Who will be #1 on the Peel Points top 10? 👀\n\n🎯 CLAIM YOUR POINTS TODAY:\n💬 Join the Troop → +{points_join}\n📅 Daily check-in → +{points_checkin}\n✍️ Post on X → +{points_post}\n🤝 Invite a friend → +{points_invite} each\n\n👉 Start now: https://t.me/{bot}?start=points\n🦧 Peel the hype. Release the ape. 🍊\n\nℹ️ Peel Points are community points with no monetary value. Official news only in the pinned messages. Never trust DMs."
       ]
-    }
+    },
+    "levels": [
+      [
+        0,
+        "🌱",
+        "Seedling"
+      ],
+      [
+        50,
+        "🍊",
+        "Peeler"
+      ],
+      [
+        150,
+        "🧗",
+        "Climber"
+      ],
+      [
+        400,
+        "🦧",
+        "Troop Elite"
+      ],
+      [
+        1000,
+        "👑",
+        "OG Legend"
+      ]
+    ]
   }
 }

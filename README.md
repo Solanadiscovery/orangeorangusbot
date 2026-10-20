@@ -41,10 +41,11 @@ Aggiungi elementi a `content/*.json` con `id` e `concept` unici. Tipi Telegram: 
 
 Modulo `points.py`, **chiuso di default**: gli utenti non ricevono risposte finché l'admin non scrive al bot in privato `/points_on` (annuncia una sola volta nel gruppo e apre). `/points_off` richiude, `/points_stats` mostra i numeri.
 
-Comandi utente (in chat privata con il bot): `/start`, `/missions`, `/points`, `/rank`, `/checkin`, `/x @handle`, `/post <link>`, `/invite`, `/rules`.
+Comandi utente (in chat privata con il bot): `/start`, `/missions`, `/points`, `/badges`, `/rank`, `/checkin`, `/x @handle`, `/post <link>`, `/invite`, `/rules`.
 
 - Join Telegram +10 (verificato con getChatMember), check-in +5, post su X +20 (una volta al giorno), invito +30 (max 10).
 - Post su X: verifica con oEmbed pubblico (autore = account collegato, testo con #OrangeOrangus o $ORANGU, data dall'id del post, link mai usato prima). Se X non risponde il post attende l'admin con pulsanti Approva/Rifiuta. Un campione (1 su 5) dei post approvati arriva comunque all'admin con "Revoca": revoca = punti tolti e 1 avviso, 2 avvisi = escluso.
 - Inviti: link personale; i punti arrivano dopo 24 ore se l'amico è ancora nel gruppo. Richiede che il bot sia admin del gruppo con il permesso di invitare (e di vedere i cambi di membri).
 - Tetto 100 punti al giorno (gli inviti hanno il limite proprio). Dati in `points.json`. Gli errori dei punti non fermano countdown e post. Impostazioni e testo dell'annuncio in `config.json` → `points`.
 - I punti non hanno valore economico e non promettono nulla: il testo lo ripete.
+- Livelli (soglie in `config.json` → `points.levels`): 🌱 Seedling 0, 🍊 Peeler 50, 🧗 Climber 150, 🦧 Troop Elite 400, 👑 OG Legend 1000. Badge: First Peel, On Fire (streak 3 giorni), Unstoppable (7), X Voice (1 post), Megaphone (5), Recruiter (3 amici), Pack Leader (10). Solo status: nessun valore economico.

@@ -33,6 +33,18 @@ def oembed(url):
     return {"author": author, "text": text}
 
 
+# Badges are earned from what the member did (status only, no monetary value). id: (icon, name, how, test(user, posts))
+BADGES = {
+    "first": ("🥇", "First Peel", "Earn your first points", lambda u, n: u["pts"] > 0),
+    "streak3": ("🔥", "On Fire", "3-day check-in streak", lambda u, n: u.get("best_streak", 0) >= 3),
+    "streak7": ("⚡", "Unstoppable", "7-day check-in streak", lambda u, n: u.get("best_streak", 0) >= 7),
+    "voice": ("✍️", "X Voice", "1 verified post on X", lambda u, n: n >= 1),
+    "megaphone": ("📣", "Megaphone", "5 verified posts on X", lambda u, n: n >= 5),
+    "recruiter": ("🤝", "Recruiter", "Bring 3 friends", lambda u, n: u["invites"] >= 3),
+    "pack": ("🦍", "Pack Leader", "Bring 10 friends", lambda u, n: u["invites"] >= 10),
+}
+
+
 class Points:
     def __init__(self, bot, data, fetch=oembed):
         self.b, self.d, self.fetch = bot, data, fetch
@@ -76,6 +88,30 @@ class Points:
         self.b.dirty = True
         return n
 
+    def level(self, pts):
+        """(index, icon, name) of the highest level reached."""
+        i = max(k for k, lv in enumerate(self.cfg["levels"]) if pts >= lv[0])
+        return (i, *self.cfg["levels"][i][1:])
+
+    def posts_ok(self, uid):
+        return sum(1 for t in self.d["tweets"].values() if t["uid"] == str(uid) and t["status"] == "approved")
+
+    def check_badges(self, uid):
+        """Announces new badges and level-ups (badges stay earned even if points are later revoked)."""
+        u = self.user(uid)
+        n = self.posts_ok(uid)
+        new = [k for k, (_, _, _, ok) in BADGES.items() if k not in u.setdefault("badges", []) and ok(u, n)]
+        lvl = self.level(u["pts"])[0]
+        if new:
+            u["badges"] += new
+            self.say(uid, "🏅 New badge" + ("s" if len(new) > 1 else "") + "!\n" + "\n".join(f"{BADGES[k][0]} {BADGES[k][1]}: {BADGES[k][2]}" for k in new))
+        if lvl > u.get("level", 0):
+            u["level"] = lvl
+            _, icon, name = self.level(u["pts"])
+            self.say(uid, f"🎉 LEVEL UP! You are now {icon} {name}!")
+        if new or lvl != u.get("level", 0):
+            self.b.dirty = True
+
     def is_member(self, uid):
         try:
             return tg.call("getChatMember", {"chat_id": self.b.chat, "user_id": int(uid)}).get("status") in OPEN_STATES
@@ -94,7 +130,7 @@ class Points:
         if is_admin and cmd in ("/points_on", "/points_off", "/points_stats"):
             return self.admin(cmd, uid)
         table = {"/start": self.start, "/missions": self.missions, "/points": self.points, "/rank": self.rank, "/checkin": self.checkin,
-                 "/x": self.link_x, "/post": self.post, "/invite": self.invite, "/rules": self.rules}
+                 "/x": self.link_x, "/badges": self.badges, "/post": self.post, "/invite": self.invite, "/rules": self.rules}
         if cmd not in table:
             return False
         if not (self.d["open"] or is_admin):  # until the admin opens Peel Points, regular users get no reply
@@ -104,6 +140,7 @@ class Points:
             self.say(uid, "Your account is excluded from Peel Points.")
             return True
         table[cmd](uid, u, arg)
+        self.check_badges(uid)
         return True
 
     def rules(self, uid, u, arg=""):
@@ -119,7 +156,7 @@ class Points:
             self.say(uid, f"✅ You are in the Troop: +{got} Peel Points.")
         elif not u["joined"]:
             self.say(uid, f"Join the Troop first: {self.cfg['group_link']} then send /start again.")
-        self.say(uid, "🍊 Welcome to Peel Points! Commands:\n/missions · /points · /rank · /checkin · /x @handle · /post <link> · /invite · /rules")
+        self.say(uid, "🍊 Welcome to Peel Points! Commands:\n/missions · /points · /badges · /rank · /checkin · /x @handle · /post <link> · /invite · /rules")
 
     def missions(self, uid, u, arg=""):
         c = self.cfg
@@ -129,22 +166,33 @@ class Points:
                       f"🤝 Invite a friend with your own link (/invite): +{c['points_invite']} each, after they stay {c['hold_hours']}h (max {c['max_invites']})\n\n"
                       f"Daily cap: {c['daily_cap']}.")
 
+    def badges(self, uid, u, arg=""):
+        n, lv = self.posts_ok(uid), self.cfg["levels"]
+        i, icon, name = self.level(u["pts"])
+        nxt = f"Next level: {lv[i + 1][1]} {lv[i + 1][2]} at {lv[i + 1][0]} points ({lv[i + 1][0] - u['pts']} to go)" if i + 1 < len(lv) else "Top level reached! 👑"
+        got = u.get("badges", [])
+        lines = [f"{b[0] if k in got else '🔒'} {b[1]}: {b[2]}" for k, b in BADGES.items()]
+        self.say(uid, f"{icon} Level: {name}\n{nxt}\n\n🏅 Badges ({len(got)}/{len(BADGES)})\n" + "\n".join(lines))
+
     def points(self, uid, u, arg=""):
-        self.say(uid, f"🍊 {u['pts']} Peel Points · today {u['day']['p'] if u['day']['d'] == self.now().strftime('%Y-%m-%d') else 0}/{self.cfg['daily_cap']}"
+        self.say(uid, f"{self.level(u['pts'])[1]} {self.level(u['pts'])[2]} · 🍊 {u['pts']} Peel Points · today {u['day']['p'] if u['day']['d'] == self.now().strftime('%Y-%m-%d') else 0}/{self.cfg['daily_cap']}"
                       f"\nX account: {('@' + u['x']) if u['x'] else 'not linked (/x @handle)'}")
 
     def rank(self, uid, u, arg=""):
         top = sorted(((v["pts"], v["name"] or "Peeler") for v in self.d["users"].values() if v["strikes"] < 2 and v["pts"] > 0), reverse=True)[:10]
-        rows = "\n".join(f"{i + 1}. {n} · {p}" for i, (p, n) in enumerate(top)) or "Nobody yet. Be the first!"
+        rows = "\n".join(f"{i + 1}. {self.level(p)[1]} {n} · {p}" for i, (p, n) in enumerate(top)) or "Nobody yet. Be the first!"
         self.say(uid, f"🏆 Peel Points top 10\n\n{rows}\n\nYou: {u['pts']}")
 
     def checkin(self, uid, u, arg=""):
         today = self.now().strftime("%Y-%m-%d")
         if u["checkin"] == today:
             return self.say(uid, "Already done today. Come back tomorrow! 📅")
+        yesterday = (self.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        u["streak"] = u.get("streak", 0) + 1 if u["checkin"] == yesterday else 1
+        u["best_streak"] = max(u.get("best_streak", 0), u["streak"])
         u["checkin"] = today
         got = self.award(uid, self.cfg["points_checkin"], "checkin")
-        self.say(uid, f"📅 Check-in done: +{got}. Total {u['pts']}." if got else "Daily cap reached. Come back tomorrow!")
+        self.say(uid, f"📅 Check-in done: +{got}. Streak: {u['streak']} 🔥 Total {u['pts']}." if got else "Daily cap reached. Come back tomorrow!")
 
     def link_x(self, uid, u, arg=""):
         m = HANDLE.match(arg)
@@ -260,6 +308,7 @@ class Points:
             rec.update(status="revoked" if rec["status"] == "approved" else "rejected", pts=0)
             self.say(rec["uid"], "❌ Your X post was not accepted" + (" and its points were revoked." if rec["status"] == "revoked" else "."))
         self.b.dirty = True
+        self.check_badges(rec["uid"])
         try:
             tg.call("answerCallbackQuery", {"callback_query_id": cb["id"], "text": f"Done: {rec['status']}"})
         except tg.TelegramError:
@@ -290,6 +339,7 @@ class Points:
                 u["invites"] += 1
                 got = self.award(r["inviter"], self.cfg["points_invite"], "invite", capped=False)
                 self.say(r["inviter"], f"🤝 A friend you invited stayed in the Troop: +{got}. Total {u['pts']}.")
+                self.check_badges(r["inviter"])
             self.b.dirty = True
         self.d["refs"] = keep
 
