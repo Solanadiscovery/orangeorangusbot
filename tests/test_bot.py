@@ -36,8 +36,8 @@ class FakeTelegram:
 class BotTest(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp())
-        for f in ("config.json", "history.json"):
-            shutil.copy(REPO / f, self.dir / f)
+        shutil.copy(REPO / "config.json", self.dir / "config.json")
+        (self.dir / "history.json").write_text("[]")  # never the live history: its real dates would make tests time-dependent
         shutil.copytree(REPO / "content", self.dir / "content")
         (self.dir / "state.json").write_text(json.dumps({"counter_id": 30, "counter_created": True, "announced": [],
                                                          "og_existing_done": True}))
