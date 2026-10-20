@@ -15,10 +15,10 @@
       500
     ],
     "target": "",
-    "text_members": "🍊 LIVE TROOP COUNTDOWN 🦧\n\n{bar}\n\n{left} Peelers left until the OrangeOrangus token is announced.\nInvite friends, repost on X, unlock the jungle!\n\n🔄 Updates automatically\n\n👉 Join the Troop: https://t.me/OrangeOrangus",
-    "text_done_members": "🍊 JUNGLE UNLOCKED 🦧\n\n{bar}\n\nGoal reached! The token announcement comes ONLY from admins in the pinned messages. Never trust DMs.\n\n👉 Join the Troop: https://t.me/OrangeOrangus",
-    "text_time": "🚀 THE COUNTDOWN IS ON\n\n⏳ Time remaining: {d}d {h}h {m}m\n\n🔄 Updates every minute\n\n👉 Join the Troop: https://t.me/OrangeOrangus",
-    "text_done_time": "🚀 THE COUNTDOWN IS OVER\n\nWatch the pinned messages: official news comes ONLY from admins.\n\n👉 Join the Troop: https://t.me/OrangeOrangus",
+    "text_members": "🍊 LIVE TROOP COUNTDOWN 🦧\n\n{bar}\n\n{left} Peelers left until the OrangeOrangus token is announced.\nInvite friends, repost on X, unlock the jungle!\n\n🔄 Updates automatically\n\n👉 Join the Troop: https://t.me/OrangeOrangus\n🐦 Follow us on X: https://x.com/orangeorangus",
+    "text_done_members": "🍊 JUNGLE UNLOCKED 🦧\n\n{bar}\n\nGoal reached! The token announcement comes ONLY from admins in the pinned messages. Never trust DMs.\n\n👉 Join the Troop: https://t.me/OrangeOrangus\n🐦 Follow us on X: https://x.com/orangeorangus",
+    "text_time": "🚀 THE COUNTDOWN IS ON\n\n⏳ Time remaining: {d}d {h}h {m}m\n\n🔄 Updates every minute\n\n👉 Join the Troop: https://t.me/OrangeOrangus\n🐦 Follow us on X: https://x.com/orangeorangus",
+    "text_done_time": "🚀 THE COUNTDOWN IS OVER\n\nWatch the pinned messages: official news comes ONLY from admins.\n\n👉 Join the Troop: https://t.me/OrangeOrangus\n🐦 Follow us on X: https://x.com/orangeorangus",
     "text_milestone_post": "🎉 MILESTONE: {m} PEELERS!\nThe Troop keeps growing. Next stop: {goal}. Keep inviting! 🍊",
     "text_goal_post": "🍊🦧 WE DID IT! The jungle is unlocked.\n\nHuge thanks to our {goal} OG Peelers: you built this from zero. 🏅\n\nThe OrangeOrangus token announcement is coming from the admins: watch the PINNED messages.\nNever trust DMs."
   },
