@@ -18,6 +18,7 @@ ROOT = Path(__file__).parent
 RUN_SECONDS = 5 * 3600 + 40 * 60
 SLOT_WINDOW = datetime.timedelta(minutes=30)
 PIN_CHECK_EVERY = 1800
+COMMAND_POLL = 4  # secondi: i comandi in privato ricevono risposta quasi subito, il resto gira ogni minuto
 HELP = """🦧 Comandi admin OrangeOrangus
 
 /status → stato del bot: pausa, anteprima, countdown, contenuti nuovi rimasti, ultimi post
@@ -336,9 +337,19 @@ def main():
         print(Bot().preview_text())
         return
     end, bot = time.time() + RUN_SECONDS, Bot()  # config e contenuti nuovi valgono dal riavvio successivo
+    next_tick = 0
     while time.time() < end:
-        bot.tick()
-        time.sleep(60)
+        if time.time() >= next_tick:
+            bot.tick()
+            next_tick = time.time() + 60
+        else:
+            try:
+                bot.commands()
+                if bot.dirty:
+                    bot.persist()
+            except Exception as e:
+                print(f"Errore comandi: {e}", flush=True)
+        time.sleep(COMMAND_POLL)
     restart_self()
 
 
