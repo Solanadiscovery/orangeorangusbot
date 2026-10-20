@@ -2,17 +2,22 @@
  "users": {
   "1359180598": {
    "name": "____",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-10-20",
    "day": {
     "d": "2026-10-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
    "invites": 0,
-   "first": "2026-10-20T08:11:49.090697+00:00"
+   "first": "2026-10-20T08:11:49.090697+00:00",
+   "streak": 1,
+   "best_streak": 1,
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
