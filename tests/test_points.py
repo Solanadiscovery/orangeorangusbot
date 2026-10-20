@@ -194,6 +194,20 @@ class PointsTest(unittest.TestCase):
                 self.b.commands()
         self.assertTrue(any("Peel Points" in x for x in self.fake.to(1)))  # avviso all'admin
 
+    def test_regular_users_only_get_points_commands(self):
+        self.p.d["open"] = True
+        upd = lambda i, uid, text, chat="private": {"update_id": i, "message": {"chat": {"type": chat}, "from": {"id": uid, "first_name": "Z"}, "text": text}}
+        cmds = ["/status", "/pause", "/resume", "/preview_on", "/next", "/help", "/points_on", "/points_off", "/points_stats", "/anything", "hello"]
+        self.fake.updates = [[upd(i, 10, c) for i, c in enumerate(cmds)] + [upd(50, 10, "/points", "supergroup")]]
+        orig = self.fake.__call__
+        with mock.patch.object(tg, "call", lambda m, f, **k: self.fake.updates.pop(0) if m == "getUpdates" and self.fake.updates else orig(m, f, **k)):
+            self.b.commands()
+        self.assertEqual(self.fake.to(10), [])
+        self.assertNotIn("paused", self.b.state)
+        self.assertNotIn("preview", self.b.state)
+        self.assertTrue(self.p.d["open"])
+        self.assertNotIn("10", self.p.d["users"])
+
     def test_disabled_by_default_in_repo_data(self):
         self.assertFalse(json.loads((REPO / "points.json").read_text()).get("open", False))
 
