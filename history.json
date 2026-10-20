@@ -110,5 +110,13 @@
   "platform": "x",
   "text": "The first 500 Peelers on Telegram get the OG title. Once the Troop is full, nobody gets it later. 🏅",
   "ts": "2026-10-20T17:30:59.762496+00:00"
+ },
+ {
+  "id": "tg-poll-orango-skill",
+  "concept": "orango-skill",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🦧 What's Orango's true superpower?",
+  "ts": "2026-10-20T20:00:06.227425+00:00"
  }
 ]
