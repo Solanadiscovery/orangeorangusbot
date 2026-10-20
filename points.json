@@ -19,6 +19,7 @@
  "links": {},
  "refs": [],
  "referred": {},
- "open": false,
- "announced": false
+ "open": true,
+ "announced": true,
+ "promo_slot": "2026-10-20 10"
 }
