@@ -41,9 +41,7 @@
   "x": {
     "times": [
       "11:30",
-      "15:30",
-      "19:30",
-      "23:00"
+      "19:30"
     ],
     "rotation": [
       "hype"
@@ -62,7 +60,7 @@
       "#DYOR"
     ],
     "max_topic_hashtags": 2,
-    "min_gap_minutes": 180
+    "min_gap_minutes": 360
   },
   "welcome": {
     "enabled": true,
