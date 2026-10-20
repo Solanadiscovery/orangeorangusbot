@@ -70,5 +70,13 @@
   "platform": "telegram",
   "text": "Monday mood: Orango opening the charts with one eye closed. 🙈🍊",
   "ts": "2026-10-20T08:00:51.761855+00:00"
+ },
+ {
+  "id": "x-hype-troop-500",
+  "concept": "x-hype-troop-500",
+  "type": "hype",
+  "platform": "x",
+  "text": "The OrangeOrangus token is announced when the Troop hits 500 on Telegram. Every new Peeler moves it closer. 🍊🦧",
+  "ts": "2026-10-20T09:30:54.495911+00:00"
  }
 ]
