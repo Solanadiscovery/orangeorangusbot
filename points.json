@@ -1,1 +1,24 @@
-{}
+{
+ "users": {
+  "1359180598": {
+   "name": "____",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-20T08:11:49.090697+00:00"
+  }
+ },
+ "tweets": {},
+ "links": {},
+ "refs": [],
+ "referred": {},
+ "open": false,
+ "announced": false
+}
