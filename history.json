@@ -62,5 +62,13 @@
   "platform": "x",
   "text": "The Troop is growing every day. Real people, real memes, zero bots. 🫂🍊",
   "ts": "2026-10-19T21:00:14.933391+00:00"
+ },
+ {
+  "id": "tg-meme-monday",
+  "concept": "monday",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Monday mood: Orango opening the charts with one eye closed. 🙈🍊",
+  "ts": "2026-10-20T08:00:51.761855+00:00"
  }
 ]
