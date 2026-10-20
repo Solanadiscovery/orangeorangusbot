@@ -214,7 +214,7 @@ class PointsTest(unittest.TestCase):
         self.say(10, "/badges")
         self.assertIn("🤝 Recruiter", self.fake.to(10)[-1])
 
-    def test_hourly_reminder_once_per_hour_and_replaces_previous(self):
+    def test_reminder_every_two_hours_and_replaces_previous(self):
         posts = lambda: [f for m, f in self.fake.calls if m == "sendMessage" and f["chat_id"] == "@test"]
         self.p.tick(); self.p.tick()
         self.assertEqual(len(posts()), 1)
@@ -222,6 +222,9 @@ class PointsTest(unittest.TestCase):
         self.assertIn("no monetary value", posts()[0]["text"])
         self.assertIn("+20", posts()[0]["text"])
         self.b.now = T0 + datetime.timedelta(hours=1, minutes=1)
+        self.p.tick()
+        self.assertEqual(len(posts()), 1)  # every 2 hours: not yet
+        self.b.now = T0 + datetime.timedelta(hours=2, minutes=1)
         self.p.tick()
         self.assertEqual(len(posts()), 2)
         self.assertNotEqual(posts()[0]["text"], posts()[1]["text"])

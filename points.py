@@ -277,7 +277,7 @@ class Points:
             self.say(uid, "Peel Points closed: regular users get no replies.")
         else:
             self.d["open"] = True
-            self.d["promo_slot"] = self.hour_key()  # the first reminder comes at the next full hour
+            self.d["promo_slot"], self.d["promo_at"] = self.hour_key(), self.now().isoformat()  # first reminder after the interval
             if self.d["announced"]:
                 self.say(uid, "Peel Points open (announcement already sent before).")
             else:
@@ -349,12 +349,15 @@ class Points:
         return self.now().astimezone(zoneinfo.ZoneInfo(self.b.cfg["timezone"])).strftime("%Y-%m-%d %H")
 
     def promo(self):
-        """One hype message per hour in the group (the previous one is deleted, so there is never a pile of them)."""
+        """One hype message every `every_hours` hours in the group (the previous one is deleted, so there is never a pile of them)."""
         c = self.cfg.get("promo", {})
         key = self.hour_key()
         if not (self.d["open"] and c.get("enabled") and c.get("texts")) or self.d.get("promo_slot") == key:
             return
-        self.d["promo_slot"] = key
+        last = self.d.get("promo_at")
+        if last and (self.now() - datetime.datetime.fromisoformat(last)).total_seconds() < c.get("every_hours", 1) * 3600 - 300:
+            return
+        self.d["promo_slot"], self.d["promo_at"] = key, self.now().isoformat()
         n = self.d["promo_n"] = self.d.get("promo_n", -1) + 1  # rotates the variants
         self.b.persist("Peel Points reminder")  # saved first: never two reminders in the same hour
         bot_name = tg.call("getMe", {}).get("username", "")
