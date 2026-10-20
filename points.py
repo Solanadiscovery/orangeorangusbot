@@ -229,6 +229,7 @@ class Points:
             self.say(uid, "Peel Points closed: regular users get no replies.")
         else:
             self.d["open"] = True
+            self.d["promo_slot"] = self.hour_key()  # the first reminder comes at the next full hour
             if self.d["announced"]:
                 self.say(uid, "Peel Points open (announcement already sent before).")
             else:
@@ -292,6 +293,33 @@ class Points:
             self.b.dirty = True
         self.d["refs"] = keep
 
+    # --- hourly reminder -----------------------------------------------------
+    def hour_key(self):
+        import zoneinfo
+        return self.now().astimezone(zoneinfo.ZoneInfo(self.b.cfg["timezone"])).strftime("%Y-%m-%d %H")
+
+    def promo(self):
+        """One hype message per hour in the group (the previous one is deleted, so there is never a pile of them)."""
+        c = self.cfg.get("promo", {})
+        key = self.hour_key()
+        if not (self.d["open"] and c.get("enabled") and c.get("texts")) or self.d.get("promo_slot") == key:
+            return
+        self.d["promo_slot"] = key
+        n = self.d["promo_n"] = self.d.get("promo_n", -1) + 1  # rotates the variants
+        self.b.persist("Peel Points reminder")  # saved first: never two reminders in the same hour
+        bot_name = tg.call("getMe", {}).get("username", "")
+        text = c["texts"][n % len(c["texts"])].format(bot=bot_name, **{k: v for k, v in self.cfg.items() if k.startswith("points_")})
+        old = self.d.get("promo_id")
+        msg = tg.call("sendMessage", {"chat_id": self.b.chat, "text": text, "link_preview_options": {"is_disabled": True}})
+        self.d["promo_id"] = msg["message_id"]
+        if old and c.get("delete_previous", True):
+            try:
+                tg.call("deleteMessage", {"chat_id": self.b.chat, "message_id": old})
+            except tg.TelegramError:
+                pass
+        self.b.dirty = True
+
     def tick(self):
         if self.d["open"] and self.d["refs"]:
             self.process_refs()
+        self.promo()

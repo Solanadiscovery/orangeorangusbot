@@ -185,6 +185,24 @@ class PointsTest(unittest.TestCase):
         self.assertIn("no monetary value", posts[0])
         self.assertTrue(self.p.d["open"])
 
+    def test_hourly_reminder_once_per_hour_and_replaces_previous(self):
+        posts = lambda: [f for m, f in self.fake.calls if m == "sendMessage" and f["chat_id"] == "@test"]
+        self.p.tick(); self.p.tick()
+        self.assertEqual(len(posts()), 1)
+        self.assertIn("t.me/OrangeOrangusBot?start=points", posts()[0]["text"])
+        self.assertIn("no monetary value", posts()[0]["text"])
+        self.assertIn("+20", posts()[0]["text"])
+        self.b.now = T0 + datetime.timedelta(hours=1, minutes=1)
+        self.p.tick()
+        self.assertEqual(len(posts()), 2)
+        self.assertNotEqual(posts()[0]["text"], posts()[1]["text"])
+        self.assertEqual([f["message_id"] for m, f in self.fake.calls if m == "deleteMessage"], [101])
+
+    def test_no_reminder_when_closed(self):
+        self.p.d["open"] = False
+        self.p.tick()
+        self.assertFalse([1 for m, f in self.fake.calls if m == "sendMessage"])
+
     def test_points_errors_never_stop_the_bot(self):
         with mock.patch.object(points.Points, "on_message", side_effect=RuntimeError("boom")):
             self.fake.updates = [[{"update_id": 1, "message": {"chat": {"type": "private"}, "from": {"id": 10}, "text": "/points"}}]]

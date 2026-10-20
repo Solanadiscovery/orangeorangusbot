@@ -89,6 +89,15 @@
       "#OrangeOrangus",
       "$ORANGU"
     ],
-    "announce": "🍊 PEEL POINTS ARE LIVE! 🦧\n\nComplete missions, earn Peel Points and climb the top 10: join the Troop, daily check-in, post on X, invite friends.\n\n👉 Start here: https://t.me/{bot}?start=points\n\nPeel Points are community points with no monetary value. Nothing is promised in exchange for them: any future use will be announced only by the admins in the pinned messages. Never trust DMs."
+    "announce": "🍊 PEEL POINTS ARE LIVE! 🦧\n\nComplete missions, earn Peel Points and climb the top 10: join the Troop, daily check-in, post on X, invite friends.\n\n👉 Start here: https://t.me/{bot}?start=points\n\nPeel Points are community points with no monetary value. Nothing is promised in exchange for them: any future use will be announced only by the admins in the pinned messages. Never trust DMs.",
+    "promo": {
+      "enabled": true,
+      "delete_previous": true,
+      "texts": [
+        "🔥🍊 PEEL POINTS ARE LIVE! 🍊🔥\n\n⚡ The Troop is already climbing the top 10! 🏆\n\n🎯 CLAIM YOUR POINTS TODAY:\n💬 Join the Troop → +{points_join}\n📅 Daily check-in → +{points_checkin}\n✍️ Post on X → +{points_post}\n🤝 Invite a friend → +{points_invite} each\n\n👉 Start now: https://t.me/{bot}?start=points\n🦧 Peel the hype. Release the ape. 🍊\n\nℹ️ Peel Points are community points with no monetary value. Official news only in the pinned messages. Never trust DMs.",
+        "🚨🦧 DON'T MISS OUT, PEELERS! 🦧🚨\n\n🏆 Every point counts: the leaderboard moves FAST! 🔥\n\n🎯 CLAIM YOUR POINTS TODAY:\n💬 Join the Troop → +{points_join}\n📅 Daily check-in → +{points_checkin}\n✍️ Post on X → +{points_post}\n🤝 Invite a friend → +{points_invite} each\n\n👉 Start now: https://t.me/{bot}?start=points\n🦧 Peel the hype. Release the ape. 🍊\n\nℹ️ Peel Points are community points with no monetary value. Official news only in the pinned messages. Never trust DMs.",
+        "🍊⚡ THE JUNGLE IS COMPETING! ⚡🍊\n\n🥇 Who will be #1 on the Peel Points top 10? 👀\n\n🎯 CLAIM YOUR POINTS TODAY:\n💬 Join the Troop → +{points_join}\n📅 Daily check-in → +{points_checkin}\n✍️ Post on X → +{points_post}\n🤝 Invite a friend → +{points_invite} each\n\n👉 Start now: https://t.me/{bot}?start=points\n🦧 Peel the hype. Release the ape. 🍊\n\nℹ️ Peel Points are community points with no monetary value. Official news only in the pinned messages. Never trust DMs."
+      ]
+    }
   }
 }
