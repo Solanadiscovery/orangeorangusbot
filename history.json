@@ -166,5 +166,13 @@
   "platform": "x",
   "text": "A token is coming to the jungle. Not today, not on a made-up date: when the Troop is ready. 🦧🔓",
   "ts": "2026-10-21T17:30:32.720673+00:00"
+ },
+ {
+  "id": "tg-poll-meme-style",
+  "concept": "meme-style",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "😂 Favourite meme format?",
+  "ts": "2026-10-21T20:00:14.565201+00:00"
  }
 ]
