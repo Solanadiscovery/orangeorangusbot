@@ -54,6 +54,23 @@
    ],
    "streak": 1,
    "best_streak": 1
+  },
+  "1487424404": {
+   "name": "BASED",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-21",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-21T20:13:46.687596+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
