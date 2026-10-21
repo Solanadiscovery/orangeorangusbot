@@ -3,7 +3,7 @@
  "counter_created": true,
  "announced": [],
  "slots": {
-  "telegram": "2026-10-21 10:00",
+  "telegram": "2026-10-21 14:00",
   "x": "2026-10-21 11:30"
  },
  "x_intro_done": true,
@@ -12,6 +12,6 @@
  "welcome_id": 359,
  "last_type": {
   "x": "hype",
-  "telegram": "meme"
+  "telegram": "poll"
  }
 }

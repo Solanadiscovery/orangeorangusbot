@@ -142,5 +142,13 @@
   "platform": "x",
   "text": "There's a live countdown pinned on our Telegram. It moves with every Peeler. Watching it is addictive. 📌🔥",
   "ts": "2026-10-21T09:30:43.567535+00:00"
+ },
+ {
+  "id": "tg-poll-chain-love",
+  "concept": "chain-love",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "⛓ Why do you like Solana the most?",
+  "ts": "2026-10-21T12:00:23.573883+00:00"
  }
 ]
