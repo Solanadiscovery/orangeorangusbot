@@ -150,5 +150,13 @@
   "platform": "telegram",
   "text": "⛓ Why do you like Solana the most?",
   "ts": "2026-10-21T12:00:23.573883+00:00"
+ },
+ {
+  "id": "tg-meme-wife-changing",
+  "concept": "wife-changing",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Not life-changing. Not wife-changing. Just jungle-changing. 🌴",
+  "ts": "2026-10-21T16:00:56.072222+00:00"
  }
 ]
