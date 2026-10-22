@@ -114,8 +114,12 @@ async def _setup_steps(guild):
         role = discord.utils.get(guild.roles, name=spec["name"])
         if not role:
             role = await guild.create_role(name=spec["name"], colour=discord.Colour.from_str(spec["color"]),
-                                           permissions=perms(spec["permissions"]), reason="/setup")
+                                           permissions=perms(spec["permissions"]), hoist=True, reason="/setup")
             done.append(f"ruolo {role.name}")
+        elif not role.hoist:
+            # Mostra il ruolo separato nella lista membri.
+            await role.edit(hoist=True, reason="/setup")
+            done.append(f"{role.name} mostrato separato")
         roles[spec["name"]] = role
     # Ordine dall'alto: Founder, Mod, OranguTeam (tutti sotto il ruolo del bot).
     top = guild.me.top_role.position
