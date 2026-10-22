@@ -130,7 +130,8 @@
   "group_filters": {
     "/x": "🐦 Follow us on X: https://x.com/orangeorangus",
     "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app",
-    "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus"
+    "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
+    "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V"
   },
   "antiflood": {
     "enabled": true,
