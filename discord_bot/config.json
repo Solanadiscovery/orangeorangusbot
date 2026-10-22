@@ -1,0 +1,42 @@
+{
+  "join_role": "OranguTeam",
+  "staff_roles": ["Founder", "Mod"],
+  "log_channel": "mod-log",
+  "timeout_minutes": 10,
+  "mention_limit": 5,
+  "duplicate_limit": 3,
+  "caps_ratio": 0.7,
+  "caps_min_length": 10,
+  "spam_messages": 5,
+  "spam_seconds": 5,
+  "scam_patterns": ["*free sol*", "*claim*airdrop*", "*connect wallet*", "*seed phrase*", "*private key*", "*presale live*", "*dm me*", "*discord.gg/*", "*t.me/*"],
+  "no_link_category": "🍊 COMMUNITY",
+  "allowed_domains": [],
+  "roles": [
+    {"name": "Founder", "color": "#FFD700", "permissions": ["administrator"]},
+    {"name": "Mod", "color": "#32CD32", "permissions": ["manage_messages", "moderate_members", "kick_members"]},
+    {"name": "OranguTeam", "color": "#FF8C00", "permissions": ["read_messages", "send_messages", "add_reactions", "read_message_history"]}
+  ],
+  "categories": [
+    {"name": "📌 INFO", "channels": [
+      {"name": "benvenuto", "readonly": true},
+      {"name": "regole", "readonly": true},
+      {"name": "annunci", "readonly": true},
+      {"name": "link-ufficiali", "readonly": true},
+      {"name": "avviso-truffe", "readonly": true}
+    ]},
+    {"name": "🍊 COMMUNITY", "channels": [
+      {"name": "chat-generale", "slowmode": 5},
+      {"name": "meme", "slowmode": 30},
+      {"name": "giungla-italiana"}
+    ]},
+    {"name": "🎮 GAME", "channels": [
+      {"name": "game-feedback"},
+      {"name": "sfide-settimanali"}
+    ]},
+    {"name": "🛠 STAFF", "private": true, "channels": [
+      {"name": "mod-log"}
+    ]}
+  ],
+  "rules_text": "🍊 **Benvenuto nella giungla di OrangeOrangus!**\n1. Rispetto per tutti, niente insulti o discriminazioni.\n2. Niente spam, flood o auto-promozione.\n3. Lo staff non ti scriverà MAI per primo in DM. Nessuna presale è aperta: diffida da chiunque te ne proponga una.\n4. Non condividere mai seed phrase o chiavi private.\n5. Gli unici link ufficiali sono quelli in #link-ufficiali.\n6. Niente promesse di guadagno: OrangeOrangus è un progetto community, non un consiglio finanziario.\nPeel the hype. Release the ape. 🦧"
+}
