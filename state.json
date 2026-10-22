@@ -10,7 +10,7 @@
   "x": "2026-10-22 11:30"
  },
  "x_intro_done": true,
- "update_offset": 166177425,
+ "update_offset": 166177426,
  "og_existing_done": true,
  "welcome_id": 1049,
  "last_type": {
@@ -21,12 +21,14 @@
   "/x": "🐦 Follow us on X: https://x.com/orangeorangus",
   "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app",
   "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
-  "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V"
+  "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V",
+  "/social": "🍊🦧 OrangeOrangus official links:\n\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeorangus-racingdemo.netlify.app"
  },
  "filters_seeded": [
   "/x",
   "/demo",
   "/tlg",
-  "/discord"
+  "/discord",
+  "/social"
  ]
 }
