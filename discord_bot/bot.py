@@ -79,6 +79,10 @@ async def on_member_join(member):
         await member.add_roles(role, reason="Automatic join role")
     else:
         await log(member.guild, f"⚠️ Role {CFG['join_role']} not found: run /setup")
+    welcome = discord.utils.get(member.guild.text_channels, name="welcome")
+    if welcome and not member.bot:
+        text = CFG["welcome_message"].format(member=member.mention, count=member.guild.member_count)
+        await welcome.send(link_mentions(member.guild, text), allowed_mentions=discord.AllowedMentions(users=True))
 
 
 @client.event
@@ -241,7 +245,8 @@ async def _setup_steps(guild):
         if not channel:
             continue
         text = link_mentions(guild, text)
-        mine = [m async for m in channel.history(limit=20) if m.author == guild.me]
+        # Oldest bot message = the info post (later bot messages in #welcome are join greetings).
+        mine = [m async for m in channel.history(limit=50, oldest_first=True) if m.author == guild.me]
         if not mine:
             await channel.send(text, suppress_embeds=True, allowed_mentions=discord.AllowedMentions.none())
             done.append(f"#{name} post")
