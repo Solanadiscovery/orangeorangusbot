@@ -244,6 +244,19 @@ async def _setup_steps(guild):
             await mine[0].edit(content=text, suppress=True, allowed_mentions=discord.AllowedMentions.none())
             done.append(f"#{name} post updated")
 
+    # Read-only channels that hold a file (e.g. the roadmap PDF): posted once.
+    for name, spec in CFG.get("channel_files", {}).items():
+        channel = discord.utils.get(guild.text_channels, name=name)
+        path = Path(__file__).parent / spec["file"]
+        if not channel or not path.exists():
+            continue
+        posted = [m async for m in channel.history(limit=20)
+                  if m.author == guild.me and any(a.filename == path.name for a in m.attachments)]
+        if not posted:
+            await channel.send(link_mentions(guild, spec["text"]), file=discord.File(path),
+                               allowed_mentions=discord.AllowedMentions.none())
+            done.append(f"#{name} file")
+
     if guild.verification_level < discord.VerificationLevel.high:
         await guild.edit(verification_level=discord.VerificationLevel.high, reason="/setup")
         done.append("verification: High")

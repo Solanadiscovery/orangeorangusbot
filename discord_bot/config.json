@@ -83,6 +83,10 @@
           "old_name": "annunci"
         },
         {
+          "name": "roadmap",
+          "readonly": true
+        },
+        {
           "name": "official-links",
           "readonly": true,
           "old_name": "link-ufficiali"
@@ -161,5 +165,11 @@
     }
   },
   "og_role": "OG",
-  "og_limit": 500
+  "og_limit": 500,
+  "channel_files": {
+    "roadmap": {
+      "file": "OrangeOrangusRoadmap.pdf",
+      "text": "🗺️ **OrangeOrangus Roadmap**\nOpen the PDF below to see where the jungle is heading. Plans may change: official updates will be posted in #announcements."
+    }
+  }
 }
