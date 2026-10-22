@@ -61,3 +61,10 @@ def check(message_text, mentions, in_no_link_area, cfg):
     if too_many_caps(message_text, cfg["caps_ratio"], cfg["caps_min_length"]):
         return "too many capital letters", True
     return None
+
+
+def og_picks(granted, member_ids, limit):
+    """Which members get OG: the earliest joiners, until `limit` slots are used.
+    `granted` is every id that ever got OG, so a slot is never given twice."""
+    free = limit - len(granted)
+    return [m for m in member_ids if m not in granted][:max(free, 0)]

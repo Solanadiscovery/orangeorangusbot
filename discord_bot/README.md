@@ -2,6 +2,7 @@
 
 Segue la guida `guida-server-discord.md`:
 - **Ruolo automatico**: chi entra riceve **OranguTeam**.
+- **OG**: solo i primi 500 membri (in ordine di ingresso, bot esclusi). Gli assegnati sono salvati in `og_members.json`: non cancellarlo, così un posto non viene mai riassegnato.
 - **Moderazione** (staff escluso, log in #mod-log; server e messaggi del bot in inglese):
   - frasi truffa (`scam_patterns`) → messaggio eliminato
   - link nella categoria COMMUNITY (eccetto `allowed_domains`) → eliminato

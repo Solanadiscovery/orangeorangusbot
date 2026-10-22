@@ -43,6 +43,16 @@
       ]
     },
     {
+      "name": "OG",
+      "color": "#ADFF2F",
+      "permissions": [
+        "read_messages",
+        "send_messages",
+        "add_reactions",
+        "read_message_history"
+      ]
+    },
+    {
       "name": "OranguTeam",
       "color": "#FF8C00",
       "permissions": [
@@ -149,5 +159,7 @@
       "description": "Play the OrangeOrangus Racing demo",
       "text": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app"
     }
-  }
+  },
+  "og_role": "OG",
+  "og_limit": 500
 }

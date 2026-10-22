@@ -35,6 +35,11 @@ class FiltersTest(unittest.TestCase):
         self.assertEqual([t.add(2, "uguale") for _ in range(3)][-1], "repeated messages")
         self.assertIsNone(t.add(3, "uno"))
 
+    def test_og_picks(self):
+        self.assertEqual(filters.og_picks(set(), [1, 2, 3], 2), [1, 2])
+        self.assertEqual(filters.og_picks({1, 9}, [1, 2, 3], 3), [2])  # 9 left: its slot stays used
+        self.assertEqual(filters.og_picks({1, 2}, [1, 2, 3], 2), [])
+
 
 if __name__ == "__main__":
     unittest.main()

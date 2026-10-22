@@ -15,6 +15,7 @@ intents.members = True
 intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
+OG_FILE = Path(__file__).parent / "og_members.json"
 tracker = filters.Tracker(CFG["spam_messages"], CFG["spam_seconds"], CFG["duplicate_limit"])
 
 
@@ -39,13 +40,40 @@ async def on_ready():
             tree.copy_global_to(guild=guild)
             await tree.sync(guild=guild)
             print(f"✅ /setup ready in server {guild.name} (or type !setup)")
+            given = await grant_og(guild)
+            if given:
+                print(f"🏅 OG given to {given} members in {guild.name}")
         except discord.HTTPException as e:
             print(f"⚠️ {guild.name}: /setup not registered ({e}). Re-invite the bot with the applications.commands scope, "
                   "or type !setup in the server.")
 
 
+async def grant_og(guild):
+    """Gives OG to the first og_limit members by join date. Saved to og_members.json so it survives restarts."""
+    role = discord.utils.get(guild.roles, name=CFG["og_role"])
+    if not role:
+        return 0
+    granted = set(json.loads(OG_FILE.read_text())) if OG_FILE.exists() else set()
+    granted |= {m.id for m in role.members}
+    humans = sorted((m for m in guild.members if not m.bot), key=lambda m: m.joined_at or datetime.datetime.max.replace(tzinfo=datetime.timezone.utc))
+    picks = filters.og_picks(granted, [m.id for m in humans], CFG["og_limit"])
+    given = 0
+    for member_id in picks:
+        try:
+            await guild.get_member(member_id).add_roles(role, reason=f"First {CFG['og_limit']} members")
+        except discord.HTTPException as e:
+            print(f"⚠️ Could not give OG ({e}): move the bot role above OG.")
+            break
+        granted.add(member_id)
+        given += 1
+    OG_FILE.write_text(json.dumps(sorted(granted)))
+    return given
+
+
 @client.event
 async def on_member_join(member):
+    if not member.bot:
+        await grant_og(member.guild)
     role = discord.utils.get(member.guild.roles, name=CFG["join_role"])
     if role:
         await member.add_roles(role, reason="Automatic join role")
@@ -219,6 +247,9 @@ async def _setup_steps(guild):
     if guild.verification_level < discord.VerificationLevel.high:
         await guild.edit(verification_level=discord.VerificationLevel.high, reason="/setup")
         done.append("verification: High")
+    given = await grant_og(guild)
+    if given:
+        done.append(f"OG given to {given} members")
     return done
 
 
