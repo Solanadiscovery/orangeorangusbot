@@ -214,5 +214,13 @@
   "platform": "x",
   "text": "Peel the hype. Release the ape. 🍊🦧",
   "ts": "2026-10-22T17:30:49.577917+00:00"
+ },
+ {
+  "id": "tg-poll-contest-prize",
+  "concept": "contest-prize",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🏆 Best reward for meme contest winners?",
+  "ts": "2026-10-22T20:00:22.312878+00:00"
  }
 ]
