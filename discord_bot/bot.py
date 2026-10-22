@@ -90,7 +90,17 @@ async def update_counter(guild):
     when the limit is reached the 1-minute loop below applies the latest total as soon as it can."""
     channel = counter_channel(guild)
     name = CFG["member_counter"].format(count=humans(guild))
-    if not channel or channel.name == name:
+    if not channel:
+        # Created automatically at the top of INFO: nobody can join it, it only shows the number.
+        info = discord.utils.get(guild.categories, name=CFG["categories"][0]["name"])
+        try:
+            await guild.create_voice_channel(name, category=info, position=0, reason="Member counter",
+                                             overwrites={guild.default_role: discord.PermissionOverwrite(connect=False)})
+            print(f"🦧 Member counter created in {guild.name}")
+        except discord.HTTPException as e:
+            print(f"⚠️ Counter not created: {e}")
+        return
+    if channel.name == name:
         return
     now = datetime.datetime.now().timestamp()
     recent = [t for t in renames.get(guild.id, []) if now - t < 600]
@@ -285,9 +295,7 @@ async def _setup_steps(guild):
                 await channel.edit(slowmode_delay=ch.get("slowmode", 0))
 
     if not counter_channel(guild):
-        info = discord.utils.get(guild.categories, name=CFG["categories"][0]["name"])
-        await guild.create_voice_channel(CFG["member_counter"].format(count=humans(guild)), category=info, position=0,
-                                         overwrites={everyone: discord.PermissionOverwrite(connect=False)}, reason="/setup")
+        await update_counter(guild)
         done.append("member counter")
 
     # Posts go after all channels exist, so every #channel and @Role mention becomes clickable.
