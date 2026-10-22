@@ -1,7 +1,9 @@
 {
  "counter_id": 30,
  "counter_created": true,
- "announced": [],
+ "announced": [
+  50
+ ],
  "slots": {
   "telegram": "2026-10-21 22:00",
   "x": "2026-10-21 19:30"
