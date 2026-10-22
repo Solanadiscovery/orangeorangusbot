@@ -179,13 +179,15 @@ class BotTest(unittest.TestCase):
         fake = FakeTelegram()
         fake.updates = [[msg(1, 1, '/filter demo Play: https://example.com/demo'), msg(2, 2, '/filter x y'), msg(3, 3, "any DEMO link?"),
                          msg(3, 4, "demo again"), msg(3, 5, "demos"), msg(1, 6, "/setrules Be kind"), msg(3, 7, "/rules"),
-                         msg(1, 8, "/stop demo"), msg(3, 9, "demo")]]
+                         msg(1, 8, "/stop demo"), msg(3, 9, "demo"),
+                         msg(1, 10, "/filter /ac Contract: 0x1"), msg(3, 11, "/ac@OrangeBot"), msg(1, 12, "/stop /ac")]]
         with mock.patch.object(tg, "call", fake):
             b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
             b.commands()
         sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
         self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
-                                "Be kind", "🗑 Filter removed."])
+                                "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
+                                "🗑 Filter removed."])
         self.assertEqual(b.state["filters"], {})
 
     def test_og_announcement_once(self):

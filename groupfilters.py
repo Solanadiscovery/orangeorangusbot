@@ -1,7 +1,7 @@
 """Rose-style group tools: keyword filters and group rules, handled by the bot itself.
 
 Admins (the bot owner or any group admin) manage them from the group:
-/filter word text · /filters · /stop word · /setrules text · /rules (everyone).
+/filter word text (or /command text) · /filters · /stop word · /setrules text · /rules (everyone).
 Filters live in state.json, so they survive restarts. Needs the bot to see group messages
 (make it a group admin or turn off Privacy mode in BotFather).
 """
@@ -57,16 +57,18 @@ class GroupFilters:
         text = msg.get("text") or ""
         if not text:
             return
+        head, _, arg = text.partition(" ")
         if not text.startswith("/"):
             return self.match(msg, text)
-        head, _, arg = text.partition(" ")
         cmd, arg = head.split("@")[0].lower(), arg.strip()
         if cmd == "/rules":
             rules = self.bot.state.get("group_rules")
             if rules and self.cooled("rules", RULES_COOLDOWN):
                 self.say(msg, rules)
             return
-        if cmd not in ("/filter", "/filters", "/stop", "/setrules") or not self.is_admin(msg.get("from", {}).get("id")):
+        if cmd not in ("/filter", "/filters", "/stop", "/setrules"):
+            return self.match(msg, text)  # a filter can also be a /command, e.g. /ac
+        if not self.is_admin(msg.get("from", {}).get("id")):
             return
         if cmd == "/filters":
             return self.say(msg, "Active filters: " + ", ".join(self.filters) if self.filters else "No filters yet.")
