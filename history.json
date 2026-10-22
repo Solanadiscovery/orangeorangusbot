@@ -182,5 +182,13 @@
   "platform": "telegram",
   "text": "Nobody:\nAbsolutely nobody:\nThe Troop at 7am: gm gm gm gm gm 🍊",
   "ts": "2026-10-22T08:00:37.957517+00:00"
+ },
+ {
+  "id": "x-hype-be-there",
+  "concept": "x-hype-be-there",
+  "type": "hype",
+  "platform": "x",
+  "text": "Some people will say 'I was there when the Troop was small'. Be one of them. 🧡",
+  "ts": "2026-10-22T09:30:51.388918+00:00"
  }
 ]
