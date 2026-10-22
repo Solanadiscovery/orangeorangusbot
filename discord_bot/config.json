@@ -172,5 +172,6 @@
       "text": "🗺️ **OrangeOrangus Roadmap**\nOpen the PDF below to see where the jungle is heading. Plans may change: official updates will be posted in #announcements."
     }
   },
-  "welcome_message": "🦧🍊 Welcome to the jungle, {member}! You're ape #{count}.\nStart with #rules, grab the links in #official-links and say hi in #general-chat. Peel the hype. Release the ape!"
+  "welcome_message": "🦧🍊 Welcome to the jungle, {member}! You're ape #{count}.\nStart with #rules, grab the links in #official-links and say hi in #general-chat. Peel the hype. Release the ape!",
+  "member_counter": "🦧 Apes: {count}"
 }

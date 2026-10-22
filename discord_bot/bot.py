@@ -5,6 +5,7 @@ from pathlib import Path
 
 import discord
 from discord import app_commands
+from discord.ext import tasks
 
 import filters
 
@@ -16,6 +17,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
+COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
 tracker = filters.Tracker(CFG["spam_messages"], CFG["spam_seconds"], CFG["duplicate_limit"])
 
 
@@ -32,6 +34,8 @@ async def log(guild, text):
 @client.event
 async def on_ready():
     print(f"Connected as {client.user}")
+    if not refresh_counters.is_running():
+        refresh_counters.start()
     if not client.guilds:
         print("⚠️ The bot is not in any server: invite it with the OAuth2 link (scopes bot + applications.commands).")
     # Per-server sync so /setup shows up immediately.
@@ -70,6 +74,46 @@ async def grant_og(guild):
     return given
 
 
+def humans(guild):
+    return sum(not m.bot for m in guild.members)
+
+
+def counter_channel(guild):
+    return next((c for c in guild.voice_channels if c.name.startswith(COUNTER_PREFIX)), None)
+
+
+renames = {}
+
+
+async def update_counter(guild):
+    """Renames the counter channel. Discord allows 2 renames per 10 minutes per channel:
+    when the limit is reached the 1-minute loop below applies the latest total as soon as it can."""
+    channel = counter_channel(guild)
+    name = CFG["member_counter"].format(count=humans(guild))
+    if not channel or channel.name == name:
+        return
+    now = datetime.datetime.now().timestamp()
+    recent = [t for t in renames.get(guild.id, []) if now - t < 600]
+    if len(recent) >= 2:
+        return
+    try:
+        await channel.edit(name=name, reason="Member counter")
+        renames[guild.id] = recent + [now]
+    except discord.HTTPException as e:
+        print(f"⚠️ Counter not updated: {e}")
+
+
+@tasks.loop(minutes=1)
+async def refresh_counters():
+    for guild in client.guilds:
+        await update_counter(guild)
+
+
+@client.event
+async def on_member_remove(member):
+    await update_counter(member.guild)
+
+
 @client.event
 async def on_member_join(member):
     if not member.bot:
@@ -79,9 +123,10 @@ async def on_member_join(member):
         await member.add_roles(role, reason="Automatic join role")
     else:
         await log(member.guild, f"⚠️ Role {CFG['join_role']} not found: run /setup")
+    await update_counter(member.guild)
     welcome = discord.utils.get(member.guild.text_channels, name="welcome")
     if welcome and not member.bot:
-        text = CFG["welcome_message"].format(member=member.mention, count=member.guild.member_count)
+        text = CFG["welcome_message"].format(member=member.mention, count=humans(member.guild))
         await welcome.send(link_mentions(member.guild, text), allowed_mentions=discord.AllowedMentions(users=True))
 
 
@@ -238,6 +283,12 @@ async def _setup_steps(guild):
                 done.append(f"#{channel.name}")
             elif channel.slowmode_delay != ch.get("slowmode", 0):
                 await channel.edit(slowmode_delay=ch.get("slowmode", 0))
+
+    if not counter_channel(guild):
+        info = discord.utils.get(guild.categories, name=CFG["categories"][0]["name"])
+        await guild.create_voice_channel(CFG["member_counter"].format(count=humans(guild)), category=info, position=0,
+                                         overwrites={everyone: discord.PermissionOverwrite(connect=False)}, reason="/setup")
+        done.append("member counter")
 
     # Posts go after all channels exist, so every #channel and @Role mention becomes clickable.
     for name, text in CFG["channel_posts"].items():
