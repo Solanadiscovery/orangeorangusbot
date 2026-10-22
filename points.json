@@ -74,6 +74,23 @@
    "streak": 1,
    "best_streak": 1,
    "link": "https://t.me/+8J5rs3rojp1jMjk0"
+  },
+  "7185247600": {
+   "name": "Xenon",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-22",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-22T21:24:48.729295+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
