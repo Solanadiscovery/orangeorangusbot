@@ -11,12 +11,12 @@ CFG = json.loads((DIR / "config.json").read_text(encoding="utf-8"))
 
 class FiltersTest(unittest.TestCase):
     def test_scam_patterns(self):
-        self.assertTrue(filters.check("Claim your AIRDROP now", 0, False, CFG)[0].startswith("possibile truffa"))
+        self.assertTrue(filters.check("Claim your AIRDROP now", 0, False, CFG)[0].startswith("possible scam"))
         self.assertIsNotNone(filters.scam_match("join discord.gg/abc", CFG["scam_patterns"]))
         self.assertIsNone(filters.check("adoro le arance", 0, False, CFG))
 
     def test_mentions_timeout(self):
-        self.assertEqual(filters.check("ciao", 5, False, CFG), ("spam di menzioni (5)", True))
+        self.assertEqual(filters.check("ciao", 5, False, CFG), ("mention spam (5)", True))
 
     def test_links_only_in_community(self):
         self.assertIsNone(filters.check("guarda https://example.com", 0, False, CFG))
@@ -30,9 +30,9 @@ class FiltersTest(unittest.TestCase):
     def test_tracker(self):
         now = [0.0]
         t = filters.Tracker(5, 5, 3, clock=lambda: now[0])
-        self.assertEqual([t.add(1, f"m{i}") for i in range(5)][-1], "flood")
+        self.assertEqual([t.add(1, f"m{i}") for i in range(5)][-1], "flooding")
         now[0] = 100
-        self.assertEqual([t.add(2, "uguale") for _ in range(3)][-1], "duplicati")
+        self.assertEqual([t.add(2, "uguale") for _ in range(3)][-1], "repeated messages")
         self.assertIsNone(t.add(3, "uno"))
 
 

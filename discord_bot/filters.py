@@ -1,4 +1,4 @@
-"""Regole di moderazione pure (senza Discord), così si testano offline."""
+"""Pure moderation rules (no Discord), so they can be tested offline."""
 import fnmatch, re, time
 from collections import defaultdict, deque
 
@@ -24,7 +24,7 @@ def too_many_caps(text, ratio, min_length):
 
 
 class Tracker:
-    """Ricorda gli ultimi messaggi di ogni utente per flood e duplicati."""
+    """Remembers each user's recent messages for flood and duplicate checks."""
 
     def __init__(self, spam_messages, spam_seconds, duplicate_limit, clock=time.monotonic):
         self.spam_messages, self.spam_seconds, self.duplicate_limit = spam_messages, spam_seconds, duplicate_limit
@@ -33,31 +33,31 @@ class Tracker:
         self.texts = defaultdict(lambda: deque(maxlen=duplicate_limit))
 
     def add(self, user_id, text):
-        """Ritorna 'flood', 'duplicati' o None."""
+        """Returns 'flooding', 'repeated messages' or None."""
         now = self.clock()
         times, texts = self.times[user_id], self.texts[user_id]
         times.append(now)
         texts.append(" ".join(text.lower().split()))
         if len(times) == self.spam_messages and now - times[0] <= self.spam_seconds:
             times.clear()
-            return "flood"
+            return "flooding"
         if len(texts) == self.duplicate_limit and texts[0] and len(set(texts)) == 1:
             texts.clear()
-            return "duplicati"
+            return "repeated messages"
         return None
 
 
 def check(message_text, mentions, in_no_link_area, cfg):
-    """Controlli su un singolo messaggio. Ritorna (motivo, timeout?) o None."""
+    """Checks a single message. Returns (reason, timeout?) or None."""
     hit = scam_match(message_text, cfg["scam_patterns"])
     if hit:
-        return f"possibile truffa ({hit})", False
+        return f"possible scam ({hit})", False
     if mentions >= cfg["mention_limit"]:
-        return f"spam di menzioni ({mentions})", True
+        return f"mention spam ({mentions})", True
     if in_no_link_area:
         host = bad_link(message_text, cfg["allowed_domains"])
         if host:
-            return f"link non consentito ({host})", False
+            return f"link not allowed ({host})", False
     if too_many_caps(message_text, cfg["caps_ratio"], cfg["caps_min_length"]):
-        return "troppe maiuscole", True
+        return "too many capital letters", True
     return None

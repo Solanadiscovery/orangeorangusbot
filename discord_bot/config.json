@@ -1,6 +1,9 @@
 {
   "join_role": "OranguTeam",
-  "staff_roles": ["Founder", "Mod"],
+  "staff_roles": [
+    "Founder",
+    "Mod"
+  ],
   "log_channel": "mod-log",
   "timeout_minutes": 10,
   "mention_limit": 5,
@@ -9,34 +12,118 @@
   "caps_min_length": 10,
   "spam_messages": 5,
   "spam_seconds": 5,
-  "scam_patterns": ["*free sol*", "*claim*airdrop*", "*connect wallet*", "*seed phrase*", "*private key*", "*presale live*", "*dm me*", "*discord.gg/*", "*t.me/*"],
+  "scam_patterns": [
+    "*free sol*",
+    "*claim*airdrop*",
+    "*connect wallet*",
+    "*seed phrase*",
+    "*private key*",
+    "*presale live*",
+    "*dm me*",
+    "*discord.gg/*",
+    "*t.me/*"
+  ],
   "no_link_category": "🍊 COMMUNITY",
   "allowed_domains": [],
   "roles": [
-    {"name": "Founder", "color": "#FFD700", "permissions": ["administrator"]},
-    {"name": "Mod", "color": "#32CD32", "permissions": ["manage_messages", "moderate_members", "kick_members"]},
-    {"name": "OranguTeam", "color": "#FF8C00", "permissions": ["read_messages", "send_messages", "add_reactions", "read_message_history"]}
+    {
+      "name": "Founder",
+      "color": "#FFD700",
+      "permissions": [
+        "administrator"
+      ]
+    },
+    {
+      "name": "Mod",
+      "color": "#32CD32",
+      "permissions": [
+        "manage_messages",
+        "moderate_members",
+        "kick_members"
+      ]
+    },
+    {
+      "name": "OranguTeam",
+      "color": "#FF8C00",
+      "permissions": [
+        "read_messages",
+        "send_messages",
+        "add_reactions",
+        "read_message_history"
+      ]
+    }
   ],
   "categories": [
-    {"name": "📌 INFO", "channels": [
-      {"name": "benvenuto", "readonly": true},
-      {"name": "regole", "readonly": true},
-      {"name": "annunci", "readonly": true},
-      {"name": "link-ufficiali", "readonly": true},
-      {"name": "avviso-truffe", "readonly": true}
-    ]},
-    {"name": "🍊 COMMUNITY", "channels": [
-      {"name": "chat-generale", "slowmode": 5},
-      {"name": "meme", "slowmode": 30},
-      {"name": "giungla-italiana"}
-    ]},
-    {"name": "🎮 GAME", "channels": [
-      {"name": "game-feedback"},
-      {"name": "sfide-settimanali"}
-    ]},
-    {"name": "🛠 STAFF", "private": true, "channels": [
-      {"name": "mod-log"}
-    ]}
+    {
+      "name": "📌 INFO",
+      "channels": [
+        {
+          "name": "welcome",
+          "readonly": true,
+          "old_name": "benvenuto"
+        },
+        {
+          "name": "rules",
+          "readonly": true,
+          "old_name": "regole"
+        },
+        {
+          "name": "announcements",
+          "readonly": true,
+          "old_name": "annunci"
+        },
+        {
+          "name": "official-links",
+          "readonly": true,
+          "old_name": "link-ufficiali"
+        },
+        {
+          "name": "scam-alerts",
+          "readonly": true,
+          "old_name": "avviso-truffe"
+        }
+      ]
+    },
+    {
+      "name": "🍊 COMMUNITY",
+      "channels": [
+        {
+          "name": "general-chat",
+          "slowmode": 5,
+          "old_name": "chat-generale"
+        },
+        {
+          "name": "memes",
+          "slowmode": 30,
+          "old_name": "meme"
+        },
+        {
+          "name": "jungle-lounge",
+          "old_name": "giungla-italiana"
+        }
+      ]
+    },
+    {
+      "name": "🎮 GAME",
+      "channels": [
+        {
+          "name": "game-feedback"
+        },
+        {
+          "name": "weekly-challenges",
+          "old_name": "sfide-settimanali"
+        }
+      ]
+    },
+    {
+      "name": "🛠 STAFF",
+      "private": true,
+      "channels": [
+        {
+          "name": "mod-log"
+        }
+      ]
+    }
   ],
-  "rules_text": "🍊 **Benvenuto nella giungla di OrangeOrangus!**\n1. Rispetto per tutti, niente insulti o discriminazioni.\n2. Niente spam, flood o auto-promozione.\n3. Lo staff non ti scriverà MAI per primo in DM. Nessuna presale è aperta: diffida da chiunque te ne proponga una.\n4. Non condividere mai seed phrase o chiavi private.\n5. Gli unici link ufficiali sono quelli in #link-ufficiali.\n6. Niente promesse di guadagno: OrangeOrangus è un progetto community, non un consiglio finanziario.\nPeel the hype. Release the ape. 🦧"
+  "rules_text": "🍊 **Welcome to the OrangeOrangus jungle!**\n1. Respect everyone: no insults or discrimination.\n2. No spam, flooding or self-promotion.\n3. Staff will NEVER DM you first. No presale is open: be wary of anyone offering one.\n4. Never share your seed phrase or private keys.\n5. The only official links are the ones in #official-links.\n6. No profit promises: OrangeOrangus is a community project, not financial advice.\nPeel the hype. Release the ape. 🦧"
 }

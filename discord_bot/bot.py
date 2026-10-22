@@ -1,5 +1,5 @@
-"""Bot Discord OrangeOrangus: ruolo OranguTeam all'ingresso, moderazione e /setup del server.
-Avvio: DISCORD_TOKEN=... python discord_bot/bot.py"""
+"""OrangeOrangus Discord bot: OranguTeam join role, moderation and server /setup.
+Run: DISCORD_TOKEN=... python discord_bot/bot.py"""
 import datetime, json, os
 from pathlib import Path
 
@@ -30,35 +30,35 @@ async def log(guild, text):
 
 @client.event
 async def on_ready():
-    print(f"Connesso come {client.user}")
+    print(f"Connected as {client.user}")
     if not client.guilds:
-        print("⚠️ Il bot non è in nessun server: invitalo con il link OAuth2 (scope bot + applications.commands).")
-    # Sync per server: il comando /setup compare subito, senza attese.
+        print("⚠️ The bot is not in any server: invite it with the OAuth2 link (scopes bot + applications.commands).")
+    # Per-server sync so /setup shows up immediately.
     for guild in client.guilds:
         try:
             tree.copy_global_to(guild=guild)
             await tree.sync(guild=guild)
-            print(f"✅ /setup pronto nel server {guild.name} (in alternativa scrivi !setup)")
+            print(f"✅ /setup ready in server {guild.name} (or type !setup)")
         except discord.HTTPException as e:
-            print(f"⚠️ {guild.name}: /setup non registrato ({e}). Reinvita il bot con lo scope applications.commands, "
-                  "oppure scrivi !setup nel server.")
+            print(f"⚠️ {guild.name}: /setup not registered ({e}). Re-invite the bot with the applications.commands scope, "
+                  "or type !setup in the server.")
 
 
 @client.event
 async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, name=CFG["join_role"])
     if role:
-        await member.add_roles(role, reason="Ruolo automatico all'ingresso")
+        await member.add_roles(role, reason="Automatic join role")
     else:
-        await log(member.guild, f"⚠️ Ruolo {CFG['join_role']} non trovato: esegui /setup")
+        await log(member.guild, f"⚠️ Role {CFG['join_role']} not found: run /setup")
 
 
 @client.event
 async def on_message(message):
     if message.guild and message.content.strip() == "!setup" and message.author.guild_permissions.administrator:
-        await message.channel.send("⏳ Setup in corso...")
+        await message.channel.send("⏳ Setup in progress...")
         done = await run_setup(message.guild)
-        await message.channel.send("✅ Setup completato: " + (", ".join(done) or "era già tutto a posto"))
+        await message.channel.send("✅ Setup complete: " + (", ".join(done) or "everything was already in place"))
         return
     if message.author.bot or not message.guild or is_staff(message.author):
         return
@@ -75,14 +75,14 @@ async def on_message(message):
         await message.delete()
     except discord.HTTPException:
         pass
-    action = "messaggio eliminato"
+    action = "message deleted"
     if timeout:
         try:
             await message.author.timeout(datetime.timedelta(minutes=CFG["timeout_minutes"]), reason=reason)
             action += f" + timeout {CFG['timeout_minutes']} min"
         except discord.HTTPException:
-            action += " (timeout non riuscito: controlla i permessi del bot)"
-    await message.channel.send(f"🦧 {message.author.mention}, {reason}. Leggi #regole.", delete_after=10)
+            action += " (timeout failed: check the bot's permissions)"
+    await message.channel.send(f"🦧 {message.author.mention}, {reason}. Please read #rules.", delete_after=10)
     await log(message.guild, f"🛡️ {message.author} in #{message.channel}: {reason} → {action}\n> {message.content[:300]}")
 
 
@@ -90,20 +90,20 @@ def perms(names):
     return discord.Permissions(**{n: True for n in names})
 
 
-@tree.command(name="setup", description="Crea ruoli, canali, slowmode e regole del server OrangeOrangus")
+@tree.command(name="setup", description="Create the OrangeOrangus server roles, channels, slowmode and rules")
 @app_commands.default_permissions(administrator=True)
 async def setup(interaction: discord.Interaction):
     await interaction.response.defer(ephemeral=True, thinking=True)
     done = await run_setup(interaction.guild)
-    await interaction.followup.send("✅ Setup completato: " + (", ".join(done) or "era già tutto a posto"), ephemeral=True)
+    await interaction.followup.send("✅ Setup complete: " + (", ".join(done) or "everything was already in place"), ephemeral=True)
 
 
 async def run_setup(guild):
     try:
         return await _setup_steps(guild)
     except discord.HTTPException as e:
-        print(f"⚠️ Setup interrotto: {e}")
-        return [f"⚠️ interrotto ({e.text or e}): dai al bot il permesso Amministratore e mettilo in cima ai ruoli, poi riprova"]
+        print(f"⚠️ Setup stopped: {e}")
+        return [f"⚠️ stopped ({e.text or e}): give the bot Administrator and move its role to the top, then retry"]
 
 
 async def _setup_steps(guild):
@@ -115,13 +115,13 @@ async def _setup_steps(guild):
         if not role:
             role = await guild.create_role(name=spec["name"], colour=discord.Colour.from_str(spec["color"]),
                                            permissions=perms(spec["permissions"]), hoist=True, reason="/setup")
-            done.append(f"ruolo {role.name}")
+            done.append(f"role {role.name}")
         elif not role.hoist:
-            # Mostra il ruolo separato nella lista membri.
+            # Show the role separately in the member list.
             await role.edit(hoist=True, reason="/setup")
-            done.append(f"{role.name} mostrato separato")
+            done.append(f"{role.name} displayed separately")
         roles[spec["name"]] = role
-    # Ordine dall'alto: Founder, Mod, OranguTeam (tutti sotto il ruolo del bot).
+    # Order from the top: Founder, Mod, OranguTeam (all below the bot role).
     top = guild.me.top_role.position
     await guild.edit_role_positions({roles[s["name"]]: max(top - 1 - i, 1) for i, s in enumerate(CFG["roles"])})
 
@@ -139,26 +139,37 @@ async def _setup_steps(guild):
         category = discord.utils.get(guild.categories, name=cat_spec["name"])
         if not category:
             category = await guild.create_category(cat_spec["name"], overwrites=overwrites, reason="/setup")
-            done.append(f"categoria {category.name}")
+            done.append(f"category {category.name}")
         for ch in cat_spec["channels"]:
             ow = dict(overwrites)
             if ch.get("readonly"):
                 ow[everyone] = discord.PermissionOverwrite(send_messages=False)
                 ow.update({r: discord.PermissionOverwrite(send_messages=True) for r in staff})
             channel = discord.utils.get(guild.text_channels, name=ch["name"])
+            old = ch.get("old_name") and discord.utils.get(guild.text_channels, name=ch["old_name"])
+            if not channel and old:
+                # Rename the old Italian channel instead of creating a duplicate.
+                await old.edit(name=ch["name"], reason="/setup")
+                channel = old
+                done.append(f"#{ch['old_name']} → #{ch['name']}")
             if not channel:
                 channel = await guild.create_text_channel(ch["name"], category=category, overwrites=ow,
                                                           slowmode_delay=ch.get("slowmode", 0), reason="/setup")
                 done.append(f"#{channel.name}")
             elif channel.slowmode_delay != ch.get("slowmode", 0):
                 await channel.edit(slowmode_delay=ch.get("slowmode", 0))
-            if ch["name"] == "regole" and not [m async for m in channel.history(limit=1)]:
-                await channel.send(CFG["rules_text"])
-                done.append("testo #regole")
+            if ch["name"] == "rules":
+                mine = [m async for m in channel.history(limit=20) if m.author == guild.me]
+                if not mine:
+                    await channel.send(CFG["rules_text"])
+                    done.append("#rules text")
+                elif mine[0].content != CFG["rules_text"]:
+                    await mine[0].edit(content=CFG["rules_text"])
+                    done.append("#rules text updated")
 
     if guild.verification_level < discord.VerificationLevel.high:
         await guild.edit(verification_level=discord.VerificationLevel.high, reason="/setup")
-        done.append("verifica: Alta")
+        done.append("verification: High")
     return done
 
 
@@ -166,6 +177,6 @@ if __name__ == "__main__":
     token_file = Path(__file__).parent / "token.txt"
     token = os.environ.get("DISCORD_TOKEN") or (token_file.read_text().strip() if token_file.exists() else "")
     if not token:
-        token = input("Incolla il token del bot e premi Invio: ").strip()
+        token = input("Paste the bot token and press Enter: ").strip()
         token_file.write_text(token)
     client.run(token)

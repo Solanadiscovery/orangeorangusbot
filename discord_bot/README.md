@@ -2,11 +2,11 @@
 
 Segue la guida `guida-server-discord.md`:
 - **Ruolo automatico**: chi entra riceve **OranguTeam**.
-- **Moderazione** (staff escluso, log in #mod-log):
+- **Moderazione** (staff escluso, log in #mod-log; server e messaggi del bot in inglese):
   - frasi truffa (`scam_patterns`) → messaggio eliminato
   - link nella categoria COMMUNITY (eccetto `allowed_domains`) → eliminato
   - 5+ menzioni, 70%+ maiuscole, 3 messaggi uguali, 5 messaggi in 5 secondi → eliminato + timeout 10 minuti
-- **/setup** (solo admin): crea ruoli, categorie, canali, slowmode (5s #chat-generale, 30s #meme), testo #regole, verifica Alta; toglie a @everyone "Menziona @everyone" e "Crea inviti". Si può rilanciare: non duplica nulla.
+- **/setup** (solo admin): crea ruoli, categorie, canali, slowmode (5s #general-chat, 30s #memes), testo #rules, verifica Alta; toglie a @everyone "Menziona @everyone" e "Crea inviti". Si può rilanciare: non duplica nulla.
 
 Tutto si modifica in `config.json`. Aggiungi i domini ufficiali ad `allowed_domains` solo dopo averli verificati.
 
