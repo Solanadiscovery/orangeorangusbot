@@ -1,6 +1,6 @@
 """OrangeOrangus Discord bot: OranguTeam join role, moderation and server /setup.
 Run: DISCORD_TOKEN=... python discord_bot/bot.py"""
-import datetime, json, os
+import datetime, json, os, re
 from pathlib import Path
 
 import discord
@@ -86,6 +86,20 @@ async def on_message(message):
     await log(message.guild, f"🛡️ {message.author} in #{message.channel}: {reason} → {action}\n> {message.content[:300]}")
 
 
+def link_mentions(guild, text):
+    """Turns #channel-name and @Role into real Discord mentions."""
+    def channel(m):
+        ch = discord.utils.get(guild.text_channels, name=m.group(1))
+        return ch.mention if ch else m.group(0)
+
+    def role(m):
+        r = discord.utils.get(guild.roles, name=m.group(1))
+        return r.mention if r else m.group(0)
+
+    text = re.sub(r"#([a-z0-9-]+)", channel, text)
+    return re.sub(r"@([A-Za-z]+)", role, text)
+
+
 def perms(names):
     return discord.Permissions(**{n: True for n in names})
 
@@ -158,16 +172,20 @@ async def _setup_steps(guild):
                 done.append(f"#{channel.name}")
             elif channel.slowmode_delay != ch.get("slowmode", 0):
                 await channel.edit(slowmode_delay=ch.get("slowmode", 0))
-            text = CFG["channel_posts"].get(ch["name"])
-            if text:
-                # One bot post per channel: created once, then kept in sync with config.json.
-                mine = [m async for m in channel.history(limit=20) if m.author == guild.me]
-                if not mine:
-                    await channel.send(text, suppress_embeds=True)
-                    done.append(f"#{ch['name']} post")
-                elif mine[0].content != text:
-                    await mine[0].edit(content=text, suppress=True)
-                    done.append(f"#{ch['name']} post updated")
+
+    # Posts go after all channels exist, so every #channel and @Role mention becomes clickable.
+    for name, text in CFG["channel_posts"].items():
+        channel = discord.utils.get(guild.text_channels, name=name)
+        if not channel:
+            continue
+        text = link_mentions(guild, text)
+        mine = [m async for m in channel.history(limit=20) if m.author == guild.me]
+        if not mine:
+            await channel.send(text, suppress_embeds=True, allowed_mentions=discord.AllowedMentions.none())
+            done.append(f"#{name} post")
+        elif mine[0].content != text:
+            await mine[0].edit(content=text, suppress=True, allowed_mentions=discord.AllowedMentions.none())
+            done.append(f"#{name} post updated")
 
     if guild.verification_level < discord.VerificationLevel.high:
         await guild.edit(verification_level=discord.VerificationLevel.high, reason="/setup")
