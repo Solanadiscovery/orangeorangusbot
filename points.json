@@ -80,8 +80,16 @@
  "links": {
   "https://t.me/+8J5rs3rojp1jMjk0": "1487424404"
  },
- "refs": [],
- "referred": {},
+ "refs": [
+  {
+   "inviter": "1487424404",
+   "invitee": "7224238704",
+   "ts": "2026-10-22T21:06:54.927768+00:00"
+  }
+ ],
+ "referred": {
+  "7224238704": "1487424404"
+ },
  "open": true,
  "announced": true,
  "promo_slot": "2026-10-22 23",
