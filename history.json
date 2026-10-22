@@ -174,5 +174,13 @@
   "platform": "telegram",
   "text": "😂 Favourite meme format?",
   "ts": "2026-10-21T20:00:14.565201+00:00"
+ },
+ {
+  "id": "tg-meme-gm-reply",
+  "concept": "gm-reply",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Nobody:\nAbsolutely nobody:\nThe Troop at 7am: gm gm gm gm gm 🍊",
+  "ts": "2026-10-22T08:00:37.957517+00:00"
  }
 ]

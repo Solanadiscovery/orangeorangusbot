@@ -5,7 +5,7 @@
   50
  ],
  "slots": {
-  "telegram": "2026-10-21 22:00",
+  "telegram": "2026-10-22 10:00",
   "x": "2026-10-21 19:30"
  },
  "x_intro_done": true,
@@ -14,6 +14,6 @@
  "welcome_id": 837,
  "last_type": {
   "x": "hype",
-  "telegram": "poll"
+  "telegram": "meme"
  }
 }
