@@ -23,9 +23,16 @@ class GroupFilters:
 
     @property
     def filters(self):
-        if "filters" not in self.bot.state:  # first run: start from the defaults in config.json, editable afterwards
-            self.bot.state["filters"], self.bot.dirty = dict(self.bot.cfg.get("group_filters", {})), True
-        return self.bot.state["filters"]
+        """Filters live in state.json. Defaults from config.json are added once each (an admin can remove them later)."""
+        state = self.bot.state
+        filters = state.setdefault("filters", {})
+        seeded = state.setdefault("filters_seeded", ["/x", "/demo"] if filters else [])  # /x and /demo shipped first
+        for word, reply in self.bot.cfg.get("group_filters", {}).items():
+            if word not in seeded:
+                seeded.append(word)
+                filters.setdefault(word, reply)
+                self.bot.dirty = True
+        return filters
 
     def is_main(self, chat):
         main = self.bot.chat.lower()

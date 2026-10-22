@@ -188,7 +188,7 @@ class BotTest(unittest.TestCase):
         self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
                                 "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
                                 "🗑 Filter removed."])
-        self.assertEqual(list(b.state["filters"]), ["/x", "/demo"])
+        self.assertEqual(list(b.state["filters"]), ["/x", "/demo", "/tlg"])
 
     def test_antiflood_mutes_spammer_not_admin(self):
         def msg(uid, i, date):
@@ -202,6 +202,16 @@ class BotTest(unittest.TestCase):
         self.assertEqual([f["user_id"] for f in mutes], [3])
         self.assertFalse(mutes[0]["permissions"]["can_send_messages"])
         self.assertEqual(mutes[0]["until_date"], 1001 + 600)
+
+    def test_new_default_filter_added_to_existing_state_once(self):
+        state = json.loads((self.dir / "state.json").read_text())
+        state["filters"] = {"/x": "old x"}  # live state from before /tlg existed; /demo was removed by an admin
+        state["filters_seeded"] = ["/x", "/demo"]
+        (self.dir / "state.json").write_text(json.dumps(state))
+        b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
+        self.assertEqual(b.group.filters, {"/x": "old x", "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus"})
+        b.group.filters.pop("/tlg")
+        self.assertNotIn("/tlg", b.group.filters)
 
     def test_default_group_commands(self):
         fake = FakeTelegram()
