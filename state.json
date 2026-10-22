@@ -2,14 +2,15 @@
  "counter_id": 30,
  "counter_created": true,
  "announced": [
-  50
+  50,
+  100
  ],
  "slots": {
   "telegram": "2026-10-22 10:00",
   "x": "2026-10-21 19:30"
  },
  "x_intro_done": true,
- "update_offset": 166177199,
+ "update_offset": 166177200,
  "og_existing_done": true,
  "welcome_id": 842,
  "last_type": {
