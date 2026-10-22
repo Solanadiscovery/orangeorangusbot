@@ -150,7 +150,7 @@ async def link_text(guild, name):
 def make_link_command(name, spec):
     async def callback(interaction: discord.Interaction):
         await interaction.response.send_message(await link_text(interaction.guild, name))
-    tree.command(name=name, description=spec["description"])(callback)
+    app_commands.guild_only()(tree.command(name=name, description=spec["description"])(callback))
 
 
 for _name, _spec in CFG["link_commands"].items():
@@ -163,7 +163,12 @@ def perms(names):
 
 @tree.command(name="setup", description="Create the OrangeOrangus server roles, channels, slowmode and rules")
 @app_commands.default_permissions(administrator=True)
+@app_commands.guild_only()
 async def setup(interaction: discord.Interaction):
+    # Second lock: even if a server setting re-enables /setup for others, only admins can run it.
+    if not interaction.user.guild_permissions.administrator:
+        await interaction.response.send_message("⛔ Admins only.", ephemeral=True)
+        return
     await interaction.response.defer(ephemeral=True, thinking=True)
     done = await run_setup(interaction.guild)
     await interaction.followup.send("✅ Setup complete: " + (", ".join(done) or "everything was already in place"), ephemeral=True)
