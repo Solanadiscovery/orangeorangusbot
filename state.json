@@ -10,7 +10,7 @@
   "x": "2026-10-22 11:30"
  },
  "x_intro_done": true,
- "update_offset": 166177294,
+ "update_offset": 166177299,
  "og_existing_done": true,
  "welcome_id": 931,
  "last_type": {
@@ -19,6 +19,12 @@
  },
  "filters": {
   "/x": "🐦 Follow us on X: https://x.com/orangeorangus",
-  "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app"
- }
+  "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app",
+  "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus"
+ },
+ "filters_seeded": [
+  "/x",
+  "/demo",
+  "/tlg"
+ ]
 }
