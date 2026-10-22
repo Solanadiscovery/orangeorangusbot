@@ -198,5 +198,13 @@
   "platform": "telegram",
   "text": "🎨 Which Orango sticker should we make first?",
   "ts": "2026-10-22T12:00:22.533117+00:00"
+ },
+ {
+  "id": "tg-meme-buy-high",
+  "concept": "buy-high",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Orango's trading course, lesson 1: don't take trading advice from an orangutan. 🦧📚",
+  "ts": "2026-10-22T16:00:48.347433+00:00"
  }
 ]
