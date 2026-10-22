@@ -60,6 +60,11 @@ async def on_message(message):
         done = await run_setup(message.guild)
         await message.channel.send("✅ Setup complete: " + (", ".join(done) or "everything was already in place"))
         return
+    # Typed as plain text (not picked from the / menu) the link commands still answer.
+    word = message.content.strip().lower()
+    if message.guild and not message.author.bot and word[:1] in "/!" and word[1:] in CFG["link_commands"]:
+        await message.channel.send(await link_text(message.guild, word[1:]))
+        return
     if message.author.bot or not message.guild or is_staff(message.author):
         return
     category = message.channel.category.name if getattr(message.channel, "category", None) else ""
@@ -98,6 +103,30 @@ def link_mentions(guild, text):
 
     text = re.sub(r"#([a-z0-9-]+)", channel, text)
     return re.sub(r"@([A-Za-z]+)", role, text)
+
+
+async def server_invite(guild):
+    """Reuses the bot's permanent invite, or creates one on #welcome."""
+    for invite in await guild.invites():
+        if invite.inviter == guild.me and not invite.max_age:
+            return invite.url
+    channel = discord.utils.get(guild.text_channels, name="welcome") or guild.text_channels[0]
+    return (await channel.create_invite(max_age=0, max_uses=0, reason="/ds")).url
+
+
+async def link_text(guild, name):
+    text = CFG["link_commands"][name]["text"]
+    return text.format(invite=await server_invite(guild)) if "{invite}" in text else text
+
+
+def make_link_command(name, spec):
+    async def callback(interaction: discord.Interaction):
+        await interaction.response.send_message(await link_text(interaction.guild, name))
+    tree.command(name=name, description=spec["description"])(callback)
+
+
+for _name, _spec in CFG["link_commands"].items():
+    make_link_command(_name, _spec)
 
 
 def perms(names):

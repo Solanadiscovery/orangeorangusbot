@@ -131,5 +131,23 @@
     "official-links": "🔗 **OrangeOrangus official links**\nThese are the ONLY official links. Anything else is fake.\n\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🏎️ Racing demo: https://orangeorangus-racingdemo.netlify.app\n\n⚠️ There is no token contract address and no open presale yet. Any link claiming otherwise is a scam. New links will be added here only after they are verified.",
     "scam-alerts": "🚨 **Scam alert: read this before anything else**\n• Staff will NEVER DM you first. Anyone who does is an impostor.\n• No presale is open and no token address has been published.\n• Never share your seed phrase or private keys, with anyone, ever.\n• Never \"connect your wallet\" to claim airdrops or rewards from links sent in DMs.\n• Check every link against #official-links.\n• Spotted something suspicious? Report it to a @Mod right away.\n\nStay safe, ape. 🦧",
     "game-feedback": "🏎️ **OrangeOrangus Racing**\nOrangeOrangus Racing is our arcade racing game, currently an early demo you can play in your desktop browser, no download needed. Mobile support is planned for a future update.\nPlay the demo: https://orangeorangus-racingdemo.netlify.app\n\nIt's a demo with virtual points only: no token rewards are live and none are promised.\n\n👉 Tell us here: what you love, what's broken, what you'd add. Bugs, ideas and screenshots all help shape the game! 🦧"
+  },
+  "link_commands": {
+    "x": {
+      "description": "OrangeOrangus on X",
+      "text": "🐦 Follow us on X: https://x.com/orangeorangus"
+    },
+    "tlg": {
+      "description": "OrangeOrangus Telegram",
+      "text": "👉 Join the Troop on Telegram: https://t.me/OrangeOrangus"
+    },
+    "ds": {
+      "description": "Invite link to this Discord server",
+      "text": "🦧 Invite your friends to the jungle: {invite}"
+    },
+    "demo": {
+      "description": "Play the OrangeOrangus Racing demo",
+      "text": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app"
+    }
   }
 }
