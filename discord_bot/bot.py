@@ -30,11 +30,18 @@ async def log(guild, text):
 
 @client.event
 async def on_ready():
+    print(f"Connesso come {client.user}")
+    if not client.guilds:
+        print("⚠️ Il bot non è in nessun server: invitalo con il link OAuth2 (scope bot + applications.commands).")
     # Sync per server: il comando /setup compare subito, senza attese.
     for guild in client.guilds:
-        tree.copy_global_to(guild=guild)
-        await tree.sync(guild=guild)
-    print(f"Connesso come {client.user}")
+        try:
+            tree.copy_global_to(guild=guild)
+            await tree.sync(guild=guild)
+            print(f"✅ /setup pronto nel server {guild.name} (in alternativa scrivi !setup)")
+        except discord.HTTPException as e:
+            print(f"⚠️ {guild.name}: /setup non registrato ({e}). Reinvita il bot con lo scope applications.commands, "
+                  "oppure scrivi !setup nel server.")
 
 
 @client.event
@@ -48,6 +55,11 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
+    if message.guild and message.content.strip() == "!setup" and message.author.guild_permissions.administrator:
+        await message.channel.send("⏳ Setup in corso...")
+        done = await run_setup(message.guild)
+        await message.channel.send("✅ Setup completato: " + (", ".join(done) or "era già tutto a posto"))
+        return
     if message.author.bot or not message.guild or is_staff(message.author):
         return
     category = message.channel.category.name if getattr(message.channel, "category", None) else ""
@@ -82,7 +94,20 @@ def perms(names):
 @app_commands.default_permissions(administrator=True)
 async def setup(interaction: discord.Interaction):
     await interaction.response.defer(ephemeral=True, thinking=True)
-    guild, done = interaction.guild, []
+    done = await run_setup(interaction.guild)
+    await interaction.followup.send("✅ Setup completato: " + (", ".join(done) or "era già tutto a posto"), ephemeral=True)
+
+
+async def run_setup(guild):
+    try:
+        return await _setup_steps(guild)
+    except discord.HTTPException as e:
+        print(f"⚠️ Setup interrotto: {e}")
+        return [f"⚠️ interrotto ({e.text or e}): dai al bot il permesso Amministratore e mettilo in cima ai ruoli, poi riprova"]
+
+
+async def _setup_steps(guild):
+    done = []
 
     roles = {}
     for spec in CFG["roles"]:
@@ -130,8 +155,7 @@ async def setup(interaction: discord.Interaction):
     if guild.verification_level < discord.VerificationLevel.high:
         await guild.edit(verification_level=discord.VerificationLevel.high, reason="/setup")
         done.append("verifica: Alta")
-
-    await interaction.followup.send("✅ Setup completato: " + (", ".join(done) or "era già tutto a posto"), ephemeral=True)
+    return done
 
 
 if __name__ == "__main__":

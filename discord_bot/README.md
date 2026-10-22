@@ -15,7 +15,7 @@ Tutto si modifica in `config.json`. Aggiungi i domini ufficiali ad `allowed_doma
 2. Sempre in Bot: attiva **Server Members Intent** e **Message Content Intent**.
 3. OAuth2 → URL Generator: scope `bot` + `applications.commands`, permesso **Administrator** → apri il link e aggiungi il bot al server.
 4. Avvio su Windows: doppio clic su `avvia-bot.bat`. La prima volta chiede il token e lo salva in `token.txt` (resta solo sul tuo PC, non condividerlo). Altrimenti: `DISCORD_TOKEN=xxx python discord_bot/bot.py`
-5. Nel server scrivi `/setup`. Poi in Impostazioni → Ruoli controlla che il ruolo del bot stia **sopra** OranguTeam.
+5. Nel server scrivi `/setup` (oppure `!setup`). Poi in Impostazioni → Ruoli controlla che il ruolo del bot stia **sopra** OranguTeam.
 
 Da fare a mano (il bot non può): abilitare Community, filtro spam DM, protezione raid/CAPTCHA, 2FA obbligatoria per i moderatori.
 
