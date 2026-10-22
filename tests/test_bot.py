@@ -188,7 +188,8 @@ class BotTest(unittest.TestCase):
         self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
                                 "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
                                 "🗑 Filter removed."])
-        self.assertEqual(list(b.state["filters"]), ["/x", "/demo", "/tlg", "/discord"])
+        self.assertNotIn("demo", b.state["filters"])  # the "demo" filter was removed with /stop
+        self.assertIn("/x", b.state["filters"])  # defaults from config.json are there from the start
 
     def test_antiflood_mutes_spammer_not_admin(self):
         def msg(uid, i, date):
@@ -237,12 +238,15 @@ class BotTest(unittest.TestCase):
     def test_default_group_commands(self):
         fake = FakeTelegram()
         fake.updates = [[{"update_id": 1, "message": {"message_id": 1, "text": "/x", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},
-                         {"update_id": 2, "message": {"message_id": 2, "text": "/demo", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}}]]
+                         {"update_id": 2, "message": {"message_id": 2, "text": "/demo", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},
+                         {"update_id": 3, "message": {"message_id": 3, "text": "/social", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}}]]
         with mock.patch.object(tg, "call", fake):
             bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
         sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
         self.assertIn("https://x.com/orangeorangus", sent[0])
         self.assertIn("orangeorangus-racingdemo.netlify.app", sent[1])
+        for link in ("x.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "netlify.app"):
+            self.assertIn(link, sent[2])  # /social lists every official link
 
     def test_og_announcement_once(self):
         state = json.loads((self.dir / "state.json").read_text())

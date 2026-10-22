@@ -131,7 +131,8 @@
     "/x": "🐦 Follow us on X: https://x.com/orangeorangus",
     "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app",
     "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
-    "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V"
+    "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V",
+    "/social": "🍊🦧 OrangeOrangus official links:\n\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeorangus-racingdemo.netlify.app"
   },
   "antiflood": {
     "enabled": true,
