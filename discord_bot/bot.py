@@ -158,14 +158,16 @@ async def _setup_steps(guild):
                 done.append(f"#{channel.name}")
             elif channel.slowmode_delay != ch.get("slowmode", 0):
                 await channel.edit(slowmode_delay=ch.get("slowmode", 0))
-            if ch["name"] == "rules":
+            text = CFG["channel_posts"].get(ch["name"])
+            if text:
+                # One bot post per channel: created once, then kept in sync with config.json.
                 mine = [m async for m in channel.history(limit=20) if m.author == guild.me]
                 if not mine:
-                    await channel.send(CFG["rules_text"])
-                    done.append("#rules text")
-                elif mine[0].content != CFG["rules_text"]:
-                    await mine[0].edit(content=CFG["rules_text"])
-                    done.append("#rules text updated")
+                    await channel.send(text, suppress_embeds=True)
+                    done.append(f"#{ch['name']} post")
+                elif mine[0].content != text:
+                    await mine[0].edit(content=text, suppress=True)
+                    done.append(f"#{ch['name']} post updated")
 
     if guild.verification_level < discord.VerificationLevel.high:
         await guild.edit(verification_level=discord.VerificationLevel.high, reason="/setup")
