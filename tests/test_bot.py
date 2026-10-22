@@ -188,7 +188,7 @@ class BotTest(unittest.TestCase):
         self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
                                 "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
                                 "🗑 Filter removed."])
-        self.assertEqual(list(b.state["filters"]), ["/x", "/demo", "/tlg"])
+        self.assertEqual(list(b.state["filters"]), ["/x", "/demo", "/tlg", "/discord"])
 
     def test_antiflood_mutes_spammer_not_admin(self):
         def msg(uid, i, date):
@@ -209,7 +209,10 @@ class BotTest(unittest.TestCase):
         state["filters_seeded"] = ["/x", "/demo"]
         (self.dir / "state.json").write_text(json.dumps(state))
         b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
-        self.assertEqual(b.group.filters, {"/x": "old x", "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus"})
+        f = b.group.filters
+        self.assertEqual(f["/x"], "old x")  # an edited default is kept
+        self.assertNotIn("/demo", f)  # a default an admin removed does not come back
+        self.assertIn("/tlg", f)  # defaults added later reach the live state
         b.group.filters.pop("/tlg")
         self.assertNotIn("/tlg", b.group.filters)
 
