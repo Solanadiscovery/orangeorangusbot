@@ -135,4 +135,9 @@ async def setup(interaction: discord.Interaction):
 
 
 if __name__ == "__main__":
-    client.run(os.environ["DISCORD_TOKEN"])
+    token_file = Path(__file__).parent / "token.txt"
+    token = os.environ.get("DISCORD_TOKEN") or (token_file.read_text().strip() if token_file.exists() else "")
+    if not token:
+        token = input("Incolla il token del bot e premi Invio: ").strip()
+        token_file.write_text(token)
+    client.run(token)
