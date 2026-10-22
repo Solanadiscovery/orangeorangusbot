@@ -137,5 +137,11 @@
     "messages": 6,
     "seconds": 10,
     "mute_minutes": 10
+  },
+  "group_documents": {
+    "/roadmap": {
+      "file": "assets/OrangeOrangus_Racing.pdf",
+      "caption": "🗺️ OrangeOrangus Racing: what's coming next 🏁🍊"
+    }
   }
 }

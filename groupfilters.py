@@ -6,6 +6,7 @@ Filters live in state.json, so they survive restarts. Needs the bot to see group
 (make it a group admin or turn off Privacy mode in BotFather).
 """
 import re
+from pathlib import Path
 
 import tg
 
@@ -101,6 +102,8 @@ class GroupFilters:
             if rules and self.cooled("rules", RULES_COOLDOWN):
                 self.say(msg, rules)
             return
+        if cmd in self.bot.cfg.get("group_documents", {}):
+            return self.send_document(msg, cmd)
         if cmd not in ("/filter", "/filters", "/stop", "/setrules"):
             return self.match(msg, text)  # a filter can also be a /command, e.g. /ac
         if not self.is_admin(msg.get("from", {}).get("id")):
@@ -128,6 +131,24 @@ class GroupFilters:
             return self.say(msg, f"Limit of {MAX_FILTERS} filters reached.")
         self.filters[word], self.bot.dirty = reply[:MAX_TEXT], True
         self.say(msg, f"✅ Filter saved: {word}")
+
+    def send_document(self, msg, cmd):
+        """/roadmap and similar: reply with a file. The first send uploads it; later sends reuse Telegram's file_id."""
+        doc = self.bot.cfg["group_documents"][cmd]
+        path = Path(__file__).parent / doc["file"]
+        if not self.cooled("doc:" + cmd, COMMAND_COOLDOWN):
+            return
+        key = f"{cmd}:{path.stat().st_size}"  # a changed file gets a new key and is uploaded again
+        ids = self.bot.state.setdefault("doc_ids", {})
+        fields = {"chat_id": self.bot.chat, "reply_to_message_id": msg["message_id"], "allow_sending_without_reply": True,
+                  "caption": doc.get("caption", "")}
+        if key in ids:
+            try:
+                return tg.call("sendDocument", {**fields, "document": ids[key]})
+            except tg.TelegramError:
+                ids.pop(key)
+        sent = tg.upload("sendDocument", fields, "document", str(path))
+        ids[key], self.bot.dirty = sent["document"]["file_id"], True
 
     @staticmethod
     def split(arg, replied):

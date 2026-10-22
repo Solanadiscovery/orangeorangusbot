@@ -213,6 +213,24 @@ class BotTest(unittest.TestCase):
         b.group.filters.pop("/tlg")
         self.assertNotIn("/tlg", b.group.filters)
 
+    def test_roadmap_sends_pdf_once_then_reuses_file_id(self):
+        def ask(i):
+            return {"update_id": i, "message": {"message_id": i, "text": "/roadmap", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}}
+        fake, uploads = FakeTelegram(), []
+        fake.updates = [[ask(1)], [ask(2)]]
+        def upload(method, fields, field, path, **_):
+            uploads.append((method, field, Path(path).name))
+            return {"document": {"file_id": "FID"}}
+        with mock.patch.object(tg, "call", fake), mock.patch.object(tg, "upload", upload):
+            b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
+            b.commands()
+            b.group.bot.mem["group_cooldown"].clear()  # skip the 20 s pause between answers
+            b.commands()
+        self.assertEqual(uploads, [("sendDocument", "document", "OrangeOrangus_Racing.pdf")])
+        sent = [f for m, f in fake.calls if m == "sendDocument"]
+        self.assertEqual([f["document"] for f in sent], ["FID"])
+        self.assertEqual(sent[0]["reply_to_message_id"], 2)
+
     def test_default_group_commands(self):
         fake = FakeTelegram()
         fake.updates = [[{"update_id": 1, "message": {"message_id": 1, "text": "/x", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},
