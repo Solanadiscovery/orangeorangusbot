@@ -188,7 +188,30 @@ class BotTest(unittest.TestCase):
         self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
                                 "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
                                 "🗑 Filter removed."])
-        self.assertEqual(b.state["filters"], {})
+        self.assertEqual(list(b.state["filters"]), ["/x", "/demo"])
+
+    def test_antiflood_mutes_spammer_not_admin(self):
+        def msg(uid, i, date):
+            return {"update_id": i, "message": {"message_id": i, "text": "hi", "date": date, "chat": {"id": -5, "username": "test"},
+                                                "from": {"id": uid, "first_name": "Z"}}}
+        fake = FakeTelegram()
+        fake.updates = [[msg(3, i, 1000 + i // 4) for i in range(1, 9)] + [msg(1, 20 + i, 1000) for i in range(8)]]  # user 3 spams; admin 1 too
+        with mock.patch.object(tg, "call", fake):
+            bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
+        mutes = [f for m, f in fake.calls if m == "restrictChatMember"]
+        self.assertEqual([f["user_id"] for f in mutes], [3])
+        self.assertFalse(mutes[0]["permissions"]["can_send_messages"])
+        self.assertEqual(mutes[0]["until_date"], 1001 + 600)
+
+    def test_default_group_commands(self):
+        fake = FakeTelegram()
+        fake.updates = [[{"update_id": 1, "message": {"message_id": 1, "text": "/x", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},
+                         {"update_id": 2, "message": {"message_id": 2, "text": "/demo", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}}]]
+        with mock.patch.object(tg, "call", fake):
+            bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
+        sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
+        self.assertIn("https://x.com/orangeorangus", sent[0])
+        self.assertIn("orangeorangus-racingdemo.netlify.app", sent[1])
 
     def test_og_announcement_once(self):
         state = json.loads((self.dir / "state.json").read_text())

@@ -12,6 +12,7 @@ import tg
 MAX_FILTERS = 100
 MAX_TEXT = 3500
 COOLDOWN = 600       # seconds before the same word is answered again
+COMMAND_COOLDOWN = 20  # /commands (e.g. /x, /demo) answer almost every time
 RULES_COOLDOWN = 60
 ADMIN_CACHE = 300
 
@@ -22,7 +23,9 @@ class GroupFilters:
 
     @property
     def filters(self):
-        return self.bot.state.setdefault("filters", {})
+        if "filters" not in self.bot.state:  # first run: start from the defaults in config.json, editable afterwards
+            self.bot.state["filters"], self.bot.dirty = dict(self.bot.cfg.get("group_filters", {})), True
+        return self.bot.state["filters"]
 
     def is_main(self, chat):
         main = self.bot.chat.lower()
@@ -53,7 +56,32 @@ class GroupFilters:
         last[key] = ts
         return True
 
+    def flood(self, msg):
+        """Mute a member who sends too many messages too fast (Rose antiflood). Admins are exempt."""
+        c = self.bot.cfg.get("antiflood", {})
+        user = msg.get("from", {})
+        if not c.get("enabled") or not user.get("id") or user.get("is_bot"):
+            return False
+        now = msg.get("date") or self.bot.clock().timestamp()  # message time: a backlog after a restart is not a flood
+        seen = self.bot.mem.setdefault("flood", {}).setdefault(user["id"], [])
+        seen.append(now)
+        seen[:] = [t for t in seen if now - t <= c["seconds"]]
+        if len(seen) <= c["messages"] or self.is_admin(user["id"]):
+            return False
+        seen.clear()
+        until = int(now) + c["mute_minutes"] * 60
+        try:
+            tg.call("restrictChatMember", {"chat_id": self.bot.chat, "user_id": user["id"], "until_date": until,
+                                           "permissions": {"can_send_messages": False}})
+        except tg.TelegramError as e:
+            self.bot.alert("flood_error", f"Antiflood could not mute a member (is the bot an admin that can restrict members?): {e}")
+            return False
+        self.say(msg, f"🚫 Slow down, {user.get('first_name', 'friend')}! Muted for {c['mute_minutes']} minutes for flooding.")
+        return True
+
     def on_message(self, msg):
+        if self.flood(msg):
+            return
         text = msg.get("text") or ""
         if not text:
             return
@@ -105,5 +133,5 @@ class GroupFilters:
     def match(self, msg, text):
         low = text.lower()
         for word, reply in self.filters.items():
-            if re.search(rf"(?<!\w){re.escape(word)}(?!\w)", low) and self.cooled("filter:" + word, COOLDOWN):
+            if re.search(rf"(?<!\w){re.escape(word)}(?!\w)", low) and self.cooled("filter:" + word, COMMAND_COOLDOWN if word.startswith("/") else COOLDOWN):
                 return self.say(msg, reply)

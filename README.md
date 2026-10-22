@@ -25,7 +25,9 @@ Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: �
 Il bot avvisa l'admin se il countdown non si trova, se una pubblicazione fallisce o se i contenuti stanno finendo.
 
 ## Filtri e regole del gruppo (come Rose)
-Nel gruppo, gli admin scrivono `/filter parola testo` (la parola può essere anche un comando, es. `/filter /ac testo`; oppure `/filter "due parole" testo`, anche rispondendo a un messaggio), `/filters` per l'elenco, `/stop parola` per eliminarlo, `/setrules testo` per le regole. Chiunque può usare `/rules`. Quando un membro scrive la parola, il bot risponde (una volta ogni 10 minuti per parola). I filtri sono in `state.json`. Il bot deve vedere i messaggi del gruppo: sia admin del gruppo oppure disattiva il Privacy mode in BotFather.
+Nel gruppo, gli admin scrivono `/filter parola testo` (la parola può essere anche un comando, es. `/filter /ac testo`; oppure `/filter "due parole" testo`, anche rispondendo a un messaggio), `/filters` per l'elenco, `/stop parola` per eliminarlo, `/setrules testo` per le regole. Chiunque può usare `/rules`. Quando un membro scrive la parola, il bot risponde (una volta ogni 10 minuti per parola, ogni 20 secondi per i /comandi). I filtri sono in `state.json`. Il bot deve vedere i messaggi del gruppo: sia admin del gruppo oppure disattiva il Privacy mode in BotFather.
+
+Antiflood: chi invia più di 6 messaggi in 10 secondi viene silenziato per 10 minuti (gli admin sono esclusi). Si regola in `config.json` → `antiflood`; il bot deve essere admin del gruppo con il permesso di limitare i membri. `/x` e `/demo` sono filtri già pronti.
 
 ## Anti-ripetizione
 Prima di pubblicare, ogni contenuto è confrontato con tutto lo storico (entrambe le piattaforme):
