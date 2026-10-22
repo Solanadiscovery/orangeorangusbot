@@ -20,6 +20,8 @@ class FakeTelegram:
             return self.members
         if method == "getUpdates":
             return self.updates.pop(0) if getattr(self, "updates", None) else []
+        if method == "getChatMember":
+            return {"status": "member"}
         if method == "getChat":
             return {"pinned_message": {"message_id": 30}}
         if method == "editMessageText" and self.edit_error:
@@ -169,6 +171,47 @@ class BotTest(unittest.TestCase):
         self.assertIn("OG Peeler #8 of 500", welcomes[0]["text"])
         self.assertIn("t.me/OrangeOrangus", welcomes[0]["text"])
         self.assertEqual([f["message_id"] for m, f in fake.calls if m == "deleteMessage"], [welcomes and 101])
+
+    def test_group_filters_like_rose(self):
+        def msg(uid, mid, text, **extra):
+            return {"update_id": mid, "message": {"message_id": mid, "text": text, "chat": {"id": -5, "type": "supergroup", "username": "test"},
+                                                  "from": {"id": uid}, **extra}}
+        fake = FakeTelegram()
+        fake.updates = [[msg(1, 1, '/filter demo Play: https://example.com/demo'), msg(2, 2, '/filter x y'), msg(3, 3, "any DEMO link?"),
+                         msg(3, 4, "demo again"), msg(3, 5, "demos"), msg(1, 6, "/setrules Be kind"), msg(3, 7, "/rules"),
+                         msg(1, 8, "/stop demo"), msg(3, 9, "demo"),
+                         msg(1, 10, "/filter /ac Contract: 0x1"), msg(3, 11, "/ac@OrangeBot"), msg(1, 12, "/stop /ac")]]
+        with mock.patch.object(tg, "call", fake):
+            b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
+            b.commands()
+        sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
+        self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
+                                "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
+                                "🗑 Filter removed."])
+        self.assertEqual(list(b.state["filters"]), ["/x", "/demo"])
+
+    def test_antiflood_mutes_spammer_not_admin(self):
+        def msg(uid, i, date):
+            return {"update_id": i, "message": {"message_id": i, "text": "hi", "date": date, "chat": {"id": -5, "username": "test"},
+                                                "from": {"id": uid, "first_name": "Z"}}}
+        fake = FakeTelegram()
+        fake.updates = [[msg(3, i, 1000 + i // 4) for i in range(1, 9)] + [msg(1, 20 + i, 1000) for i in range(8)]]  # user 3 spams; admin 1 too
+        with mock.patch.object(tg, "call", fake):
+            bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
+        mutes = [f for m, f in fake.calls if m == "restrictChatMember"]
+        self.assertEqual([f["user_id"] for f in mutes], [3])
+        self.assertFalse(mutes[0]["permissions"]["can_send_messages"])
+        self.assertEqual(mutes[0]["until_date"], 1001 + 600)
+
+    def test_default_group_commands(self):
+        fake = FakeTelegram()
+        fake.updates = [[{"update_id": 1, "message": {"message_id": 1, "text": "/x", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},
+                         {"update_id": 2, "message": {"message_id": 2, "text": "/demo", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}}]]
+        with mock.patch.object(tg, "call", fake):
+            bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
+        sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
+        self.assertIn("https://x.com/orangeorangus", sent[0])
+        self.assertIn("orangeorangus-racingdemo.netlify.app", sent[1])
 
     def test_og_announcement_once(self):
         state = json.loads((self.dir / "state.json").read_text())
