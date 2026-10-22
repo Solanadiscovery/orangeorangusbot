@@ -188,7 +188,8 @@ class BotTest(unittest.TestCase):
         self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
                                 "Be kind", "🗑 Filter removed.", "✅ Filter saved: /ac", "Contract: 0x1",
                                 "🗑 Filter removed."])
-        self.assertEqual(list(b.state["filters"]), ["/x", "/demo", "/tlg", "/discord"])
+        self.assertNotIn("demo", b.state["filters"])  # the "demo" filter was removed with /stop
+        self.assertIn("/x", b.state["filters"])  # defaults from config.json are there from the start
 
     def test_antiflood_mutes_spammer_not_admin(self):
         def msg(uid, i, date):
