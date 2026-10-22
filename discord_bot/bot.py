@@ -30,7 +30,10 @@ async def log(guild, text):
 
 @client.event
 async def on_ready():
-    await tree.sync()
+    # Sync per server: il comando /setup compare subito, senza attese.
+    for guild in client.guilds:
+        tree.copy_global_to(guild=guild)
+        await tree.sync(guild=guild)
     print(f"Connesso come {client.user}")
 
 
