@@ -72,11 +72,14 @@
     "first"
    ],
    "streak": 1,
-   "best_streak": 1
+   "best_streak": 1,
+   "link": "https://t.me/+8J5rs3rojp1jMjk0"
   }
  },
  "tweets": {},
- "links": {},
+ "links": {
+  "https://t.me/+8J5rs3rojp1jMjk0": "1487424404"
+ },
  "refs": [],
  "referred": {},
  "open": true,
