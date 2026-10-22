@@ -20,6 +20,8 @@ class FakeTelegram:
             return self.members
         if method == "getUpdates":
             return self.updates.pop(0) if getattr(self, "updates", None) else []
+        if method == "getChatMember":
+            return {"status": "member"}
         if method == "getChat":
             return {"pinned_message": {"message_id": 30}}
         if method == "editMessageText" and self.edit_error:
@@ -169,6 +171,22 @@ class BotTest(unittest.TestCase):
         self.assertIn("OG Peeler #8 of 500", welcomes[0]["text"])
         self.assertIn("t.me/OrangeOrangus", welcomes[0]["text"])
         self.assertEqual([f["message_id"] for m, f in fake.calls if m == "deleteMessage"], [welcomes and 101])
+
+    def test_group_filters_like_rose(self):
+        def msg(uid, mid, text, **extra):
+            return {"update_id": mid, "message": {"message_id": mid, "text": text, "chat": {"id": -5, "type": "supergroup", "username": "test"},
+                                                  "from": {"id": uid}, **extra}}
+        fake = FakeTelegram()
+        fake.updates = [[msg(1, 1, '/filter demo Play: https://example.com/demo'), msg(2, 2, '/filter x y'), msg(3, 3, "any DEMO link?"),
+                         msg(3, 4, "demo again"), msg(3, 5, "demos"), msg(1, 6, "/setrules Be kind"), msg(3, 7, "/rules"),
+                         msg(1, 8, "/stop demo"), msg(3, 9, "demo")]]
+        with mock.patch.object(tg, "call", fake):
+            b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
+            b.commands()
+        sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
+        self.assertEqual(sent, ["✅ Filter saved: demo", "Play: https://example.com/demo", "✅ Rules saved. Members get them with /rules.",
+                                "Be kind", "🗑 Filter removed."])
+        self.assertEqual(b.state["filters"], {})
 
     def test_og_announcement_once(self):
         state = json.loads((self.dir / "state.json").read_text())

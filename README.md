@@ -14,7 +14,7 @@ Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: �
 | `content/telegram.json`, `content/x.json` | contenuti (quiz, meme, sondaggi, ecc.), separati per piattaforma |
 | `history.json` | tutto ciò che è stato pubblicato (testo, tipo, concetto, data) |
 | `state.json` | ID del messaggio countdown, slot pubblicati, traguardi, pausa/anteprima |
-| `bot.py` | ciclo principale; `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
+| `bot.py` | ciclo principale; `groupfilters.py` (filtri/regole), `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
 | `tests/` | test offline (`python -m unittest discover tests`), eseguiti a ogni avvio |
 
 ## Secrets (Settings → Secrets → Actions)
@@ -23,6 +23,9 @@ Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: �
 ## Comandi admin (scrivi al bot in privato)
 `/status` stato e contenuti rimasti · `/pause` `/resume` pubblicazioni · `/preview_on` `/preview_off` i post arrivano solo a te · `/next` prossimi contenuti.
 Il bot avvisa l'admin se il countdown non si trova, se una pubblicazione fallisce o se i contenuti stanno finendo.
+
+## Filtri e regole del gruppo (come Rose)
+Nel gruppo, gli admin scrivono `/filter parola testo` (o `/filter "due parole" testo`, anche rispondendo a un messaggio), `/filters` per l'elenco, `/stop parola` per eliminarlo, `/setrules testo` per le regole. Chiunque può usare `/rules`. Quando un membro scrive la parola, il bot risponde (una volta ogni 10 minuti per parola). I filtri sono in `state.json`. Il bot deve vedere i messaggi del gruppo: sia admin del gruppo oppure disattiva il Privacy mode in BotFather.
 
 ## Anti-ripetizione
 Prima di pubblicare, ogni contenuto è confrontato con tutto lo storico (entrambe le piattaforme):
