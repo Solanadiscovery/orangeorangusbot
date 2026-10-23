@@ -248,6 +248,17 @@ class BotTest(unittest.TestCase):
         self.assertEqual([f["document"] for f in sent], ["FID"])
         self.assertEqual(sent[0]["reply_to_message_id"], 2)
 
+    def test_updated_default_replaces_saved_text_once(self):
+        state = json.loads((self.dir / "state.json").read_text())
+        state["filters"] = {"/social": "old list", "/x": "my x"}
+        state["filters_seeded"] = ["/x", "/demo", "/social"]
+        (self.dir / "state.json").write_text(json.dumps(state))
+        b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
+        self.assertIn("orangeorangusofficial.netlify.app", b.group.filters["/social"])
+        self.assertEqual(b.group.filters["/x"], "my x")  # defaults without a new revision are left alone
+        b.group.filters["/social"] = "admin edit"
+        self.assertEqual(b.group.filters["/social"], "admin edit")  # and the update is applied only once
+
     def test_default_group_commands(self):
         fake = FakeTelegram()
         fake.updates = [[{"update_id": 1, "message": {"message_id": 1, "text": "/x", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},
@@ -258,7 +269,7 @@ class BotTest(unittest.TestCase):
         sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
         self.assertIn("https://x.com/orangeorangus", sent[0])
         self.assertIn("orangeorangus-racingdemo.netlify.app", sent[1])
-        for link in ("x.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "netlify.app"):
+        for link in ("orangeorangusofficial.netlify.app", "x.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "racingdemo.netlify.app"):
             self.assertIn(link, sent[2])  # /social lists every official link
 
     def test_og_announcement_once(self):
