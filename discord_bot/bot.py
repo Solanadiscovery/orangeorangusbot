@@ -61,12 +61,15 @@ async def grant_og(guild):
     granted |= {m.id for m in role.members}
     humans = sorted((m for m in guild.members if not m.bot), key=lambda m: m.joined_at or datetime.datetime.max.replace(tzinfo=datetime.timezone.utc))
     picks = filters.og_picks(granted, [m.id for m in humans], CFG["og_limit"])
+    # Members who already earned OG, left and came back get it back (their slot is theirs).
+    picks += [m.id for m in humans if m.id in granted and role not in m.roles]
     given = 0
     for member_id in picks:
         try:
             await guild.get_member(member_id).add_roles(role, reason=f"First {CFG['og_limit']} members")
         except discord.HTTPException as e:
             print(f"⚠️ Could not give OG ({e}): move the bot role above OG.")
+            await log(guild, f"⚠️ Could not give OG ({e.text or e}): in Server Settings → Roles drag the bot role above OG.")
             break
         granted.add(member_id)
         given += 1
