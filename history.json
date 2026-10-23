@@ -222,5 +222,13 @@
   "platform": "telegram",
   "text": "🏆 Best reward for meme contest winners?",
   "ts": "2026-10-22T20:00:22.312878+00:00"
+ },
+ {
+  "id": "tg-meme-rug-gorilla-cv",
+  "concept": "rug-gorilla-cv",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Rug Gorilla's CV:\n- Experience: 47 projects\n- Skills: running\n- References: none, all deleted 🦍💨",
+  "ts": "2026-10-23T08:00:45.101074+00:00"
  }
 ]
