@@ -13,6 +13,7 @@ Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: �
 | `config.json` | fuso orario, orari, rotazione dei formati, countdown, soglia di somiglianza |
 | `content/telegram.json`, `content/x.json` | contenuti (quiz, meme, sondaggi, ecc.), separati per piattaforma |
 | `history.json` | tutto ciò che è stato pubblicato (testo, tipo, concetto, data) |
+| `members.json` | numero membri Telegram pubblico, letto dal sito web (aggiornato solo quando cambia) |
 | `state.json` | ID del messaggio countdown, slot pubblicati, traguardi, pausa/anteprima |
 | `bot.py` | ciclo principale; `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
 | `tests/` | test offline (`python -m unittest discover tests`), eseguiti a ogni avvio |

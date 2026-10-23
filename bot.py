@@ -64,7 +64,7 @@ class Bot:
         save("points.json", self.points.d)
         if os.environ.get("GITHUB_ACTIONS"):
             for cmd in (["config", "user.name", "orangeorangus-bot"], ["config", "user.email", "bot@users.noreply.github.com"],
-                        ["add", "state.json", "history.json", "points.json"], ["commit", "-qm", msg],
+                        ["add", "state.json", "history.json", "points.json", "members.json"], ["commit", "-qm", msg],
                         ["pull", "-q", "--rebase", "origin", "main"], ["push", "-q", "origin", "HEAD:main"]):
                 subprocess.run(["git", *cmd], check=False)
         self.dirty = False
@@ -176,6 +176,14 @@ class Bot:
     # --- countdown -------------------------------------------------------------
     def member_count(self):
         return tg.call("getChatMemberCount", {"chat_id": self.chat})
+
+    def publish_members(self, count):
+        """members.json pubblico (letto dal sito): salvato solo quando il numero cambia."""
+        if self.state.get("members_public") == count:
+            return
+        save("members.json", {"telegram": count, "goal": self.cfg["countdown"]["goal"],
+                              "updated": self.clock().strftime("%Y-%m-%dT%H:%M:%SZ")})
+        self.state["members_public"], self.dirty = count, True
 
     def update_countdown(self, count):
         text, _done = countdown.render(self.cfg, self.clock(), count)
@@ -314,6 +322,7 @@ class Bot:
         try:
             count = self.member_count()
             self.update_countdown(count)
+            self.publish_members(count)
             self.og_existing(count)
             self.ensure_pinned()
             self.milestones(count)
