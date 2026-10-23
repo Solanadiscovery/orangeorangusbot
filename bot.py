@@ -278,10 +278,10 @@ class Bot:
         return tg.call("sendMessage", {"chat_id": chat, "text": f"{item['text']}\n\n{self.cfg['telegram']['footer']}",
                                        "disable_web_page_preview": True})
 
-    def due_slot(self, platform):
+    def due_slot(self, platform, times="times"):
         tz = ZoneInfo(self.cfg["timezone"])
         local = self.clock().astimezone(tz)
-        for hhmm in self.cfg[platform]["times"]:
+        for hhmm in ([times] if ":" in times else self.cfg[platform].get(times, [])):
             h, m = map(int, hhmm.split(":"))
             slot = local.replace(hour=h, minute=m, second=0, microsecond=0)
             if slot <= local < slot + SLOT_WINDOW:
@@ -293,24 +293,27 @@ class Bot:
         last = [datetime.datetime.fromisoformat(e["ts"]) for e in self.history if e.get("platform") == platform]
         return bool(gap and last and self.clock() - max(last) < datetime.timedelta(minutes=gap))
 
-    def publish(self, platform):
-        key = self.due_slot(platform)
+    def publish(self, platform, kind="main"):
+        """kind "main": the normal rotation. kind "poll": one poll a day, in its own slot, without disturbing the rotation."""
+        poll = kind == "poll"
+        key = self.due_slot(platform, "poll_times" if poll else "times")
+        slot_name = f"{platform}_poll" if poll else platform
         slots = self.state.setdefault("slots", {})
-        if not key or slots.get(platform) == key or self.flag("paused"):
+        if not key or slots.get(slot_name) == key or self.flag("paused"):
             return
         if platform == "x" and not xapi.enabled():
             return
-        if self.too_soon(platform):
+        if self.too_soon(platform) and not poll:
             slots[platform] = key  # the slot is skipped, never delayed into a burst
             return self.persist(f"{platform} {key}: troppo vicino al post precedente")
         threshold = self.cfg["similarity_threshold"]
-        item = content.pick(self.pools[platform], self.history, self.cfg[platform]["rotation"],
-                            self.state.get("last_type", {}).get(platform), threshold)
-        slots[platform] = key
+        item = content.pick(self.pools[platform], self.history, ["poll"] if poll else self.cfg[platform]["rotation"],
+                            self.state.get("last_type", {}).get(slot_name), threshold)
+        slots[slot_name] = key
         if item is None:
             self.persist(f"{platform} {key}: nessun contenuto")
             return self.alert(f"empty_{platform}", f"Contenuti {platform} finiti: aggiungine di nuovi.", every=21600)
-        self.state.setdefault("last_type", {})[platform] = item["type"]
+        self.state.setdefault("last_type", {})[slot_name] = item["type"]
         content.record(self.history, item, platform, self.clock().isoformat())
         self.persist(f"{platform} {key}: {item['id']}")  # registrato PRIMA dell'invio: mai doppioni dopo un riavvio
         try:
@@ -325,13 +328,38 @@ class Bot:
             print(f"Pubblicato {platform} {item['id']}", flush=True)
         except Exception as e:
             self.alert(f"publish_{platform}", f"Pubblicazione {platform} fallita ({item['id']}): {e}")
-        left = content.remaining(self.pools[platform], self.history, threshold)
-        if left <= 8:
-            self.alert(f"low_{platform}", f"Restano solo {left} contenuti nuovi per {platform}.", every=86400)
+        pool = [i for i in self.pools[platform] if i["type"] == "poll"] if poll else self.pools[platform]
+        left = content.remaining(pool, self.history, threshold)
+        if left <= (4 if poll else 8):
+            self.alert(f"low_{slot_name}", f"Restano solo {left} {'sondaggi' if poll else 'contenuti'} nuovi per {platform}.", every=86400)
+
+    def publish_friday(self):
+        """Peel Friday: a fixed weekly meme-contest invitation on Telegram (text rotates by week, same format every week)."""
+        c = self.cfg["telegram"].get("friday")
+        local = self.clock().astimezone(ZoneInfo(self.cfg["timezone"]))
+        if not c or local.weekday() != 4 or self.flag("paused"):
+            return
+        h, m = map(int, c["time"].split(":"))
+        start = local.replace(hour=h, minute=m, second=0, microsecond=0)
+        day = local.strftime("%Y-%m-%d")
+        if not start <= local < start + SLOT_WINDOW or self.state.get("friday_done") == day:
+            return
+        text = c["texts"][local.isocalendar()[1] % len(c["texts"])]
+        self.state["friday_done"] = day
+        self.persist(f"telegram Peel Friday {day}")  # saved before sending: never twice after a restart
+        try:
+            if self.flag("preview"):
+                if self.admin:
+                    tg.call("sendMessage", {"chat_id": self.admin, "text": f"[ANTEPRIMA PEEL FRIDAY]\n{text}"})
+            else:
+                self.send_telegram({"type": "text", "text": text})
+        except Exception as e:
+            self.alert("publish_friday", f"Peel Friday non pubblicato: {e}")
 
     # --- ciclo -------------------------------------------------------------------
     def tick(self):
-        for step in (self.commands, lambda: self.safe_points(self.points.tick), lambda: self.publish("telegram"), lambda: self.publish("x")):
+        for step in (self.commands, lambda: self.safe_points(self.points.tick), lambda: self.publish("telegram"),
+                     lambda: self.publish("telegram", "poll"), self.publish_friday, lambda: self.publish("x")):
             try:
                 step()
             except Exception as e:

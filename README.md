@@ -33,6 +33,9 @@ Antiflood: chi invia più di 6 messaggi in 10 secondi viene silenziato per 10 mi
 ## Anti-raid (come Rose)
 Comandi per gli admin del gruppo: `/antiraid` (attiva/disattiva) · `/antiraid 2h` · `/antiraid off` bannano per un po' chi entra (ban temporaneo, `/raidactiontime 1h`; durata standard `/raidtime 6h`) · `/autoantiraid 10` lo attiva da solo se entrano 10 persone in un minuto (di base è spento, per non fermare gli ingressi veri) · `/lock all` / `/unlock all` blocca e riapre la chat · `/lock links` / `/unlock links` cancella i link dei non admin · `/locks` mostra lo stato. Il bot deve essere admin con "Bannare utenti", "Eliminare messaggi" e "Modificare info gruppo". Codice in `antiraid.py`.
 
+## Sondaggio giornaliero e Peel Friday (Telegram)
+Ogni giorno alle 12:00 (ora di Roma, `telegram.poll_times`) esce un sondaggio dal pool `poll` di `content/telegram.json`, in uno slot a parte: la rotazione normale (quiz, meme, engage) non cambia. Ogni venerdì alle 16:00 (`telegram.friday`) esce il post "Peel Friday" per il contest dei meme; il testo ruota ogni settimana tra le 4 varianti in `config.json`. Ogni post di testo finisce con il link a X (`telegram.footer`); i sondaggi e i quiz di Telegram non possono contenere link. Il bot avvisa l'admin quando restano pochi sondaggi: servono nuovi `poll` in `content/telegram.json`. Tutti i contenuti pubblici sono in inglese.
+
 ## Anti-ripetizione
 Prima di pubblicare, ogni contenuto è confrontato con tutto lo storico (entrambe le piattaforme):
 stesso ID o stesso concetto → scartato; testo identico dopo normalizzazione → scartato;

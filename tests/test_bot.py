@@ -259,6 +259,22 @@ class BotTest(unittest.TestCase):
         b.group.filters["/social"] = "admin edit"
         self.assertEqual(b.group.filters["/social"], "admin edit")  # and the update is applied only once
 
+    # --- sondaggio giornaliero e Peel Friday ------------------------------------
+    def test_daily_poll_once_and_friday_post_with_x_link(self):
+        fake = FakeTelegram()
+        friday = datetime.datetime(2026, 10, 23, 10, 0, tzinfo=UTC)  # 12:00 in Rome, a Friday: poll slot
+        self.make(friday, fake)
+        self.make(friday + datetime.timedelta(minutes=1), fake)  # same slot: no second poll
+        self.assertEqual([f["question"] for m, f in fake.calls if m == "sendPoll"].__len__(), 1)
+        self.make(friday.replace(hour=14), fake)  # 16:00 in Rome: Peel Friday
+        self.make(friday.replace(hour=14, minute=1), fake)
+        texts = [f["text"] for m, f in fake.calls if m == "sendMessage" and "PEEL FRIDAY" in f.get("text", "").upper()]
+        self.assertEqual(len(texts), 1)
+        self.assertIn("https://x.com/orangeorangus", texts[0])  # every text post links to X through the footer
+        fake2 = FakeTelegram()
+        self.make(datetime.datetime(2026, 10, 22, 14, 0, tzinfo=UTC), fake2)  # a Thursday: no Peel Friday
+        self.assertFalse([1 for m, f in fake2.calls if m == "sendMessage" and "PEEL FRIDAY" in f.get("text", "").upper()])
+
     # --- anti-raid -----------------------------------------------------------
     def group_msg(self, uid, i, text, **extra):
         return {"update_id": i, "message": {"message_id": i, "text": text, "date": 1000, "chat": {"id": -5, "username": "test"},
