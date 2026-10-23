@@ -305,7 +305,7 @@ async def _setup_steps(guild):
             continue
         text = link_mentions(guild, text)
         # Oldest bot message = the info post (later bot messages in #welcome are join greetings).
-        mine = [m async for m in channel.history(limit=50, oldest_first=True) if m.author == guild.me]
+        mine = [m async for m in channel.history(limit=50, oldest_first=True) if m.author == guild.me and m.type == discord.MessageType.default]
         if not mine:
             await channel.send(text, suppress_embeds=True, allowed_mentions=discord.AllowedMentions.none())
             done.append(f"#{name} post")
@@ -320,7 +320,7 @@ async def _setup_steps(guild):
         if not channel or not path.exists():
             continue
         posted = [m async for m in channel.history(limit=20)
-                  if m.author == guild.me and any(a.filename == path.name for a in m.attachments)]
+                  if m.author == guild.me and m.type == discord.MessageType.default and any(a.filename == path.name for a in m.attachments)]
         if not posted:
             await channel.send(link_mentions(guild, spec["text"]), file=discord.File(path),
                                allowed_mentions=discord.AllowedMentions.none())
