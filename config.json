@@ -32,11 +32,22 @@
     "rotation": [
       "quiz",
       "meme",
-      "poll",
       "meme",
       "engage"
     ],
-    "footer": "🍊 Peel the hype. Release the ape.\n⚠️ Official links only in pinned messages. Admins never DM first."
+    "footer": "🍊 Peel the hype. Release the ape.\n🐦 Follow us on X: https://x.com/orangeorangus\n⚠️ Official links only in pinned messages. Admins never DM first.",
+    "poll_times": [
+      "12:00"
+    ],
+    "friday": {
+      "time": "16:00",
+      "texts": [
+        "🍊 PEEL FRIDAY 🍊\n\nDrop your best OrangeOrangus meme in this group. Make it funny, make it jungle.\n\n🔥 The meme with the most fire reactions by Sunday gets featured on our X and earns a special role on Discord: https://discord.gg/GeHsvWM6V\n\nOriginal memes only. Let's go! 🦧",
+        "🍌 PEEL FRIDAY IS HERE 🍌\n\nShow us your best jungle meme and let the Troop vote with 🔥.\n\nThe winner by Sunday gets a shout-out on X and a special role on Discord: https://discord.gg/GeHsvWM6V\n\nYour move, Peelers! 🍊",
+        "🏁 PEEL FRIDAY 🏁\n\nRacing memes, orangutan memes, demo memes: post them all here.\n\n🔥 React to the ones you love. The top meme by Sunday is featured on our X, and its creator gets a special Discord role: https://discord.gg/GeHsvWM6V\n\nOriginal memes only! 🦧",
+        "🍊 IT'S PEEL FRIDAY 🍊\n\nThe jungle wants your funniest meme. Post it below and vote with 🔥.\n\nMost fire by Sunday: featured on X plus a special role on Discord: https://discord.gg/GeHsvWM6V\n\nMake us laugh, Troop! 🦧🏁"
+      ]
+    }
   },
   "x": {
     "times": [
