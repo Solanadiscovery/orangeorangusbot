@@ -57,23 +57,24 @@
   },
   "1487424404": {
    "name": "BASED",
-   "pts": 20,
+   "pts": 50,
    "x": "",
    "checkin": "2026-10-23",
    "day": {
     "d": "2026-10-23",
-    "p": 5
+    "p": 35
    },
    "joined": true,
    "strikes": 0,
-   "invites": 0,
+   "invites": 1,
    "first": "2026-10-21T20:13:46.687596+00:00",
    "badges": [
     "first"
    ],
    "streak": 2,
    "best_streak": 2,
-   "link": "https://t.me/+8J5rs3rojp1jMjk0"
+   "link": "https://t.me/+8J5rs3rojp1jMjk0",
+   "level": 1
   },
   "7185247600": {
    "name": "Xenon",
@@ -98,11 +99,6 @@
   "https://t.me/+8J5rs3rojp1jMjk0": "1487424404"
  },
  "refs": [
-  {
-   "inviter": "1487424404",
-   "invitee": "7224238704",
-   "ts": "2026-10-22T21:06:54.927768+00:00"
-  },
   {
    "inviter": "1487424404",
    "invitee": "7809859477",
