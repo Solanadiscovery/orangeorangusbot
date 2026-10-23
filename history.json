@@ -262,5 +262,13 @@
   "platform": "x",
   "text": "Something is getting loud in the jungle and it's orange. 🍊📣",
   "ts": "2026-10-23T17:30:01.444636+00:00"
+ },
+ {
+  "id": "tg-meme-two-buttons",
+  "concept": "two-buttons",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Two buttons meme:\n🔴 Touch grass\n🔴 Refresh the chart\nOrango, sweating: 🦧💦",
+  "ts": "2026-10-23T20:00:55.658485+00:00"
  }
 ]
