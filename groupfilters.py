@@ -28,10 +28,17 @@ class GroupFilters:
         state = self.bot.state
         filters = state.setdefault("filters", {})
         seeded = state.setdefault("filters_seeded", ["/x", "/demo"] if filters else [])  # /x and /demo shipped first
+        revs = state.setdefault("filters_rev", {})
         for word, reply in self.bot.cfg.get("group_filters", {}).items():
             if word not in seeded:
                 seeded.append(word)
                 filters.setdefault(word, reply)
+                self.bot.dirty = True
+            rev = self.bot.cfg.get("group_filters_rev", {}).get(word, 0)
+            if rev > revs.get(word, 0):  # a default whose text was updated in config.json replaces the saved one once
+                revs[word] = rev
+                if word in filters:
+                    filters[word] = reply
                 self.bot.dirty = True
         return filters
 
