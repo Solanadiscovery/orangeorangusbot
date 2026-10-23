@@ -73,6 +73,19 @@ class BotTest(unittest.TestCase):
         self.assertIn("494 Peelers left", edits[-1]["text"])
         self.assertNotIn("sendMessage", fake.methods())
 
+    def test_members_json_written_only_when_count_changes(self):
+        fake = FakeTelegram(members=7)
+        b = self.make(datetime.datetime(2026, 10, 19, 6, 0, tzinfo=UTC), fake)
+        self.assertEqual(json.loads((self.dir / "members.json").read_text())["telegram"], 7)
+        (self.dir / "members.json").unlink()
+        with mock.patch.object(tg, "call", fake):
+            b.tick()
+        self.assertFalse((self.dir / "members.json").exists())
+        fake.members = 8
+        with mock.patch.object(tg, "call", fake):
+            b.tick()
+        self.assertEqual(json.loads((self.dir / "members.json").read_text()), {"telegram": 8, "goal": 500, "updated": "2026-10-19T06:00:00Z"})
+
     def test_unchanged_count_does_not_edit_again(self):
         fake = FakeTelegram(members=7)
         b = self.make(datetime.datetime(2026, 10, 19, 6, 0, tzinfo=UTC), fake)
