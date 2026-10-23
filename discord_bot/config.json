@@ -142,7 +142,7 @@
   "channel_posts": {
     "welcome": "🦧 **Welcome to OrangeOrangus!**\nThe jungle's most a-peeling community on Solana. 🍊\n\n👉 Read the rules in #rules\n🔗 Official links only in #official-links\n🚨 Stay safe: check #scam-alerts\n💬 Say hi in #general-chat and drop your best memes in #memes\n🎮 Help shape the game in #game-feedback\n\nPeel the hype. Release the ape. 🦧",
     "rules": "🍊 **Welcome to the OrangeOrangus jungle!**\n1. Respect everyone: no insults or discrimination.\n2. No spam, flooding or self-promotion.\n3. Staff will NEVER DM you first. No presale is open: be wary of anyone offering one.\n4. Never share your seed phrase or private keys.\n5. The only official links are the ones in #official-links.\n6. No profit promises: OrangeOrangus is a community project, not financial advice.\nPeel the hype. Release the ape. 🦧",
-    "official-links": "🔗 **OrangeOrangus official links**\nThese are the ONLY official links. Anything else is fake.\n\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏎️ Racing demo: https://orangeorangus-racingdemo.netlify.app\n\n⚠️ There is no token contract address and no open presale yet. Any link claiming otherwise is a scam. New links will be added here only after they are verified.",
+    "official-links": "🔗 **OrangeOrangus official links**\nThese are the ONLY official links. Anything else is fake.\n\n🌐 Website: https://orangeorangusofficial.netlify.app/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏎️ Racing demo: https://orangeorangus-racingdemo.netlify.app\n\n⚠️ There is no token contract address and no open presale yet. Any link claiming otherwise is a scam. New links will be added here only after they are verified.",
     "scam-alerts": "🚨 **Scam alert: read this before anything else**\n• Staff will NEVER DM you first. Anyone who does is an impostor.\n• No presale is open and no token address has been published.\n• Never share your seed phrase or private keys, with anyone, ever.\n• Never \"connect your wallet\" to claim airdrops or rewards from links sent in DMs.\n• Check every link against #official-links.\n• Spotted something suspicious? Report it to a @Mod right away.\n\nStay safe, ape. 🦧",
     "game-feedback": "🏎️ **OrangeOrangus Racing**\nOrangeOrangus Racing is our arcade racing game, currently an early demo you can play in your desktop browser, no download needed. Mobile support is planned for a future update.\nPlay the demo: https://orangeorangus-racingdemo.netlify.app\n\nIt's a demo with virtual points only: no token rewards are live and none are promised.\n\n👉 Tell us here: what you love, what's broken, what you'd add. Bugs, ideas and screenshots all help shape the game! 🦧"
   },
@@ -163,9 +163,13 @@
       "description": "Play the OrangeOrangus Racing demo",
       "text": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app"
     },
+    "web": {
+      "description": "OrangeOrangus official website",
+      "text": "🌐 Official OrangeOrangus website: https://orangeorangusofficial.netlify.app/"
+    },
     "social": {
       "description": "All official OrangeOrangus links",
-      "text": "🍊🦧 OrangeOrangus official links:\n\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeorangus-racingdemo.netlify.app"
+      "text": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangusofficial.netlify.app/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeorangus-racingdemo.netlify.app"
     }
   },
   "og_role": "OG",
