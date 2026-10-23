@@ -15,7 +15,7 @@ Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: �
 | `history.json` | tutto ciò che è stato pubblicato (testo, tipo, concetto, data) |
 | `members.json` | numero membri Telegram pubblico, letto dal sito web (aggiornato solo quando cambia) |
 | `state.json` | ID del messaggio countdown, slot pubblicati, traguardi, pausa/anteprima |
-| `bot.py` | ciclo principale; `groupfilters.py` (filtri/regole), `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
+| `bot.py` | ciclo principale; `groupfilters.py` (filtri/regole), `antiraid.py` (anti-raid), `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
 | `tests/` | test offline (`python -m unittest discover tests`), eseguiti a ogni avvio |
 
 ## Secrets (Settings → Secrets → Actions)
@@ -29,6 +29,9 @@ Il bot avvisa l'admin se il countdown non si trova, se una pubblicazione fallisc
 Nel gruppo, gli admin scrivono `/filter parola testo` (la parola può essere anche un comando, es. `/filter /ac testo`; oppure `/filter "due parole" testo`, anche rispondendo a un messaggio), `/filters` per l'elenco, `/stop parola` per eliminarlo, `/setrules testo` per le regole. Chiunque può usare `/rules`. Quando un membro scrive la parola, il bot risponde (una volta ogni 10 minuti per parola, ogni 20 secondi per i /comandi). I filtri sono in `state.json`. Il bot deve vedere i messaggi del gruppo: sia admin del gruppo oppure disattiva il Privacy mode in BotFather.
 
 Antiflood: chi invia più di 6 messaggi in 10 secondi viene silenziato per 10 minuti (gli admin sono esclusi). Si regola in `config.json` → `antiflood`; il bot deve essere admin del gruppo con il permesso di limitare i membri. `/x`, `/demo`, `/tlg`, `/discord`, `/web` e `/social` (tutti i link) sono filtri già pronti; `/roadmap` invia il PDF in `assets/` (file e didascalia in `config.json` → `group_documents`).
+
+## Anti-raid (come Rose)
+Comandi per gli admin del gruppo: `/antiraid` (attiva/disattiva) · `/antiraid 2h` · `/antiraid off` bannano per un po' chi entra (ban temporaneo, `/raidactiontime 1h`; durata standard `/raidtime 6h`) · `/autoantiraid 10` lo attiva da solo se entrano 10 persone in un minuto (di base è spento, per non fermare gli ingressi veri) · `/lock all` / `/unlock all` blocca e riapre la chat · `/lock links` / `/unlock links` cancella i link dei non admin · `/locks` mostra lo stato. Il bot deve essere admin con "Bannare utenti", "Eliminare messaggi" e "Modificare info gruppo". Codice in `antiraid.py`.
 
 ## Anti-ripetizione
 Prima di pubblicare, ogni contenuto è confrontato con tutto lo storico (entrambe le piattaforme):

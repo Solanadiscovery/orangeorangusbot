@@ -259,6 +259,60 @@ class BotTest(unittest.TestCase):
         b.group.filters["/social"] = "admin edit"
         self.assertEqual(b.group.filters["/social"], "admin edit")  # and the update is applied only once
 
+    # --- anti-raid -----------------------------------------------------------
+    def group_msg(self, uid, i, text, **extra):
+        return {"update_id": i, "message": {"message_id": i, "text": text, "date": 1000, "chat": {"id": -5, "username": "test"},
+                                            "from": {"id": uid, "first_name": "U"}, **extra}}
+
+    def join(self, uid, i):
+        return {"update_id": i, "chat_member": {"old_chat_member": {"status": "left"},
+                                                "new_chat_member": {"status": "member", "user": {"id": uid, "first_name": f"N{uid}"}}}}
+
+    def run_updates(self, updates):
+        fake = FakeTelegram()
+        fake.updates = [updates]
+        with mock.patch.object(tg, "call", fake):
+            b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
+            b.commands()
+        return b, fake
+
+    def test_antiraid_bans_new_members_only_while_on(self):
+        b, fake = self.run_updates([self.join(10, 1), self.group_msg(1, 2, "/antiraid 2h"), self.join(11, 3), self.join(12, 4),
+                                    self.group_msg(1, 5, "/antiraid off"), self.join(13, 6)])
+        bans = [f for m, f in fake.calls if m == "banChatMember"]
+        self.assertEqual([f["user_id"] for f in bans], [11, 12])
+        self.assertEqual(bans[0]["until_date"], int(b.clock().timestamp()) + 3600)  # a one-hour temporary ban
+        welcomes = [f["text"] for m, f in fake.calls if m == "sendMessage" and "Welcome" in f.get("text", "")]
+        self.assertTrue(welcomes and "N11" not in welcomes[0] and "N10" in welcomes[0] and "N13" in welcomes[0])
+
+    def test_auto_antiraid_switches_on_at_threshold(self):
+        b, fake = self.run_updates([self.group_msg(1, 1, "/autoantiraid 3")] + [self.join(20 + i, 2 + i) for i in range(5)])
+        banned = [f["user_id"] for m, f in fake.calls if m == "banChatMember"]
+        self.assertEqual(banned, [22, 23, 24])  # the third join trips it; the first two got in
+        self.assertTrue(b.raid.active())
+
+    def test_antiraid_and_lock_commands_are_admin_only(self):
+        b, fake = self.run_updates([self.group_msg(3, 1, "/antiraid"), self.group_msg(3, 2, "/lock all"), self.join(30, 3)])
+        self.assertFalse(b.raid.active())
+        self.assertEqual([m for m, _ in fake.calls if m in ("banChatMember", "setChatPermissions")], [])
+
+    def test_lock_links_deletes_only_non_admin_links(self):
+        b, fake = self.run_updates([self.group_msg(1, 1, "/lock links"), self.group_msg(3, 2, "join https://evil.example now"),
+                                    self.group_msg(3, 3, "hello"), self.group_msg(1, 4, "see https://orangeorangusofficial.netlify.app")])
+        self.assertEqual([f["message_id"] for m, f in fake.calls if m == "deleteMessage"], [2])
+
+    def test_lock_all_restores_the_saved_permissions(self):
+        fake = FakeTelegram()
+        fake.updates = [[self.group_msg(1, 1, "/lock all"), self.group_msg(1, 2, "/unlock all")]]
+        original = {"can_send_messages": True, "can_send_polls": False}
+        orig_call = fake.__call__
+        def call(method, fields, **kw):
+            return {"permissions": original} if method == "getChat" else orig_call(method, fields, **kw)
+        with mock.patch.object(tg, "call", call):
+            bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
+        perms = [f["permissions"] for m, f in fake.calls if m == "setChatPermissions"]
+        self.assertEqual(perms, [{"can_send_messages": False}, original])
+
     def test_default_group_commands(self):
         fake = FakeTelegram()
         fake.updates = [[{"update_id": 1, "message": {"message_id": 1, "text": "/x", "chat": {"id": -5, "username": "test"}, "from": {"id": 3}}},

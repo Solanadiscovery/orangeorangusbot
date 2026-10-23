@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 
 import tg
+from antiraid import COMMANDS as RAID_COMMANDS
 
 MAX_FILTERS = 100
 MAX_TEXT = 3500
@@ -95,7 +96,7 @@ class GroupFilters:
         return True
 
     def on_message(self, msg):
-        if self.flood(msg):
+        if self.bot.raid.check_links(msg, self.is_admin) or self.flood(msg):
             return
         text = msg.get("text") or ""
         if not text:
@@ -108,6 +109,10 @@ class GroupFilters:
             rules = self.bot.state.get("group_rules")
             if rules and self.cooled("rules", RULES_COOLDOWN):
                 self.say(msg, rules)
+            return
+        if cmd in RAID_COMMANDS:
+            if self.is_admin(msg.get("from", {}).get("id")):
+                self.bot.raid.command(msg, cmd, arg)
             return
         if cmd in self.bot.cfg.get("group_documents", {}):
             return self.send_document(msg, cmd)
