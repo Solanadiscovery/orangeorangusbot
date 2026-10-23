@@ -230,5 +230,13 @@
   "platform": "telegram",
   "text": "Rug Gorilla's CV:\n- Experience: 47 projects\n- Skills: running\n- References: none, all deleted 🦍💨",
   "ts": "2026-10-23T08:00:45.101074+00:00"
+ },
+ {
+  "id": "x-hype-announcement-rule",
+  "concept": "x-hype-announcement-rule",
+  "type": "hype",
+  "platform": "x",
+  "text": "The token announcement comes from the official channels first. Telegram is where you'll see it. 🔔",
+  "ts": "2026-10-23T09:30:39.691966+00:00"
  }
 ]
