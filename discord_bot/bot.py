@@ -310,8 +310,11 @@ async def _setup_steps(guild):
             await channel.send(text, suppress_embeds=True, allowed_mentions=discord.AllowedMentions.none())
             done.append(f"#{name} post")
         elif mine[0].content != text:
-            await mine[0].edit(content=text, suppress=True, allowed_mentions=discord.AllowedMentions.none())
-            done.append(f"#{name} post updated")
+            try:
+                await mine[0].edit(content=text, suppress=True, allowed_mentions=discord.AllowedMentions.none())
+                done.append(f"#{name} post updated")
+            except discord.HTTPException as e:
+                done.append(f"⚠️ #{name} post not updated ({e.text or e})")
 
     # Read-only channels that hold a file (e.g. the roadmap PDF): posted once.
     for name, spec in CFG.get("channel_files", {}).items():
