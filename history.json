@@ -254,5 +254,13 @@
   "platform": "telegram",
   "text": "Wen lambo?\nOrango: wen banana. Priorities. 🍌",
   "ts": "2026-10-23T16:00:46.978378+00:00"
+ },
+ {
+  "id": "x-hype-jungle-loud",
+  "concept": "x-hype-jungle-loud",
+  "type": "hype",
+  "platform": "x",
+  "text": "Something is getting loud in the jungle and it's orange. 🍊📣",
+  "ts": "2026-10-23T17:30:01.444636+00:00"
  }
 ]
