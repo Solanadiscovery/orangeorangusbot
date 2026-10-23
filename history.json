@@ -238,5 +238,13 @@
   "platform": "x",
   "text": "The token announcement comes from the official channels first. Telegram is where you'll see it. 🔔",
   "ts": "2026-10-23T09:30:39.691966+00:00"
+ },
+ {
+  "id": "tg-poll-posting-time",
+  "concept": "posting-time",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "⏰ When are you most active here?",
+  "ts": "2026-10-23T12:00:07.163191+00:00"
  }
 ]
