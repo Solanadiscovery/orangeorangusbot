@@ -12,7 +12,7 @@ import datetime, json, os, subprocess, sys, time, urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-import content, countdown, groupfilters, points, tg, xapi
+import antiraid, content, countdown, groupfilters, points, tg, xapi
 
 ROOT = Path(__file__).parent
 RUN_SECONDS = 5 * 3600 + 40 * 60
@@ -50,6 +50,7 @@ class Bot:
         self.history = load("history.json", [])
         self.points = points.Points(self, load("points.json", {}))
         self.group = groupfilters.GroupFilters(self)
+        self.raid = antiraid.AntiRaid(self)
         self.pools = {p: load(f"content/{p}.json") for p in ("telegram", "x")}
         self.chat = os.environ.get("CHAT_ID", "").strip()
         self.admin = os.environ.get("ADMIN_USER_ID", "").strip()
@@ -101,12 +102,15 @@ class Bot:
                 continue
             cm = u.get("chat_member")
             if cm and cm["new_chat_member"]["status"] == "member" and cm["old_chat_member"]["status"] in ("left", "kicked"):
-                joined.append(cm["new_chat_member"]["user"].get("first_name") or "Peeler")
+                user = cm["new_chat_member"]["user"]
+                if not self.safe_group(lambda u=user: self.raid.on_join(u)):
+                    joined.append(user.get("first_name") or "Peeler")
                 self.safe_points(lambda cm=cm: self.points.on_join(cm))
                 continue
             msg = u.get("message") or {}
             if msg.get("new_chat_members"):  # gruppi: ingresso segnalato anche come messaggio di servizio
-                joined += [m.get("first_name") or "Peeler" for m in msg["new_chat_members"] if not m.get("is_bot")]
+                joined += [m.get("first_name") or "Peeler" for m in msg["new_chat_members"]
+                           if not m.get("is_bot") and not self.safe_group(lambda u=m: self.raid.on_join(u))]
                 continue
             if self.group.is_main(msg.get("chat", {})):  # filtri e regole del gruppo (stile Rose)
                 self.safe_group(lambda m=msg: self.group.on_message(m))
@@ -138,7 +142,7 @@ class Bot:
 
     def safe_group(self, fn):
         try:
-            fn()
+            return fn()
         except Exception as e:
             print(f"Errore filtri gruppo: {e}", flush=True)
             self.alert("group_error", f"Errore nei filtri del gruppo: {e}")
