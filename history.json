@@ -302,5 +302,13 @@
   "platform": "telegram",
   "text": "Sunday plan: peel oranges, ignore FUD, repeat. 🍊🍊🍊",
   "ts": "2026-10-24T12:00:05.580255+00:00"
+ },
+ {
+  "id": "tg-meme-bear-market",
+  "concept": "bear-market",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Bears in the forest. Apes in the jungle. Different neighbourhoods. 🐻🌴🦧",
+  "ts": "2026-10-24T16:00:21.796995+00:00"
  }
 ]
