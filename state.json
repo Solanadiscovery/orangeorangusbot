@@ -10,9 +10,9 @@
   "x": "2026-10-23 19:30"
  },
  "x_intro_done": true,
- "update_offset": 166177724,
+ "update_offset": 166177726,
  "og_existing_done": true,
- "welcome_id": 1338,
+ "welcome_id": 1393,
  "last_type": {
   "x": "hype",
   "telegram": "meme"
@@ -36,5 +36,10 @@
  "members_public": 110,
  "filters_rev": {
   "/social": 2
+ },
+ "raid": {
+  "time": 21600,
+  "action": 3600,
+  "auto": 0
  }
 }
