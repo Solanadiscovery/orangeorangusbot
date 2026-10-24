@@ -50,6 +50,8 @@
     }
   },
   "x": {
+    "_enabled_help": "false = post automatici su X in pausa (Telegram non cambia). Rimetti true per riattivarli.",
+    "enabled": false,
     "times": [
       "11:30",
       "19:30"
