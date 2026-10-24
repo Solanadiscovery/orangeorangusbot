@@ -310,5 +310,13 @@
   "platform": "telegram",
   "text": "Bears in the forest. Apes in the jungle. Different neighbourhoods. 🐻🌴🦧",
   "ts": "2026-10-24T16:00:21.796995+00:00"
+ },
+ {
+  "id": "tg-meme-tutorial",
+  "concept": "tutorial",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "How to spot Rug Gorilla:\n1. Big promises\n2. Bigger DMs\n3. Gone by Tuesday 🦍",
+  "ts": "2026-10-24T20:00:16.110134+00:00"
  }
 ]
