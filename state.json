@@ -10,7 +10,7 @@
   "x": "2026-10-23 19:30"
  },
  "x_intro_done": true,
- "update_offset": 166177717,
+ "update_offset": 166177718,
  "og_existing_done": true,
  "welcome_id": 1338,
  "last_type": {
@@ -33,7 +33,7 @@
   "/social",
   "/web"
  ],
- "members_public": 111,
+ "members_public": 110,
  "filters_rev": {
   "/social": 2
  }
