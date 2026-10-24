@@ -7,7 +7,8 @@
  ],
  "slots": {
   "telegram": "2026-10-24 10:00",
-  "x": "2026-10-24 11:30"
+  "x": "2026-10-24 11:30",
+  "telegram_poll": "2026-10-24 12:00"
  },
  "x_intro_done": true,
  "update_offset": 166177796,
@@ -15,7 +16,8 @@
  "welcome_id": 1429,
  "last_type": {
   "x": "hype",
-  "telegram": "meme"
+  "telegram": "meme",
+  "telegram_poll": "poll"
  },
  "filters": {
   "/x": "🐦 Follow us on X: https://x.com/orangeorangus",

@@ -286,5 +286,13 @@
   "platform": "x",
   "text": "Every Peeler is a seat in the Troop. The OG seats are limited to the first 500. 🪑🍊",
   "ts": "2026-10-24T09:30:11.621516+00:00"
+ },
+ {
+  "id": "tg-poll-rug-gorilla-fate",
+  "concept": "rug-gorilla-fate",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🦍 What should happen to Rug Gorilla in the next lore chapter?",
+  "ts": "2026-10-24T10:00:48.558527+00:00"
  }
 ]
