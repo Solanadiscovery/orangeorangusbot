@@ -1,0 +1,190 @@
+{
+  "join_role": "OranguTeam",
+  "staff_roles": [
+    "Founder",
+    "Mod"
+  ],
+  "log_channel": "mod-log",
+  "timeout_minutes": 10,
+  "mention_limit": 5,
+  "duplicate_limit": 3,
+  "caps_ratio": 0.7,
+  "caps_min_length": 10,
+  "spam_messages": 5,
+  "spam_seconds": 5,
+  "scam_patterns": [
+    "*free sol*",
+    "*claim*airdrop*",
+    "*connect wallet*",
+    "*seed phrase*",
+    "*private key*",
+    "*presale live*",
+    "*dm me*",
+    "*discord.gg/*",
+    "*t.me/*"
+  ],
+  "no_link_category": "🍊 COMMUNITY",
+  "allowed_domains": [],
+  "roles": [
+    {
+      "name": "Founder",
+      "color": "#FFD700",
+      "permissions": [
+        "administrator"
+      ]
+    },
+    {
+      "name": "Mod",
+      "color": "#32CD32",
+      "permissions": [
+        "manage_messages",
+        "moderate_members",
+        "kick_members"
+      ]
+    },
+    {
+      "name": "OG",
+      "color": "#ADFF2F",
+      "permissions": [
+        "read_messages",
+        "send_messages",
+        "add_reactions",
+        "read_message_history"
+      ]
+    },
+    {
+      "name": "OranguTeam",
+      "color": "#FF8C00",
+      "permissions": [
+        "read_messages",
+        "send_messages",
+        "add_reactions",
+        "read_message_history"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "name": "📌 INFO",
+      "channels": [
+        {
+          "name": "welcome",
+          "readonly": true,
+          "old_name": "benvenuto"
+        },
+        {
+          "name": "rules",
+          "readonly": true,
+          "old_name": "regole"
+        },
+        {
+          "name": "announcements",
+          "readonly": true,
+          "old_name": "annunci"
+        },
+        {
+          "name": "roadmap",
+          "readonly": true
+        },
+        {
+          "name": "official-links",
+          "readonly": true,
+          "old_name": "link-ufficiali"
+        },
+        {
+          "name": "scam-alerts",
+          "readonly": true,
+          "old_name": "avviso-truffe"
+        }
+      ]
+    },
+    {
+      "name": "🍊 COMMUNITY",
+      "channels": [
+        {
+          "name": "general-chat",
+          "slowmode": 5,
+          "old_name": "chat-generale"
+        },
+        {
+          "name": "memes",
+          "slowmode": 30,
+          "old_name": "meme"
+        },
+        {
+          "name": "jungle-lounge",
+          "old_name": "giungla-italiana"
+        }
+      ]
+    },
+    {
+      "name": "🎮 GAME",
+      "channels": [
+        {
+          "name": "sneak-peek",
+          "readonly": true
+        },
+        {
+          "name": "game-feedback"
+        },
+        {
+          "name": "weekly-challenges",
+          "old_name": "sfide-settimanali"
+        }
+      ]
+    },
+    {
+      "name": "🛠 STAFF",
+      "private": true,
+      "channels": [
+        {
+          "name": "mod-log"
+        }
+      ]
+    }
+  ],
+  "channel_posts": {
+    "welcome": "🦧 **Welcome to OrangeOrangus!**\nThe jungle's most a-peeling community on Solana. 🍊\n\n👉 Read the rules in #rules\n🔗 Official links only in #official-links\n🚨 Stay safe: check #scam-alerts\n💬 Say hi in #general-chat and drop your best memes in #memes\n🎮 Help shape the game in #game-feedback\n\nPeel the hype. Release the ape. 🦧",
+    "rules": "🍊 **Welcome to the OrangeOrangus jungle!**\n1. Respect everyone: no insults or discrimination.\n2. No spam, flooding or self-promotion.\n3. Staff will NEVER DM you first. No presale is open: be wary of anyone offering one.\n4. Never share your seed phrase or private keys.\n5. The only official links are the ones in #official-links.\n6. No profit promises: OrangeOrangus is a community project, not financial advice.\nPeel the hype. Release the ape. 🦧",
+    "official-links": "🔗 **OrangeOrangus official links**\nThese are the ONLY official links. Anything else is fake.\n\n🌐 Website: https://orangeorangusofficial.netlify.app/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏎️ Racing demo: https://orangeorangus-racingdemo.netlify.app\n\n⚠️ There is no token contract address and no open presale yet. Any link claiming otherwise is a scam. New links will be added here only after they are verified.",
+    "scam-alerts": "🚨 **Scam alert: read this before anything else**\n• Staff will NEVER DM you first. Anyone who does is an impostor.\n• No presale is open and no token address has been published.\n• Never share your seed phrase or private keys, with anyone, ever.\n• Never \"connect your wallet\" to claim airdrops or rewards from links sent in DMs.\n• Check every link against #official-links.\n• Spotted something suspicious? Report it to a @Mod right away.\n\nStay safe, ape. 🦧",
+    "game-feedback": "🏎️ **OrangeOrangus Racing**\nOrangeOrangus Racing is our arcade racing game, currently an early demo you can play in your desktop browser, no download needed. Mobile support is planned for a future update.\nPlay the demo: https://orangeorangus-racingdemo.netlify.app\n\nIt's a demo with virtual points only: no token rewards are live and none are promised.\n\n👉 Tell us here: what you love, what's broken, what you'd add. Bugs, ideas and screenshots all help shape the game! 🦧",
+    "sneak-peek": "👀 **Sneak peek**\nFirst looks at OrangeOrangus Racing: clips, screenshots and work-in-progress from the demo, straight from the jungle garage. 🏁\nEverything here is from an early demo and may change.\nTried it? Share your feedback in #game-feedback! 🦧"
+  },
+  "link_commands": {
+    "x": {
+      "description": "OrangeOrangus on X",
+      "text": "🐦 Follow us on X: https://x.com/orangeorangus"
+    },
+    "tlg": {
+      "description": "OrangeOrangus Telegram",
+      "text": "👉 Join the Troop on Telegram: https://t.me/OrangeOrangus"
+    },
+    "ds": {
+      "description": "Invite link to this Discord server",
+      "text": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V"
+    },
+    "demo": {
+      "description": "Play the OrangeOrangus Racing demo",
+      "text": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app"
+    },
+    "web": {
+      "description": "OrangeOrangus official website",
+      "text": "🌐 Official OrangeOrangus website: https://orangeorangusofficial.netlify.app/"
+    },
+    "social": {
+      "description": "All official OrangeOrangus links",
+      "text": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangusofficial.netlify.app/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeorangus-racingdemo.netlify.app"
+    }
+  },
+  "og_role": "OG",
+  "og_limit": 500,
+  "channel_files": {
+    "roadmap": {
+      "file": "OrangeOrangusRoadmap.pdf",
+      "text": "🗺️ **OrangeOrangus Roadmap**\nOpen the PDF below to see where the jungle is heading. Plans may change: official updates will be posted in #announcements."
+    }
+  },
+  "welcome_message": "🦧🍊 Welcome to the jungle, {member}! You're ape #{count}.\nStart with #rules, grab the links in #official-links and say hi in #general-chat. Peel the hype. Release the ape!",
+  "member_counter": "🦧 Apes: {count}"
+}
