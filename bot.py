@@ -301,7 +301,7 @@ class Bot:
         slots = self.state.setdefault("slots", {})
         if not key or slots.get(slot_name) == key or self.flag("paused"):
             return
-        if platform == "x" and not xapi.enabled():
+        if platform == "x" and (not xapi.enabled() or not self.cfg["x"].get("enabled", True)):
             return
         if self.too_soon(platform) and not poll:
             slots[platform] = key  # the slot is skipped, never delayed into a burst

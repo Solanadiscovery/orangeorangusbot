@@ -38,7 +38,9 @@ class FakeTelegram:
 class BotTest(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp())
-        shutil.copy(REPO / "config.json", self.dir / "config.json")
+        cfg = json.loads((REPO / "config.json").read_text())
+        cfg["x"]["enabled"] = True  # tests never depend on the live X pause switch
+        (self.dir / "config.json").write_text(json.dumps(cfg))
         (self.dir / "history.json").write_text("[]")  # never the live history: its real dates would make tests time-dependent
         shutil.copytree(REPO / "content", self.dir / "content")
         (self.dir / "state.json").write_text(json.dumps({"counter_id": 30, "counter_created": True, "announced": [],
@@ -409,6 +411,16 @@ class BotTest(unittest.TestCase):
         self.assertGreater(len(sent), 4)
         self.assertTrue(all(i["type"] == "hype" for i in sent))
         self.assertEqual(len({i["id"] for i in sent}), len(sent))
+
+    def test_x_disabled_in_config_pauses_only_x(self):
+        fake = FakeTelegram()
+        sent = []
+        cfg = json.loads((self.dir / "config.json").read_text())
+        cfg["x"]["enabled"] = False
+        (self.dir / "config.json").write_text(json.dumps(cfg))
+        with mock.patch.dict(os.environ, {k: "k" for k in xapi.KEYS}), mock.patch.object(xapi, "post", lambda item, c: sent.append(item)):
+            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)  # 11:35, X slot
+        self.assertEqual(sent, [])
 
 
 class XNoLinks(unittest.TestCase):
