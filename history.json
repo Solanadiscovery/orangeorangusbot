@@ -342,5 +342,13 @@
   "platform": "telegram",
   "text": "Alarm at 6am: ignored.\nTelegram notification from the Troop: instantly awake. 🔔🍊",
   "ts": "2026-10-25T13:00:28.614797+00:00"
+ },
+ {
+  "id": "tg-meme-starter-pack",
+  "concept": "starter-pack",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Peeler starter pack:\n🍊 orange PFP\n🕶 sunglasses at night\n🛡 never clicks DMs\n🦧 says gm to everyone",
+  "ts": "2026-10-25T17:00:37.615865+00:00"
  }
 ]
