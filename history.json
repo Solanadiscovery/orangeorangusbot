@@ -326,5 +326,13 @@
   "platform": "telegram",
   "text": "Paying $0.0001 in fees on Solana and still checking if it went through. Old habits. 🦧",
   "ts": "2026-10-25T09:00:12.749447+00:00"
+ },
+ {
+  "id": "tg-poll-new-character",
+  "concept": "new-character",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🌴 Which new jungle character do you want in the lore?",
+  "ts": "2026-10-25T11:00:41.649811+00:00"
  }
 ]
