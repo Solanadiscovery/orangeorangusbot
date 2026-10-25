@@ -95,12 +95,12 @@
   },
   "7824082857": {
    "name": "Pearl",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-10-25",
    "day": {
     "d": "2026-10-25",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -108,7 +108,9 @@
    "first": "2026-10-25T15:57:00.077131+00:00",
    "badges": [
     "first"
-   ]
+   ],
+   "streak": 1,
+   "best_streak": 1
   }
  },
  "tweets": {},
