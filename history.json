@@ -318,5 +318,13 @@
   "platform": "telegram",
   "text": "How to spot Rug Gorilla:\n1. Big promises\n2. Bigger DMs\n3. Gone by Tuesday 🦍",
   "ts": "2026-10-24T20:00:16.110134+00:00"
+ },
+ {
+  "id": "tg-meme-gas-fees",
+  "concept": "gas-fees",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Paying $0.0001 in fees on Solana and still checking if it went through. Old habits. 🦧",
+  "ts": "2026-10-25T09:00:12.749447+00:00"
  }
 ]
