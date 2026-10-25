@@ -111,6 +111,23 @@
    ],
    "streak": 1,
    "best_streak": 1
+  },
+  "6629287257": {
+   "name": "SHADOW",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-25",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-25T21:55:16.445568+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
