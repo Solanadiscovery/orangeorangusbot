@@ -127,8 +127,35 @@ async def on_member_remove(member):
     await update_counter(member.guild)
 
 
+def og_report(guild):
+    """Admin check of everything OG needs, in plain words."""
+    role = discord.utils.get(guild.roles, name=CFG["og_role"])
+    me = guild.me
+    granted = json.loads(OG_FILE.read_text()) if OG_FILE.exists() else []
+    lines = ["🔎 **OG check**"]
+    lines.append(f"{'✅' if role else '❌'} OG role {'found' if role else 'missing: run !setup'}")
+    lines.append(f"{'✅' if me.guild_permissions.manage_roles else '❌'} bot can manage roles")
+    if role:
+        ok = me.top_role > role
+        lines.append(f"{'✅' if ok else '❌'} bot role ({me.top_role.name}) is {'above' if ok else 'BELOW'} OG"
+                     + ("" if ok else ": drag the bot role above OG in Server Settings → Roles"))
+        lines.append(f"ℹ️ members with OG now: {len(role.members)}")
+    lines.append(f"ℹ️ OG slots used: {len(granted)}/{CFG['og_limit']}")
+    lines.append(f"{'✅' if client.intents.members else '❌'} members intent, {len(guild.members)} members visible")
+    return "\n".join(lines)
+
+
 @client.event
 async def on_member_join(member):
+    try:
+        await _on_member_join(member)
+    except Exception as e:
+        # Never fail silently: the reason shows up in #mod-log.
+        await log(member.guild, f"⚠️ Join handling failed for {member}: {type(e).__name__}: {e}")
+        raise
+
+
+async def _on_member_join(member):
     if not member.bot:
         await grant_og(member.guild)
     role = discord.utils.get(member.guild.roles, name=CFG["join_role"])
@@ -145,6 +172,9 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
+    if message.guild and message.content.strip() == "!ogcheck" and message.author.guild_permissions.administrator:
+        await message.channel.send(og_report(message.guild))
+        return
     if message.guild and message.content.strip() == "!setup" and message.author.guild_permissions.administrator:
         await message.channel.send("⏳ Setup in progress...")
         done = await run_setup(message.guild)
