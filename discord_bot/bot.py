@@ -52,11 +52,25 @@ async def on_ready():
                   "or type !setup in the server.")
 
 
+def og_role(guild):
+    """The OG role, also if it was renamed with a different case or extra emoji (e.g. "og", "OG 🦧")."""
+    want = CFG["og_role"].lower()
+    return next((r for r in guild.roles if r.name.strip().lower() == want), None) or \
+        next((r for r in guild.roles if r.name.strip().lower().startswith(want + " ")), None)
+
+
 async def grant_og(guild):
     """Gives OG to the first og_limit members by join date. Saved to og_members.json so it survives restarts."""
-    role = discord.utils.get(guild.roles, name=CFG["og_role"])
+    role = og_role(guild)
     if not role:
-        return 0
+        spec = next(r for r in CFG["roles"] if r["name"] == CFG["og_role"])
+        try:
+            role = await guild.create_role(name=spec["name"], colour=discord.Colour.from_str(spec["color"]),
+                                           permissions=perms(spec["permissions"]), hoist=True, reason="OG role was missing")
+            await log(guild, "ℹ️ OG role was missing, so the bot created it again.")
+        except discord.HTTPException as e:
+            print(f"⚠️ Could not create OG role: {e}")
+            return 0
     granted = set(json.loads(OG_FILE.read_text())) if OG_FILE.exists() else set()
     granted |= {m.id for m in role.members}
     humans = sorted((m for m in guild.members if not m.bot), key=lambda m: m.joined_at or datetime.datetime.max.replace(tzinfo=datetime.timezone.utc))
@@ -129,7 +143,7 @@ async def on_member_remove(member):
 
 def og_report(guild):
     """Admin check of everything OG needs, in plain words."""
-    role = discord.utils.get(guild.roles, name=CFG["og_role"])
+    role = og_role(guild)
     me = guild.me
     granted = json.loads(OG_FILE.read_text()) if OG_FILE.exists() else []
     lines = ["🔎 **OG check**"]
@@ -279,7 +293,7 @@ async def _setup_steps(guild):
 
     roles = {}
     for spec in CFG["roles"]:
-        role = discord.utils.get(guild.roles, name=spec["name"])
+        role = og_role(guild) if spec["name"] == CFG["og_role"] else discord.utils.get(guild.roles, name=spec["name"])
         if not role:
             role = await guild.create_role(name=spec["name"], colour=discord.Colour.from_str(spec["color"]),
                                            permissions=perms(spec["permissions"]), hoist=True, reason="/setup")
