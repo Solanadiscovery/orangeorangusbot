@@ -334,5 +334,13 @@
   "platform": "telegram",
   "text": "🌴 Which new jungle character do you want in the lore?",
   "ts": "2026-10-25T11:00:41.649811+00:00"
+ },
+ {
+  "id": "tg-meme-alarm",
+  "concept": "alarm",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Alarm at 6am: ignored.\nTelegram notification from the Troop: instantly awake. 🔔🍊",
+  "ts": "2026-10-25T13:00:28.614797+00:00"
  }
 ]
