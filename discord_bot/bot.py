@@ -17,6 +17,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
+OG_ROLE_FILE = Path(__file__).parent / "og_role.json"
 COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
 tracker = filters.Tracker(CFG["spam_messages"], CFG["spam_seconds"], CFG["duplicate_limit"])
 
@@ -53,10 +54,24 @@ async def on_ready():
 
 
 def og_role(guild):
-    """The OG role, also if it was renamed with a different case or extra emoji (e.g. "og", "OG 🦧")."""
-    want = CFG["og_role"].lower()
-    return next((r for r in guild.roles if r.name.strip().lower() == want), None) or \
-        next((r for r in guild.roles if r.name.strip().lower().startswith(want + " ")), None)
+    """The OG role. Remembered by id, so renaming it in Discord does not break anything."""
+    saved = json.loads(OG_ROLE_FILE.read_text()).get(str(guild.id)) if OG_ROLE_FILE.exists() else None
+    role = guild.get_role(saved) if saved else None
+    if not role:
+        want = CFG["og_role"].lower()
+        role = next((r for r in guild.roles if r.name.strip().lower() == want), None)
+    if not role and OG_FILE.exists():
+        # Renamed before the id was saved: it is the role held by exactly the members who got OG.
+        granted = set(json.loads(OG_FILE.read_text()))
+        holders = {m.id for m in guild.members if m.id in granted}
+        others = {r["name"] for r in CFG["roles"]} - {CFG["og_role"]}
+        role = next((r for r in guild.roles if holders and not r.managed and r != guild.default_role
+                     and r.name not in others and {m.id for m in r.members} == holders), None)
+    if role and role.id != saved:
+        data = json.loads(OG_ROLE_FILE.read_text()) if OG_ROLE_FILE.exists() else {}
+        data[str(guild.id)] = role.id
+        OG_ROLE_FILE.write_text(json.dumps(data))
+    return role
 
 
 async def grant_og(guild):
@@ -147,7 +162,7 @@ def og_report(guild):
     me = guild.me
     granted = json.loads(OG_FILE.read_text()) if OG_FILE.exists() else []
     lines = ["🔎 **OG check**"]
-    lines.append(f"{'✅' if role else '❌'} OG role {'found' if role else 'missing: run !setup'}")
+    lines.append(f"{'✅' if role else '❌'} OG role {'found: ' + role.name if role else 'missing: run !setup'}")
     lines.append(f"{'✅' if me.guild_permissions.manage_roles else '❌'} bot can manage roles")
     if role:
         ok = me.top_role > role
