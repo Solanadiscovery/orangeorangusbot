@@ -92,6 +92,23 @@
    "badges": [
     "first"
    ]
+  },
+  "7824082857": {
+   "name": "Pearl",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-10-25",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-25T15:57:00.077131+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {},
