@@ -382,5 +382,13 @@
   "platform": "telegram",
   "text": "FOMO: fear of missing out.\nJOMO: joy of memeing out. Orango chose JOMO. 😎",
   "ts": "2026-10-26T13:00:29.908537+00:00"
+ },
+ {
+  "id": "tg-meme-chart-art",
+  "concept": "chart-art",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Some see candles. Orango sees a banana-shaped pattern. Art is subjective. 🍌📊",
+  "ts": "2026-10-26T17:00:52.707047+00:00"
  }
 ]
