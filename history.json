@@ -390,5 +390,13 @@
   "platform": "telegram",
   "text": "Some see candles. Orango sees a banana-shaped pattern. Art is subjective. 🍌📊",
   "ts": "2026-10-26T17:00:52.707047+00:00"
+ },
+ {
+  "id": "tg-meme-night-shift",
+  "concept": "night-shift",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "3am in the Peel Jungle: owls awake, Orango awake, the Troop definitely awake. 🦉🦧",
+  "ts": "2026-10-26T21:00:15.992573+00:00"
  }
 ]
