@@ -366,5 +366,13 @@
   "platform": "telegram",
   "text": "Orango has been peeling the same orange for 3 hours. Patience is a jungle skill. 🍊⏳",
   "ts": "2026-10-26T09:00:29.782484+00:00"
+ },
+ {
+  "id": "tg-poll-x-or-tg",
+  "concept": "x-or-tg",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "📱 Where do you hang out more?",
+  "ts": "2026-10-26T11:00:46.414273+00:00"
  }
 ]
