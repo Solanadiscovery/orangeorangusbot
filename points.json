@@ -131,19 +131,20 @@
   },
   "996383996": {
    "name": "Sbrön",
-   "pts": 15,
+   "pts": 35,
    "x": "brunorinarelli",
    "checkin": "2026-10-27",
    "day": {
     "d": "2026-10-27",
-    "p": 15
+    "p": 35
    },
    "joined": true,
    "strikes": 0,
    "invites": 0,
    "first": "2026-10-27T16:21:18.715722+00:00",
    "badges": [
-    "first"
+    "first",
+    "voice"
    ],
    "streak": 1,
    "best_streak": 1,
@@ -151,7 +152,15 @@
    "link": "https://t.me/+eo0Cc2SQ5jo5MDc0"
   }
  },
- "tweets": {},
+ "tweets": {
+  "2115124168790348175": {
+   "uid": "996383996",
+   "day": "2026-10-27",
+   "status": "approved",
+   "pts": 20,
+   "url": "https://x.com/brunorinarelli/status/2115124168790348175"
+  }
+ },
  "links": {
   "https://t.me/+8J5rs3rojp1jMjk0": "1487424404",
   "https://t.me/+eo0Cc2SQ5jo5MDc0": "996383996"
