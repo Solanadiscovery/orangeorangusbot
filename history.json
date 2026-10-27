@@ -414,5 +414,13 @@
   "platform": "telegram",
   "text": "Orango tried to take a vacation. He opened Telegram 'just once'. 🏝📱",
   "ts": "2026-10-27T13:00:58.154653+00:00"
+ },
+ {
+  "id": "tg-meme-cooking",
+  "concept": "cooking",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Orango's only recipe: orange. Served peeled. Chef's kiss. 👨‍🍳🍊",
+  "ts": "2026-10-27T17:00:29.553293+00:00"
  }
 ]
