@@ -406,5 +406,13 @@
   "platform": "telegram",
   "text": "🎮 What would you play first in a fruit puzzle game?",
   "ts": "2026-10-27T11:00:30.689328+00:00"
+ },
+ {
+  "id": "tg-meme-vacation",
+  "concept": "vacation",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Orango tried to take a vacation. He opened Telegram 'just once'. 🏝📱",
+  "ts": "2026-10-27T13:00:58.154653+00:00"
  }
 ]
