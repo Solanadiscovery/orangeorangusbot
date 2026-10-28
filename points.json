@@ -154,12 +154,12 @@
   },
   "6300728687": {
    "name": "Zaidra 👻",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-10-28",
    "day": {
     "d": "2026-10-28",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -167,7 +167,9 @@
    "first": "2026-10-28T11:06:22.566520+00:00",
    "badges": [
     "first"
-   ]
+   ],
+   "streak": 1,
+   "best_streak": 1
   }
  },
  "tweets": {
