@@ -446,5 +446,13 @@
   "platform": "telegram",
   "text": "🕰 How long have you been in crypto?",
   "ts": "2026-10-28T11:00:50.101677+00:00"
+ },
+ {
+  "id": "tg-quiz-sol-smallest-unit",
+  "concept": "sol-smallest-unit",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What is the smallest unit of SOL called?",
+  "ts": "2026-10-28T13:00:37.601004+00:00"
  }
 ]
