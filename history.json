@@ -438,5 +438,13 @@
   "platform": "telegram",
   "text": "👋 New Peelers: introduce yourself! Where are you from and what brought you to the jungle?",
   "ts": "2026-10-28T09:00:55.651353+00:00"
+ },
+ {
+  "id": "tg-poll-crypto-years",
+  "concept": "crypto-years",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🕰 How long have you been in crypto?",
+  "ts": "2026-10-28T11:00:50.101677+00:00"
  }
 ]
