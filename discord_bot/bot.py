@@ -17,6 +17,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
+VERSION = "2026-10-28"
 OG_ROLE_FILE = Path(__file__).parent / "og_role.json"
 COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
 tracker = filters.Tracker(CFG["spam_messages"], CFG["spam_seconds"], CFG["duplicate_limit"])
@@ -58,8 +59,9 @@ def og_role(guild):
     saved = json.loads(OG_ROLE_FILE.read_text()).get(str(guild.id)) if OG_ROLE_FILE.exists() else None
     role = guild.get_role(saved) if saved else None
     if not role:
-        want = CFG["og_role"].lower()
-        role = next((r for r in guild.roles if r.name.strip().lower() == want), None)
+        # Match ignoring case, emoji and symbols: "OG", "og", "🔥 OG", "OG 🦧" all count.
+        want = re.sub(r"[^a-z0-9]", "", CFG["og_role"].lower())
+        role = next((r for r in guild.roles if re.sub(r"[^a-z0-9]", "", r.name.lower()) == want), None)
     if not role and OG_FILE.exists():
         # Renamed before the id was saved: it is the role held by exactly the members who got OG.
         granted = set(json.loads(OG_FILE.read_text()))
@@ -161,7 +163,7 @@ def og_report(guild):
     role = og_role(guild)
     me = guild.me
     granted = json.loads(OG_FILE.read_text()) if OG_FILE.exists() else []
-    lines = ["🔎 **OG check**"]
+    lines = [f"🔎 **OG check** (bot version {VERSION})"]
     lines.append(f"{'✅' if role else '❌'} OG role {'found: ' + role.name if role else 'missing: run !setup'}")
     lines.append(f"{'✅' if me.guild_permissions.manage_roles else '❌'} bot can manage roles")
     if role:
