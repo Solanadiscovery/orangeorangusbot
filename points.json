@@ -155,7 +155,7 @@
   "6300728687": {
    "name": "Zaidra 👻",
    "pts": 15,
-   "x": "",
+   "x": "zaidra_",
    "checkin": "2026-10-28",
    "day": {
     "d": "2026-10-28",
@@ -169,7 +169,8 @@
     "first"
    ],
    "streak": 1,
-   "best_streak": 1
+   "best_streak": 1,
+   "x_changed": false
   }
  },
  "tweets": {
