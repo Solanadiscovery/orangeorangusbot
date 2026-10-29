@@ -478,5 +478,13 @@
   "platform": "telegram",
   "text": "🫂 One small mission today: invite ONE friend who loves memes. That's how jungles grow.",
   "ts": "2026-10-29T09:00:24.864507+00:00"
+ },
+ {
+  "id": "tg-poll-hype-level",
+  "concept": "hype-level",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🔥 Rate your hype level today",
+  "ts": "2026-10-29T11:00:43.321372+00:00"
  }
 ]
