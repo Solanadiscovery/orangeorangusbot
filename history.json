@@ -486,5 +486,13 @@
   "platform": "telegram",
   "text": "🔥 Rate your hype level today",
   "ts": "2026-10-29T11:00:43.321372+00:00"
+ },
+ {
+  "id": "tg-quiz-hodl-origin",
+  "concept": "hodl-origin",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 Where does the word HODL come from?",
+  "ts": "2026-10-29T13:00:55.006925+00:00"
  }
 ]

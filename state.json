@@ -6,7 +6,7 @@
   100
  ],
  "slots": {
-  "telegram": "2026-10-29 10:00",
+  "telegram": "2026-10-29 14:00",
   "x": "2026-10-24 11:30",
   "telegram_poll": "2026-10-29 12:00"
  },
@@ -16,7 +16,7 @@
  "welcome_id": 2728,
  "last_type": {
   "x": "hype",
-  "telegram": "engage",
+  "telegram": "quiz",
   "telegram_poll": "poll"
  },
  "filters": {
