@@ -172,6 +172,21 @@
    "streak": 1,
    "best_streak": 1,
    "x_changed": false
+  },
+  "6018297124": {
+   "name": "@OilVoyageBot Farm L",
+   "pts": 0,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "",
+    "p": 0
+   },
+   "joined": false,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-10-29T09:52:57.424604+00:00",
+   "badges": []
   }
  },
  "tweets": {
