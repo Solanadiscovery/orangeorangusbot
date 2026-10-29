@@ -502,5 +502,13 @@
   "platform": "telegram",
   "text": "💬 What would make this channel more fun? Ideas welcome, the Troop decides.",
   "ts": "2026-10-29T17:00:35.840518+00:00"
+ },
+ {
+  "id": "tg-quiz-doge-year",
+  "concept": "doge-year",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🐕 In what year was Dogecoin created?",
+  "ts": "2026-10-29T21:00:43.029534+00:00"
  }
 ]
