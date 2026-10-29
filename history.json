@@ -470,5 +470,13 @@
   "platform": "telegram",
   "text": "🍕 How many BTC were paid for two pizzas on May 22, 2010?",
   "ts": "2026-10-28T21:00:14.640468+00:00"
+ },
+ {
+  "id": "tg-engage-invite-one",
+  "concept": "invite-one",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🫂 One small mission today: invite ONE friend who loves memes. That's how jungles grow.",
+  "ts": "2026-10-29T09:00:24.864507+00:00"
  }
 ]
