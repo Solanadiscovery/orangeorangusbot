@@ -494,5 +494,13 @@
   "platform": "telegram",
   "text": "🧠 Where does the word HODL come from?",
   "ts": "2026-10-29T13:00:55.006925+00:00"
+ },
+ {
+  "id": "tg-engage-feedback",
+  "concept": "feedback",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "💬 What would make this channel more fun? Ideas welcome, the Troop decides.",
+  "ts": "2026-10-29T17:00:35.840518+00:00"
  }
 ]
