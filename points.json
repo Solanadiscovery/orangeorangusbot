@@ -130,13 +130,13 @@
    ]
   },
   "996383996": {
-   "name": "Sbrön",
-   "pts": 60,
+   "name": "Sbraun91",
+   "pts": 65,
    "x": "brunorinarelli",
-   "checkin": "2026-10-28",
+   "checkin": "2026-10-29",
    "day": {
-    "d": "2026-10-28",
-    "p": 25
+    "d": "2026-10-29",
+    "p": 5
    },
    "joined": true,
    "strikes": 0,
@@ -144,10 +144,11 @@
    "first": "2026-10-27T16:21:18.715722+00:00",
    "badges": [
     "first",
-    "voice"
+    "voice",
+    "streak3"
    ],
-   "streak": 2,
-   "best_streak": 2,
+   "streak": 3,
+   "best_streak": 3,
    "x_changed": false,
    "link": "https://t.me/+eo0Cc2SQ5jo5MDc0",
    "level": 1
