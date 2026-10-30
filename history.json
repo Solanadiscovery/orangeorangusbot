@@ -534,5 +534,13 @@
   "platform": "telegram",
   "text": "🧠 Who is the best-known co-founder of Ethereum?",
   "ts": "2026-10-30T13:00:43.072332+00:00"
+ },
+ {
+  "id": "tg-engage-safety-reminder",
+  "concept": "safety-reminder",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🛡 Reminder: admins NEVER DM first. Official links live only in pinned messages. Stay safe, Peelers.",
+  "ts": "2026-10-30T17:00:21.822966+00:00"
  }
 ]
