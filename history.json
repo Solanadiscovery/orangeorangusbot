@@ -526,5 +526,13 @@
   "platform": "telegram",
   "text": "📜 Name of the next lore chapter?",
   "ts": "2026-10-30T11:00:59.408402+00:00"
+ },
+ {
+  "id": "tg-quiz-vitalik",
+  "concept": "vitalik",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 Who is the best-known co-founder of Ethereum?",
+  "ts": "2026-10-30T13:00:43.072332+00:00"
  }
 ]
