@@ -542,5 +542,13 @@
   "platform": "telegram",
   "text": "🛡 Reminder: admins NEVER DM first. Official links live only in pinned messages. Stay safe, Peelers.",
   "ts": "2026-10-30T17:00:21.822966+00:00"
+ },
+ {
+  "id": "tg-quiz-solana-founder",
+  "concept": "solana-founder",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 Who co-founded Solana?",
+  "ts": "2026-10-30T21:00:25.091897+00:00"
  }
 ]
