@@ -518,5 +518,13 @@
   "platform": "telegram",
   "text": "🔁 Seen OrangeOrangus on X today? Like, reply, repost. Every interaction helps the jungle get noticed.",
   "ts": "2026-10-30T09:00:53.860639+00:00"
+ },
+ {
+  "id": "tg-poll-lore-name",
+  "concept": "lore-name",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "📜 Name of the next lore chapter?",
+  "ts": "2026-10-30T11:00:59.408402+00:00"
  }
 ]
