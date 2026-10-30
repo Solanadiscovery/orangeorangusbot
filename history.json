@@ -510,5 +510,13 @@
   "platform": "telegram",
   "text": "🐕 In what year was Dogecoin created?",
   "ts": "2026-10-29T21:00:43.029534+00:00"
+ },
+ {
+  "id": "tg-engage-repost-x",
+  "concept": "repost-x",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🔁 Seen OrangeOrangus on X today? Like, reply, repost. Every interaction helps the jungle get noticed.",
+  "ts": "2026-10-30T09:00:53.860639+00:00"
  }
 ]
