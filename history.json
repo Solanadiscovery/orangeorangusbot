@@ -550,5 +550,13 @@
   "platform": "telegram",
   "text": "🧠 Who co-founded Solana?",
   "ts": "2026-10-30T21:00:25.091897+00:00"
+ },
+ {
+  "id": "tg-engage-lore-idea",
+  "concept": "lore-idea",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "📜 Write one line of OrangeOrangus lore. The best line becomes canon in the next chapter.",
+  "ts": "2026-10-31T09:00:35.177671+00:00"
  }
 ]
