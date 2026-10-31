@@ -17,7 +17,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
-VERSION = "2026-10-31b"
+VERSION = "2026-10-31c"
 RAID_FILE = Path(__file__).parent / "raid_points.json"
 OG_ROLE_FILE = Path(__file__).parent / "og_role.json"
 COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
@@ -40,6 +40,11 @@ def find_role(guild, name):
 
 def is_staff(member):
     return member.guild_permissions.manage_messages or any(norm(r.name) in {norm(n) for n in CFG["staff_roles"]} for r in member.roles)
+
+
+def is_trusted(member):
+    """Trusted roles (e.g. Project Manager) skip the link/spam filters but get no staff powers."""
+    return any(norm(r.name) in {norm(n) for n in CFG.get("trusted_roles", [])} for r in member.roles)
 
 
 async def log(guild, text):
@@ -231,7 +236,7 @@ async def on_message(message):
     if message.guild and not message.author.bot and word[:1] in "/!" and word[1:] in CFG["link_commands"]:
         await message.channel.send(await link_text(message.guild, word[1:]))
         return
-    if message.author.bot or not message.guild or is_staff(message.author):
+    if message.author.bot or not message.guild or is_staff(message.author) or is_trusted(message.author):
         return
     category = message.channel.category.name if getattr(message.channel, "category", None) else ""
     result = filters.check(message.content, len(message.mentions) + len(message.role_mentions),

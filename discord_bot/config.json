@@ -214,5 +214,8 @@
       "Who else is in the troop? 🦧🙌",
       "GM from the jungle 🌴☀️"
     ]
-  }
+  },
+  "trusted_roles": [
+    "Project Manager"
+  ]
 }
