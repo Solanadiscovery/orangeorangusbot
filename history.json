@@ -582,5 +582,13 @@
   "platform": "telegram",
   "text": "🙌 Shoutout to everyone who joined this week. The jungle is louder because of you.",
   "ts": "2026-10-31T17:00:17.362992+00:00"
+ },
+ {
+  "id": "tg-quiz-dyor",
+  "concept": "dyor",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What does DYOR mean?",
+  "ts": "2026-10-31T21:00:58.165388+00:00"
  }
 ]
