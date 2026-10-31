@@ -558,5 +558,13 @@
   "platform": "telegram",
   "text": "📜 Write one line of OrangeOrangus lore. The best line becomes canon in the next chapter.",
   "ts": "2026-10-31T09:00:35.177671+00:00"
+ },
+ {
+  "id": "tg-poll-emoji",
+  "concept": "emoji",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🍊 Official Troop emoji?",
+  "ts": "2026-10-31T11:00:47.352886+00:00"
  }
 ]
