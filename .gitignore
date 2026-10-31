@@ -1,1 +1,5 @@
 __pycache__/
+discord_bot/token.txt
+discord_bot/og_members.json
+discord_bot/og_role.json
+discord_bot/raid_points.json
