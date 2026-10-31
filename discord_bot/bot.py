@@ -1,6 +1,6 @@
 """OrangeOrangus Discord bot: OranguTeam join role, moderation and server /setup.
 Run: DISCORD_TOKEN=... python discord_bot/bot.py"""
-import datetime, json, os, re
+import datetime, json, os, random, re
 from pathlib import Path
 
 import discord
@@ -17,7 +17,8 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
-VERSION = "2026-10-28"
+VERSION = "2026-10-31"
+RAID_FILE = Path(__file__).parent / "raid_points.json"
 OG_ROLE_FILE = Path(__file__).parent / "og_role.json"
 COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
 tracker = filters.Tracker(CFG["spam_messages"], CFG["spam_seconds"], CFG["duplicate_limit"])
@@ -282,6 +283,83 @@ for _name, _spec in CFG["link_commands"].items():
 
 def perms(names):
     return discord.Permissions(**{n: True for n in names})
+
+
+RAID = CFG["raid"]
+X_POST = re.compile(r"^https://(www\.)?(x|twitter)\.com/\w+/status/\d+")
+
+
+def raid_data():
+    return json.loads(RAID_FILE.read_text()) if RAID_FILE.exists() else {"raids": [], "points": {}, "done": []}
+
+
+@tree.command(name="raid", description="Staff: post an X link for a community raid")
+@app_commands.describe(link="Link to the post on X", note="Optional extra line")
+@app_commands.default_permissions(manage_messages=True)
+@app_commands.guild_only()
+async def raid(interaction: discord.Interaction, link: str, note: str = ""):
+    if not is_staff(interaction.user):
+        await interaction.response.send_message("⛔ Staff only.", ephemeral=True)
+        return
+    if not X_POST.match(link.strip()):
+        await interaction.response.send_message("⚠️ Use a post link like https://x.com/orangeorangus/status/123", ephemeral=True)
+        return
+    channel = discord.utils.get(interaction.guild.text_channels, name=RAID["channel"])
+    if not channel:
+        await interaction.response.send_message("⚠️ #raids not found: run !setup", ephemeral=True)
+        return
+    role = discord.utils.get(interaction.guild.roles, name=RAID["role"])
+    ideas = "\n".join(f"• {r}" for r in random.sample(RAID["replies"], min(3, len(RAID["replies"]))))
+    text = (f"🚨 **RAID TIME!** {role.mention if role else ''}\n{link.strip()}\n"
+            + (f"{note}\n" if note else "")
+            + f"\n1️⃣ Like ❤️  2️⃣ Repost 🔁  3️⃣ Reply in your own words. Ideas:\n{ideas}\n\n"
+            f"Done? React {RAID['emoji']} to earn a raid point! 🦧")
+    msg = await channel.send(text, allowed_mentions=discord.AllowedMentions(roles=True))
+    await msg.add_reaction(RAID["emoji"])
+    data = raid_data()
+    data["raids"].append(msg.id)
+    RAID_FILE.write_text(json.dumps(data))
+    await interaction.response.send_message(f"✅ Raid posted in {channel.mention}", ephemeral=True)
+
+
+@tree.command(name="raider", description="Get or remove the Raiders role (ping for every raid)")
+@app_commands.guild_only()
+async def raider(interaction: discord.Interaction):
+    role = discord.utils.get(interaction.guild.roles, name=RAID["role"])
+    if not role:
+        await interaction.response.send_message("⚠️ Raiders role not found yet.", ephemeral=True)
+    elif role in interaction.user.roles:
+        await interaction.user.remove_roles(role, reason="/raider")
+        await interaction.response.send_message("🔕 Raiders role removed.", ephemeral=True)
+    else:
+        await interaction.user.add_roles(role, reason="/raider")
+        await interaction.response.send_message("🔔 You're a Raider now! You'll be pinged for every raid. 🦧", ephemeral=True)
+
+
+@tree.command(name="raidboard", description="Top raiders leaderboard")
+@app_commands.guild_only()
+async def raidboard(interaction: discord.Interaction):
+    points = raid_data()["points"]
+    top = sorted(points.items(), key=lambda kv: -kv[1])[:10]
+    medals = ["🥇", "🥈", "🥉"]
+    rows = [f"{medals[i] if i < 3 else f'{i + 1}.'} <@{uid}>: {pts}" for i, (uid, pts) in enumerate(top)]
+    await interaction.response.send_message("🏆 **Top raiders**\n" + ("\n".join(rows) or "No raids yet: be the first! 🦧"),
+                                            allowed_mentions=discord.AllowedMentions.none())
+
+
+@client.event
+async def on_raw_reaction_add(payload):
+    """One point per raid per member for reacting with the raid emoji (honour system: X is not checked)."""
+    if str(payload.emoji) != RAID["emoji"] or payload.user_id == client.user.id:
+        return
+    data = raid_data()
+    key = f"{payload.message_id}:{payload.user_id}"
+    if payload.message_id not in data["raids"] or key in data["done"]:
+        return
+    data["done"].append(key)
+    uid = str(payload.user_id)
+    data["points"][uid] = data["points"].get(uid, 0) + 1
+    RAID_FILE.write_text(json.dumps(data))
 
 
 @tree.command(name="setup", description="Create the OrangeOrangus server roles, channels, slowmode and rules")

@@ -10,6 +10,7 @@ Segue la guida `guida-server-discord.md`:
   - link nella categoria COMMUNITY (eccetto `allowed_domains`) → eliminato
   - 5+ menzioni, 70%+ maiuscole, 3 messaggi uguali, 5 messaggi in 5 secondi → eliminato + timeout 10 minuti
 - **/x /tlg /ds /demo /web /social**: chiunque, in qualsiasi canale, riceve il link (X, Telegram, invito Discord creato dal bot, demo). Testi in `link_commands`.
+- **/raid link** (staff): post X in #raids con ping @Raiders e idee di risposta; **/raider** per avere/togliere il ruolo; **/raidboard** classifica (✅ = 1 punto per raid, sulla parola). Punti in `raid_points.json`.
 - **/setup** (solo admin): crea ruoli, categorie, canali, slowmode (5s #general-chat, 30s #memes), PDF della roadmap in #roadmap (sola lettura), messaggi in #welcome, #rules, #official-links e #scam-alerts (`channel_posts` in config.json), verifica Alta; toglie a @everyone "Menziona @everyone" e "Crea inviti". Si può rilanciare: non duplica nulla.
 
 Tutto si modifica in `config.json`. Aggiungi i domini ufficiali ad `allowed_domains` solo dopo averli verificati.

@@ -61,6 +61,16 @@
         "add_reactions",
         "read_message_history"
       ]
+    },
+    {
+      "name": "Raiders",
+      "color": "#FF4500",
+      "permissions": [
+        "read_messages",
+        "send_messages",
+        "add_reactions",
+        "read_message_history"
+      ]
     }
   ],
   "categories": [
@@ -101,6 +111,10 @@
     {
       "name": "🍊 COMMUNITY",
       "channels": [
+        {
+          "name": "raids",
+          "readonly": true
+        },
         {
           "name": "general-chat",
           "slowmode": 5,
@@ -149,7 +163,8 @@
     "official-links": "🔗 **OrangeOrangus official links**\nThese are the ONLY official links. Anything else is fake.\n\n🌐 Website: https://orangeorangusofficial.netlify.app/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏎️ Racing demo: https://orangeorangus-racingdemo.netlify.app\n\n⚠️ There is no token contract address and no open presale yet. Any link claiming otherwise is a scam. New links will be added here only after they are verified.",
     "scam-alerts": "🚨 **Scam alert: read this before anything else**\n• Staff will NEVER DM you first. Anyone who does is an impostor.\n• No presale is open and no token address has been published.\n• Never share your seed phrase or private keys, with anyone, ever.\n• Never \"connect your wallet\" to claim airdrops or rewards from links sent in DMs.\n• Check every link against #official-links.\n• Spotted something suspicious? Report it to a @Mod right away.\n\nStay safe, ape. 🦧",
     "game-feedback": "🏎️ **OrangeOrangus Racing**\nOrangeOrangus Racing is our arcade racing game, currently an early demo you can play in your desktop browser, no download needed. Mobile support is planned for a future update.\nPlay the demo: https://orangeorangus-racingdemo.netlify.app\n\nIt's a demo with virtual points only: no token rewards are live and none are promised.\n\n👉 Tell us here: what you love, what's broken, what you'd add. Bugs, ideas and screenshots all help shape the game! 🦧",
-    "sneak-peek": "👀 **Sneak peek**\nFirst looks at OrangeOrangus Racing: clips, screenshots and work-in-progress from the demo, straight from the jungle garage. 🏁\nEverything here is from an early demo and may change.\nTried it? Share your feedback in #game-feedback! 🦧"
+    "sneak-peek": "👀 **Sneak peek**\nFirst looks at OrangeOrangus Racing: clips, screenshots and work-in-progress from the demo, straight from the jungle garage. 🏁\nEverything here is from an early demo and may change.\nTried it? Share your feedback in #game-feedback! 🦧",
+    "raids": "🚨 **Raids**\nWhen we post on X, the team drops the link here.\n1️⃣ Like ❤️  2️⃣ Repost 🔁  3️⃣ Reply with your own words (ideas included)\nThen react ✅ under the raid to climb the leaderboard: type /raidboard.\n\n🔔 Want a ping for every raid? Type /raider to get the @Raiders role (type it again to remove it).\nAlways interact by hand from your own account: no bots, no spam. 🦧"
   },
   "link_commands": {
     "x": {
@@ -186,5 +201,18 @@
     }
   },
   "welcome_message": "🦧🍊 Welcome to the jungle, {member}! You're ape #{count}.\nStart with #rules, grab the links in #official-links and say hi in #general-chat. Peel the hype. Release the ape!",
-  "member_counter": "🦧 Apes: {count}"
+  "member_counter": "🦧 Apes: {count}",
+  "raid": {
+    "channel": "raids",
+    "role": "Raiders",
+    "emoji": "✅",
+    "replies": [
+      "Peel the hype. Release the ape. 🦧🍊",
+      "The jungle is growing every day 🌴🍊",
+      "OrangeOrangus Racing demo is a vibe 🏁🦧",
+      "Orange season is coming 🍊🔥",
+      "Who else is in the troop? 🦧🙌",
+      "GM from the jungle 🌴☀️"
+    ]
+  }
 }
