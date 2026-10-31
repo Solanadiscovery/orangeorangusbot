@@ -17,19 +17,33 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
-VERSION = "2026-10-31"
+VERSION = "2026-10-31b"
 RAID_FILE = Path(__file__).parent / "raid_points.json"
 OG_ROLE_FILE = Path(__file__).parent / "og_role.json"
 COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
 tracker = filters.Tracker(CFG["spam_messages"], CFG["spam_seconds"], CFG["duplicate_limit"])
 
 
+def norm(name):
+    """Name without emoji, symbols and case: "🛡️ Mod" -> "mod", "💬-general-chat" -> "generalchat"."""
+    return re.sub(r"[^a-z0-9]", "", name.lower())
+
+
+def find(items, name):
+    """Finds a role/channel by its config name, also after it was renamed with emoji or symbols."""
+    return discord.utils.get(items, name=name) or next((i for i in items if norm(i.name) == norm(name)), None)
+
+
+def find_role(guild, name):
+    return og_role(guild) if norm(name) == norm(CFG["og_role"]) else find(guild.roles, name)
+
+
 def is_staff(member):
-    return member.guild_permissions.manage_messages or any(r.name in CFG["staff_roles"] for r in member.roles)
+    return member.guild_permissions.manage_messages or any(norm(r.name) in {norm(n) for n in CFG["staff_roles"]} for r in member.roles)
 
 
 async def log(guild, text):
-    channel = discord.utils.get(guild.text_channels, name=CFG["log_channel"])
+    channel = find(guild.text_channels, CFG["log_channel"])
     if channel:
         await channel.send(text, allowed_mentions=discord.AllowedMentions.none())
 
@@ -127,7 +141,7 @@ async def update_counter(guild):
     name = CFG["member_counter"].format(count=humans(guild))
     if not channel:
         # Created automatically at the top of INFO: nobody can join it, it only shows the number.
-        info = discord.utils.get(guild.categories, name=CFG["categories"][0]["name"])
+        info = find(guild.categories, CFG["categories"][0]["name"])
         try:
             await guild.create_voice_channel(name, category=info, position=0, reason="Member counter",
                                              overwrites={guild.default_role: discord.PermissionOverwrite(connect=False)})
@@ -190,13 +204,13 @@ async def on_member_join(member):
 async def _on_member_join(member):
     if not member.bot:
         await grant_og(member.guild)
-    role = discord.utils.get(member.guild.roles, name=CFG["join_role"])
+    role = find_role(member.guild, CFG["join_role"])
     if role:
         await member.add_roles(role, reason="Automatic join role")
     else:
         await log(member.guild, f"⚠️ Role {CFG['join_role']} not found: run /setup")
     await update_counter(member.guild)
-    welcome = discord.utils.get(member.guild.text_channels, name="welcome")
+    welcome = find(member.guild.text_channels, "welcome")
     if welcome and not member.bot:
         text = CFG["welcome_message"].format(member=member.mention, count=humans(member.guild))
         await welcome.send(link_mentions(member.guild, text), allowed_mentions=discord.AllowedMentions(users=True))
@@ -246,11 +260,11 @@ async def on_message(message):
 def link_mentions(guild, text):
     """Turns #channel-name and @Role into real Discord mentions."""
     def channel(m):
-        ch = discord.utils.get(guild.text_channels, name=m.group(1))
+        ch = find(guild.text_channels, m.group(1))
         return ch.mention if ch else m.group(0)
 
     def role(m):
-        r = discord.utils.get(guild.roles, name=m.group(1))
+        r = find_role(guild, m.group(1))
         return r.mention if r else m.group(0)
 
     text = re.sub(r"#([a-z0-9-]+)", channel, text)
@@ -262,7 +276,7 @@ async def server_invite(guild):
     for invite in await guild.invites():
         if invite.inviter == guild.me and not invite.max_age:
             return invite.url
-    channel = discord.utils.get(guild.text_channels, name="welcome") or guild.text_channels[0]
+    channel = find(guild.text_channels, "welcome") or guild.text_channels[0]
     return (await channel.create_invite(max_age=0, max_uses=0, reason="/ds")).url
 
 
@@ -304,11 +318,11 @@ async def raid(interaction: discord.Interaction, link: str, note: str = ""):
     if not X_POST.match(link.strip()):
         await interaction.response.send_message("⚠️ Use a post link like https://x.com/orangeorangus/status/123", ephemeral=True)
         return
-    channel = discord.utils.get(interaction.guild.text_channels, name=RAID["channel"])
+    channel = find(interaction.guild.text_channels, RAID["channel"])
     if not channel:
         await interaction.response.send_message("⚠️ #raids not found: run !setup", ephemeral=True)
         return
-    role = discord.utils.get(interaction.guild.roles, name=RAID["role"])
+    role = find_role(interaction.guild, RAID["role"])
     ideas = "\n".join(f"• {r}" for r in random.sample(RAID["replies"], min(3, len(RAID["replies"]))))
     text = (f"🚨 **RAID TIME!** {role.mention if role else ''}\n{link.strip()}\n"
             + (f"{note}\n" if note else "")
@@ -325,7 +339,7 @@ async def raid(interaction: discord.Interaction, link: str, note: str = ""):
 @tree.command(name="raider", description="Get or remove the Raiders role (ping for every raid)")
 @app_commands.guild_only()
 async def raider(interaction: discord.Interaction):
-    role = discord.utils.get(interaction.guild.roles, name=RAID["role"])
+    role = find_role(interaction.guild, RAID["role"])
     if not role:
         await interaction.response.send_message("⚠️ Raiders role not found yet.", ephemeral=True)
     elif role in interaction.user.roles:
@@ -386,21 +400,24 @@ async def run_setup(guild):
 async def _setup_steps(guild):
     done = []
 
-    roles = {}
+    roles, created = {}, set()
     for spec in CFG["roles"]:
-        role = og_role(guild) if spec["name"] == CFG["og_role"] else discord.utils.get(guild.roles, name=spec["name"])
+        role = find_role(guild, spec["name"])
         if not role:
             role = await guild.create_role(name=spec["name"], colour=discord.Colour.from_str(spec["color"]),
                                            permissions=perms(spec["permissions"]), hoist=True, reason="/setup")
+            created.add(role.id)
             done.append(f"role {role.name}")
         elif not role.hoist:
             # Show the role separately in the member list.
             await role.edit(hoist=True, reason="/setup")
             done.append(f"{role.name} displayed separately")
         roles[spec["name"]] = role
-    # Order from the top: Founder, Mod, OranguTeam (all below the bot role).
+    # Only brand-new roles get placed (below the bot role); roles you already arranged keep their order.
     top = guild.me.top_role.position
-    await guild.edit_role_positions({roles[s["name"]]: max(top - 1 - i, 1) for i, s in enumerate(CFG["roles"])})
+    new = {roles[s["name"]]: max(top - 1 - i, 1) for i, s in enumerate(CFG["roles"]) if roles[s["name"]].id in created}
+    if new:
+        await guild.edit_role_positions(new)
 
     everyone = guild.default_role
     base = everyone.permissions
@@ -413,7 +430,7 @@ async def _setup_steps(guild):
         if cat_spec.get("private"):
             overwrites = {everyone: discord.PermissionOverwrite(view_channel=False),
                           **{r: discord.PermissionOverwrite(view_channel=True) for r in staff}}
-        category = discord.utils.get(guild.categories, name=cat_spec["name"])
+        category = find(guild.categories, cat_spec["name"])
         if not category:
             category = await guild.create_category(cat_spec["name"], overwrites=overwrites, reason="/setup")
             done.append(f"category {category.name}")
@@ -422,8 +439,8 @@ async def _setup_steps(guild):
             if ch.get("readonly"):
                 ow[everyone] = discord.PermissionOverwrite(send_messages=False)
                 ow.update({r: discord.PermissionOverwrite(send_messages=True) for r in staff})
-            channel = discord.utils.get(guild.text_channels, name=ch["name"])
-            old = ch.get("old_name") and discord.utils.get(guild.text_channels, name=ch["old_name"])
+            channel = find(guild.text_channels, ch["name"])
+            old = ch.get("old_name") and find(guild.text_channels, ch["old_name"])
             if not channel and old:
                 # Rename the old Italian channel instead of creating a duplicate.
                 await old.edit(name=ch["name"], reason="/setup")
@@ -442,7 +459,7 @@ async def _setup_steps(guild):
 
     # Posts go after all channels exist, so every #channel and @Role mention becomes clickable.
     for name, text in CFG["channel_posts"].items():
-        channel = discord.utils.get(guild.text_channels, name=name)
+        channel = find(guild.text_channels, name)
         if not channel:
             continue
         text = link_mentions(guild, text)
@@ -460,7 +477,7 @@ async def _setup_steps(guild):
 
     # Read-only channels that hold a file (e.g. the roadmap PDF): posted once.
     for name, spec in CFG.get("channel_files", {}).items():
-        channel = discord.utils.get(guild.text_channels, name=name)
+        channel = find(guild.text_channels, name)
         path = Path(__file__).parent / spec["file"]
         if not channel or not path.exists():
             continue
