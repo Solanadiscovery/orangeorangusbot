@@ -606,5 +606,13 @@
   "platform": "telegram",
   "text": "🎵 Jungle soundtrack for building?",
   "ts": "2026-11-01T11:00:45.541530+00:00"
+ },
+ {
+  "id": "tg-quiz-fud",
+  "concept": "fud",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What does FUD stand for?",
+  "ts": "2026-11-01T17:00:46.202941+00:00"
  }
 ]
