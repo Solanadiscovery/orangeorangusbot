@@ -44,5 +44,8 @@
   "action": 3600,
   "auto": 0
  },
- "friday_done": "2026-10-30"
+ "friday_done": "2026-10-30",
+ "alerts": {
+  "low_telegram_poll": 1793530847.730227
+ }
 }
