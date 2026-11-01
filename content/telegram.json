@@ -675,36 +675,36 @@
   "id": "tg-poll-security",
   "type": "poll",
   "concept": "security",
-  "question": "🛡 Do you use a hardware wallet?",
+  "question": "🛡 How do you keep your crypto safe?",
   "options": [
-   "Yes",
-   "Not yet",
-   "What's that?",
-   "Planning to"
+   "Hardware wallet 🔐",
+   "Seed phrase on paper 📝",
+   "Separate burner wallet 🔥",
+   "Still figuring it out 🤔"
   ]
  },
  {
   "id": "tg-poll-weekend",
   "type": "poll",
   "concept": "weekend",
-  "question": "🌴 Weekend plan?",
+  "question": "🌴 Weekend plan for the Troop?",
   "options": [
-   "Memes",
-   "Touching grass",
-   "Charts",
-   "All of the above"
+   "Making memes 😂",
+   "Touching grass 🌿",
+   "Racing laps in the demo 🏁",
+   "All of the above 🦧"
   ]
  },
  {
   "id": "tg-poll-color",
   "type": "poll",
   "concept": "color",
-  "question": "🎨 Best secondary colour for OrangeOrangus?",
+  "question": "🎨 Which colour should lead the next Orango artwork?",
   "options": [
    "Lime green 💚",
    "Golden yellow 💛",
-   "Jungle green 🌲",
-   "Sky blue 💙"
+   "Deep jungle green 🌲",
+   "Pure orange 🍊"
   ]
  },
  {
@@ -713,10 +713,10 @@
   "concept": "recruit",
   "question": "👥 How did you find OrangeOrangus?",
   "options": [
-   "X",
-   "A friend",
-   "Telegram search",
-   "Orango found me"
+   "X 🐦",
+   "A friend 🫂",
+   "Discord / Telegram search 🔎",
+   "Orango found me 🦧"
   ]
  },
  {
@@ -790,5 +790,473 @@
   "type": "engage",
   "concept": "countdown-check",
   "text": "📌 Checked the pinned countdown lately? Every new Peeler moves it. Share the channel!"
+ },
+ {
+  "id": "tg-poll-race-track",
+  "type": "poll",
+  "concept": "race-track",
+  "question": "🏁 Favourite track in the Orange Racing demo?",
+  "options": [
+   "Dusty Canyon 🏜",
+   "Misty Falls 🌫",
+   "Orange Ring 🍊",
+   "Still exploring 🗺"
+  ]
+ },
+ {
+  "id": "tg-poll-race-next-track",
+  "type": "poll",
+  "concept": "race-next-track",
+  "question": "🗺 Which setting should the next racing track have?",
+  "options": [
+   "Volcano island 🌋",
+   "Night jungle 🌙",
+   "Snowy peaks ❄️",
+   "Banana beach 🏖"
+  ]
+ },
+ {
+  "id": "tg-poll-race-kart-colour",
+  "type": "poll",
+  "concept": "race-kart-colour",
+  "question": "🏎 Paint job for Orango's kart?",
+  "options": [
+   "Classic orange 🍊",
+   "Lime flames 💚",
+   "Gold chrome 💛",
+   "Camo jungle 🌲"
+  ]
+ },
+ {
+  "id": "tg-poll-race-controls",
+  "type": "poll",
+  "concept": "race-controls",
+  "question": "🎮 How do you play the racing demo?",
+  "options": [
+   "Phone touch 📱",
+   "Keyboard ⌨️",
+   "Gamepad 🕹",
+   "Haven't tried yet 👀"
+  ]
+ },
+ {
+  "id": "tg-poll-race-rival",
+  "type": "poll",
+  "concept": "race-rival",
+  "question": "😤 Who should be the toughest CPU rival?",
+  "options": [
+   "Rug Gorilla 🦍",
+   "A turbo sloth 🦥",
+   "A sneaky snake 🐍",
+   "Orango's evil twin 🦧"
+  ]
+ },
+ {
+  "id": "tg-poll-race-powerup",
+  "type": "poll",
+  "concept": "race-powerup",
+  "question": "⚡ Best power-up idea for the races?",
+  "options": [
+   "Peel slick 🍌",
+   "Orange boost 🍊",
+   "Coconut shield 🥥",
+   "Vine grapple 🌿"
+  ]
+ },
+ {
+  "id": "tg-poll-race-mode-wish",
+  "type": "poll",
+  "concept": "race-mode-wish",
+  "question": "🏆 Which race mode do you want most?",
+  "options": [
+   "Time trial ⏱",
+   "Ghost race 👻",
+   "Online with friends 🫂",
+   "Weekly challenge 📅"
+  ]
+ },
+ {
+  "id": "tg-poll-race-best-lap",
+  "type": "poll",
+  "concept": "race-best-lap",
+  "question": "⏱ Be honest: how good is your best lap?",
+  "options": [
+   "Pro racer 🏆",
+   "Decent 👍",
+   "I hit every wall 💥",
+   "What's a brake? 🫠"
+  ]
+ },
+ {
+  "id": "tg-poll-race-music",
+  "type": "poll",
+  "concept": "race-music",
+  "question": "🎵 Race soundtrack vibe?",
+  "options": [
+   "Jungle drums 🥁",
+   "Synthwave 🌆",
+   "Chiptune 👾",
+   "Rock guitars 🎸"
+  ]
+ },
+ {
+  "id": "tg-poll-race-camera",
+  "type": "poll",
+  "concept": "race-camera",
+  "question": "🎥 Preferred race camera?",
+  "options": [
+   "Behind the kart",
+   "High chase cam",
+   "Cockpit view",
+   "Bird's eye 🦜"
+  ]
+ },
+ {
+  "id": "tg-poll-race-feedback",
+  "type": "poll",
+  "concept": "race-feedback",
+  "question": "🔧 What should we polish first in the racing demo?",
+  "options": [
+   "Handling 🏎",
+   "Graphics 🎨",
+   "Sound 🔊",
+   "More tracks 🗺"
+  ]
+ },
+ {
+  "id": "tg-poll-race-garage",
+  "type": "poll",
+  "concept": "race-garage",
+  "question": "🛠 First garage upgrade you'd want?",
+  "options": [
+   "Bigger wheels",
+   "Turbo engine",
+   "Spoiler wing",
+   "Fruit horn 🎺"
+  ]
+ },
+ {
+  "id": "tg-poll-race-character",
+  "type": "poll",
+  "concept": "race-character",
+  "question": "🦧 Who should be the next playable racer?",
+  "options": [
+   "Toucan pilot 🦜",
+   "Monkey mechanic 🐒",
+   "Jaguar speedster 🐆",
+   "Chill turtle 🐢"
+  ]
+ },
+ {
+  "id": "tg-poll-puzzle-booster",
+  "type": "poll",
+  "concept": "puzzle-booster",
+  "question": "🍍 Best booster for the fruit puzzle game?",
+  "options": [
+   "Fruit bomb 💣",
+   "Row blaster ➡️",
+   "Colour swap 🔄",
+   "Extra moves ➕"
+  ]
+ },
+ {
+  "id": "tg-poll-game-which-next",
+  "type": "poll",
+  "concept": "game-which-next",
+  "question": "🎮 Which game should get the next big update?",
+  "options": [
+   "Orange Racing 🏁",
+   "Fruit puzzle 🍊",
+   "Territory battles ⚔️",
+   "Surprise us 🎁"
+  ]
+ },
+ {
+  "id": "tg-poll-game-session",
+  "type": "poll",
+  "concept": "game-session",
+  "question": "⏳ How long is your ideal game session?",
+  "options": [
+   "2 minutes on the go",
+   "10 minutes",
+   "Half an hour",
+   "Until my battery dies 🔋"
+  ]
+ },
+ {
+  "id": "tg-poll-game-leaderboard",
+  "type": "poll",
+  "concept": "game-leaderboard",
+  "question": "📊 Weekly leaderboard with virtual points: in or out?",
+  "options": [
+   "In, let's compete 🔥",
+   "Only with friends",
+   "Just for fun, no ranks",
+   "Out 🙅"
+  ]
+ },
+ {
+  "id": "tg-poll-game-name",
+  "type": "poll",
+  "concept": "game-name",
+  "question": "🏷 Best name for a Troop gaming night?",
+  "options": [
+   "Peel Night 🍊",
+   "Jungle Grand Prix 🏁",
+   "Ape Arcade 🕹",
+   "Banana Brawl 🍌"
+  ]
+ },
+ {
+  "id": "tg-poll-community-event",
+  "type": "poll",
+  "concept": "community-event",
+  "question": "🎉 Next community event?",
+  "options": [
+   "Meme contest 😂",
+   "Racing tournament 🏁",
+   "Lore writing night 📜",
+   "Sticker design jam 🎨"
+  ]
+ },
+ {
+  "id": "tg-poll-community-call",
+  "type": "poll",
+  "concept": "community-call",
+  "question": "🎙 Would you join a voice chat with the team?",
+  "options": [
+   "Yes, live! 🎤",
+   "Only to listen 👂",
+   "Prefer text 💬",
+   "Depends on the time ⏰"
+  ]
+ },
+ {
+  "id": "tg-poll-community-language",
+  "type": "poll",
+  "concept": "community-language",
+  "question": "🌍 Which language do you speak most?",
+  "options": [
+   "English 🇬🇧",
+   "Italian 🇮🇹",
+   "Spanish 🇪🇸",
+   "Other 🌐"
+  ]
+ },
+ {
+  "id": "tg-poll-community-help",
+  "type": "poll",
+  "concept": "community-help",
+  "question": "🫂 How would you like to help the Troop?",
+  "options": [
+   "Making memes 😂",
+   "Sharing on X 🐦",
+   "Testing games 🎮",
+   "Inviting friends 👥"
+  ]
+ },
+ {
+  "id": "tg-poll-community-updates",
+  "type": "poll",
+  "concept": "community-updates",
+  "question": "📰 Favourite kind of dev update?",
+  "options": [
+   "Short video clips 🎬",
+   "Screenshots 📸",
+   "Text changelog 📝",
+   "Live demos 🔴"
+  ]
+ },
+ {
+  "id": "tg-poll-community-welcome",
+  "type": "poll",
+  "concept": "community-welcome",
+  "question": "👋 Best way to welcome new Peelers?",
+  "options": [
+   "Orange emoji rain 🍊",
+   "A meme 😂",
+   "Racing demo link 🏁",
+   "Lore summary 📜"
+  ]
+ },
+ {
+  "id": "tg-poll-community-raid",
+  "type": "poll",
+  "concept": "community-raid",
+  "question": "🐦 How often do you join X raids?",
+  "options": [
+   "Every time 🔥",
+   "When I can",
+   "Rarely",
+   "What's a raid? 🤔"
+  ]
+ },
+ {
+  "id": "tg-poll-community-mod",
+  "type": "poll",
+  "concept": "community-mod",
+  "question": "🛡 Biggest threat to a crypto group?",
+  "options": [
+   "Scam DMs 🚫",
+   "Fake links 🔗",
+   "Impersonators 🎭",
+   "Spam bots 🤖"
+  ]
+ },
+ {
+  "id": "tg-poll-community-day",
+  "type": "poll",
+  "concept": "community-day",
+  "question": "📅 Best day for a Troop event?",
+  "options": [
+   "Friday 🎉",
+   "Saturday 🌴",
+   "Sunday 😌",
+   "Midweek ⚡"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-mascot-mood",
+  "type": "poll",
+  "concept": "meme-mascot-mood",
+  "question": "😂 Orango's most memeable mood?",
+  "options": [
+   "Smug 😏",
+   "Confused 🤨",
+   "Hyped 🤩",
+   "Sleepy 😴"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-caption",
+  "type": "poll",
+  "concept": "meme-caption",
+  "question": "🍊 Pick the next meme caption",
+  "options": [
+   "Peel the hype",
+   "Release the ape",
+   "Ape first, read later",
+   "Touch grass, then bananas"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-format-video",
+  "type": "poll",
+  "concept": "meme-format-video",
+  "question": "🎬 Which meme format should Orango try next?",
+  "options": [
+   "Reaction GIF",
+   "Short video skit",
+   "Comic strip",
+   "Sticker pack"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-gm",
+  "type": "poll",
+  "concept": "meme-gm",
+  "question": "☀️ Best way to say gm in the Troop?",
+  "options": [
+   "gm 🍊",
+   "gm ape 🦧",
+   "peel morning 🍌",
+   "*throws orange* 🍊💨"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-villain",
+  "type": "poll",
+  "concept": "meme-villain",
+  "question": "🦍 Rug Gorilla's worst habit?",
+  "options": [
+   "Fake promises 🤥",
+   "Stealing bananas 🍌",
+   "Pulling rugs 🧶",
+   "Bad memes 😬"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-snack",
+  "type": "poll",
+  "concept": "meme-snack",
+  "question": "🍽 Orango's go-to snack?",
+  "options": [
+   "Oranges, obviously 🍊",
+   "Banana split 🍌",
+   "Mango smoothie 🥭",
+   "Coconut water 🥥"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-spirit-fruit",
+  "type": "poll",
+  "concept": "meme-spirit-fruit",
+  "question": "🍓 What's your spirit fruit?",
+  "options": [
+   "Orange 🍊",
+   "Banana 🍌",
+   "Pineapple 🍍",
+   "Watermelon 🍉"
+  ]
+ },
+ {
+  "id": "tg-poll-meme-sticker-next",
+  "type": "poll",
+  "concept": "meme-sticker-next",
+  "question": "🎨 Next sticker to add to the pack?",
+  "options": [
+   "Orango racing 🏁",
+   "Orango crying-laughing 😂",
+   "Orango thumbs up 👍",
+   "Orango 'wen?' 🤔"
+  ]
+ },
+ {
+  "id": "tg-poll-lore-treasure",
+  "type": "poll",
+  "concept": "lore-treasure",
+  "question": "📜 What's hidden in the heart of the Peel Jungle?",
+  "options": [
+   "A golden orange 🍊",
+   "An ancient race track 🏁",
+   "Rug Gorilla's secret lair 🦍",
+   "A giant banana tree 🍌"
+  ]
+ },
+ {
+  "id": "tg-poll-lore-orango-past",
+  "type": "poll",
+  "concept": "lore-orango-past",
+  "question": "🦧 Orango's secret past job?",
+  "options": [
+   "Fruit vendor 🍊",
+   "Kart mechanic 🔧",
+   "Jungle DJ 🎧",
+   "Meme professor 🎓"
+  ]
+ },
+ {
+  "id": "tg-poll-dyor-habit",
+  "type": "poll",
+  "concept": "dyor-habit",
+  "question": "🔍 First thing you check on a new project?",
+  "options": [
+   "Team and socials 👥",
+   "Website and docs 📄",
+   "Community vibe 🫂",
+   "Red flags 🚩"
+  ]
+ },
+ {
+  "id": "tg-poll-content-favourite",
+  "type": "poll",
+  "concept": "content-favourite",
+  "question": "❤️ Favourite thing about this group?",
+  "options": [
+   "The memes 😂",
+   "The games 🎮",
+   "The people 🫂",
+   "Orango himself 🦧"
+  ]
  }
 ]
