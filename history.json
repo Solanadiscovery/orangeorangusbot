@@ -598,5 +598,13 @@
   "platform": "telegram",
   "text": "🍊 Rate your day from 1 to 10 oranges. Orango is at 🍊🍊🍊🍊🍊🍊🍊.",
   "ts": "2026-11-01T09:00:22.187711+00:00"
+ },
+ {
+  "id": "tg-poll-music",
+  "concept": "music",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🎵 Jungle soundtrack for building?",
+  "ts": "2026-11-01T11:00:45.541530+00:00"
  }
 ]
