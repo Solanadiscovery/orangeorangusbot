@@ -131,12 +131,12 @@
   },
   "996383996": {
    "name": "Sbraun91",
-   "pts": 100,
+   "pts": 120,
    "x": "brunorinarelli",
    "checkin": "2026-11-02",
    "day": {
     "d": "2026-11-02",
-    "p": 5
+    "p": 25
    },
    "joined": true,
    "strikes": 0,
@@ -259,6 +259,13 @@
    "status": "approved",
    "pts": 20,
    "url": "https://x.com/brunorinarelli/status/2115639102460637333"
+  },
+  "2116993305984503977": {
+   "uid": "996383996",
+   "day": "2026-11-02",
+   "status": "approved",
+   "pts": 20,
+   "url": "https://x.com/brunorinarelli/status/2116993305984503977"
   }
  },
  "links": {
