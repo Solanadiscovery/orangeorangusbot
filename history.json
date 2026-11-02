@@ -630,5 +630,13 @@
   "platform": "telegram",
   "text": "🛡 Someone asks for your seed phrase to 'verify' your wallet. You...",
   "ts": "2026-11-02T09:00:10.735906+00:00"
+ },
+ {
+  "id": "tg-poll-security",
+  "concept": "security",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🛡 How do you keep your crypto safe?",
+  "ts": "2026-11-02T11:00:43.462389+00:00"
  }
 ]
