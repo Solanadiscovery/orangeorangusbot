@@ -638,5 +638,13 @@
   "platform": "telegram",
   "text": "🛡 How do you keep your crypto safe?",
   "ts": "2026-11-02T11:00:43.462389+00:00"
+ },
+ {
+  "id": "tg-engage-caption-contest",
+  "concept": "caption-contest",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "✍️ Caption contest: Orango is staring at a banana with suspicion. What is he thinking?",
+  "ts": "2026-11-02T13:00:52.345448+00:00"
  }
 ]
