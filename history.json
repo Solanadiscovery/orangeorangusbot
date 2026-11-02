@@ -646,5 +646,13 @@
   "platform": "telegram",
   "text": "✍️ Caption contest: Orango is staring at a banana with suspicion. What is he thinking?",
   "ts": "2026-11-02T13:00:52.345448+00:00"
+ },
+ {
+  "id": "tg-quiz-genesis-block",
+  "concept": "genesis-block",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 When was Bitcoin's genesis block mined?",
+  "ts": "2026-11-02T17:00:42.965783+00:00"
  }
 ]
