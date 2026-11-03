@@ -1,0 +1,9 @@
+target/
+node_modules/
+*-keypair.json
+deployer.json
+bot/bot-wallet.json
+bot/config.json
+bot/bot-log.jsonl
+bot/bot-state.json
+test-ledger/

@@ -1,0 +1,13 @@
+[toolchain]
+anchor_version = "0.31.1"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+orange_stake = "FJCVCn2714BjcYCBKoqL2v6kQvfYPoHtLghnEPeHRm79"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"

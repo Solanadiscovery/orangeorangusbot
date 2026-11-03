@@ -1,0 +1,17 @@
+{
+  "rpcUrl": "https://api.mainnet-beta.solana.com",
+  "keypairPath": "./bot-wallet.json",
+  "mint": "INDIRIZZO_TOKEN_ORANGU",
+  "eventsWallet": "",
+  "eventsSharePct": 20,
+  "treasuryWallet": "",
+  "treasurySharePct": 0,
+  "solReserve": 0.05,
+  "minSolToBuy": 0.05,
+  "maxSolPerRun": 5,
+  "slippageBps": 300,
+  "rewardDays": 7,
+  "intervalMinutes": 60,
+  "claimCreatorFees": true,
+  "dryRun": true
+}

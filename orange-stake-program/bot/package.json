@@ -1,0 +1,9 @@
+{
+  "name": "orangu-reward-bot",
+  "private": true,
+  "description": "Collects pump.fun creator fees, buys back $ORANGU and loads the Orange Stake Club reward pool.",
+  "main": "reward-bot.js",
+  "scripts": { "once": "node reward-bot.js", "loop": "node reward-bot.js --loop" },
+  "dependencies": { "@solana/web3.js": "1.98.4" },
+  "engines": { "node": ">=18" }
+}

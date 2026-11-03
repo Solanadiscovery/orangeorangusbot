@@ -1,0 +1,27 @@
+[package]
+name = "orange_stake"
+version = "0.1.0"
+description = "Orange Stake Club - draft staking program (NOT deployed, NOT audited)"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "orange_stake"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+custom-heap = []
+custom-panic = []
+anchor-debug = []
+
+[dependencies]
+anchor-lang = { version = "=0.31.1", features = ["init-if-needed"] }
+anchor-spl = { version = "=0.31.1", default-features = false, features = ["token", "token_2022", "associated_token"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }
