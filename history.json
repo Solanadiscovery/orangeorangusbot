@@ -670,5 +670,13 @@
   "platform": "telegram",
   "text": "🧠 How often does the Bitcoin halving happen?",
   "ts": "2026-11-03T09:00:59.517316+00:00"
+ },
+ {
+  "id": "tg-poll-weekend",
+  "concept": "weekend",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🌴 Weekend plan for the Troop?",
+  "ts": "2026-11-03T11:00:28.604172+00:00"
  }
 ]
