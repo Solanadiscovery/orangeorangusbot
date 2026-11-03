@@ -694,5 +694,13 @@
   "platform": "telegram",
   "text": "🦍 What is a 'rug pull'?",
   "ts": "2026-11-03T17:00:04.709133+00:00"
+ },
+ {
+  "id": "tg-quiz-eth-merge",
+  "concept": "eth-merge",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 In 2022 'The Merge' moved Ethereum to...",
+  "ts": "2026-11-03T21:00:02.393663+00:00"
  }
 ]
