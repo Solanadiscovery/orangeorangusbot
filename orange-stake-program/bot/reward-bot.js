@@ -34,8 +34,27 @@ const log = (step, data = {}) => {
 };
 const lamports = sol => BigInt(Math.floor(sol * 1e9));
 
-async function sendVersioned(bytes, label) {
+// Transactions built by external APIs (PumpPortal, Jupiter) are never signed blindly: they are
+// simulated first and refused if they would take more SOL than allowed or ANY $ORANGU from the bot.
+async function guard(tx, label, maxSolLoss) {
+  const keys = tx.message.staticAccountKeys;
+  if (!keys[0].equals(bot.publicKey)) throw new Error(label + ': fee payer is not the bot wallet, refused');
+  if (tx.message.header.numRequiredSignatures !== 1) throw new Error(label + ': needs other signers, refused');
+  const myAta = C.ata(bot.publicKey, mint);
+  const [solBefore, tokBefore] = [await conn.getBalance(bot.publicKey), await tokenBalance(myAta)];
+  const sim = await conn.simulateTransaction(tx, { sigVerify: false, replaceRecentBlockhash: true,
+    accounts: { encoding: 'base64', addresses: [bot.publicKey.toBase58(), myAta.toBase58()] } });
+  if (sim.value.err) throw new Error(label + ' simulation failed: ' + JSON.stringify(sim.value.err));
+  const [a, t] = sim.value.accounts;
+  const solAfter = a ? a.lamports : 0;
+  const tokAfter = t ? C.tokenAmount(Buffer.from(t.data[0], 'base64')) : 0n;
+  if (solBefore - solAfter > Math.round(maxSolLoss * 1e9)) throw new Error(label + ': would spend more SOL than allowed, refused');
+  if (tokAfter < tokBefore) throw new Error(label + ': would move $ORANGU out of the bot wallet, refused');
+}
+
+async function sendVersioned(bytes, label, maxSolLoss) {
   const tx = W.VersionedTransaction.deserialize(bytes);
+  await guard(tx, label, maxSolLoss);
   tx.sign([bot]);
   const sig = await conn.sendRawTransaction(tx.serialize(), { maxRetries: 3 });
   const bh = await conn.getLatestBlockhash();
@@ -74,7 +93,7 @@ async function buy(solAmount) {
         dynamicComputeUnitLimit: true, prioritizationFeeLamports: 'auto' })
     })).json();
     if (!s.swapTransaction) throw new Error(s.error || 'swap build failed');
-    return sendVersioned(Buffer.from(s.swapTransaction, 'base64'), 'buyback');
+    return sendVersioned(Buffer.from(s.swapTransaction, 'base64'), 'buyback', solAmount + 0.02);
   } catch (e) {
     log('jupiter unavailable, using pump.fun', { reason: String(e.message || e) });
   }
@@ -82,7 +101,7 @@ async function buy(solAmount) {
   if (DRY) { log('quote', { sol: solAmount, via: 'pumpportal' }); return; }
   const bytes = await pumpPortal({ action: 'buy', mint: mint.toBase58(), amount: solAmount, denominatedInSol: 'true',
     slippage: Math.max(1, Math.round(cfg.slippageBps / 100)), pool: 'auto' });
-  return sendVersioned(bytes, 'buyback');
+  return sendVersioned(bytes, 'buyback', solAmount + 0.02);
 }
 
 // SPL TransferChecked (tag 12), works for SPL Token and Token-2022
@@ -112,7 +131,7 @@ async function runOnce() {
   if (cfg.claimCreatorFees) {
     if (DRY) log('would collect creator fees');
     else {
-      try { await sendVersioned(await pumpPortal({ action: 'collectCreatorFee' }), 'collect creator fees'); }
+      try { await sendVersioned(await pumpPortal({ action: 'collectCreatorFee' }), 'collect creator fees', 0.01); }
       catch (e) { log('no creator fees collected', { reason: String(e.message || e) }); }
     }
   }
@@ -171,4 +190,4 @@ async function main() {
   } while (loop);
 }
 if (require.main === module) main();
-else module.exports = { runOnce, _test: o => { conn = o.conn; buyFn = o.buy; send = o.send; } };
+else module.exports = { runOnce, _sendVersioned: (...a) => sendVersioned(...a), _test: o => { conn = o.conn; buyFn = o.buy; send = o.send; } };
