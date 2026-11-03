@@ -678,5 +678,13 @@
   "platform": "telegram",
   "text": "🌴 Weekend plan for the Troop?",
   "ts": "2026-11-03T11:00:28.604172+00:00"
+ },
+ {
+  "id": "tg-quiz-spl",
+  "concept": "spl",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What is the token standard on Solana called?",
+  "ts": "2026-11-03T13:00:21.868589+00:00"
  }
 ]
