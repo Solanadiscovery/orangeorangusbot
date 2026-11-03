@@ -662,5 +662,13 @@
   "platform": "telegram",
   "text": "📌 Checked the pinned countdown lately? Every new Peeler moves it. Share the channel!",
   "ts": "2026-11-02T21:00:17.598784+00:00"
+ },
+ {
+  "id": "tg-quiz-halving",
+  "concept": "halving",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 How often does the Bitcoin halving happen?",
+  "ts": "2026-11-03T09:00:59.517316+00:00"
  }
 ]
