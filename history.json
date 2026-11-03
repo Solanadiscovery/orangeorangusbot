@@ -686,5 +686,13 @@
   "platform": "telegram",
   "text": "🧠 What is the token standard on Solana called?",
   "ts": "2026-11-03T13:00:21.868589+00:00"
+ },
+ {
+  "id": "tg-quiz-rug-pull",
+  "concept": "rug-pull",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🦍 What is a 'rug pull'?",
+  "ts": "2026-11-03T17:00:04.709133+00:00"
  }
 ]
