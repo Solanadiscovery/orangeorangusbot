@@ -702,5 +702,13 @@
   "platform": "telegram",
   "text": "🧠 In 2022 'The Merge' moved Ethereum to...",
   "ts": "2026-11-03T21:00:02.393663+00:00"
+ },
+ {
+  "id": "tg-quiz-orango-food",
+  "concept": "orango-food",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🍊 Lore quiz: what does Orango love peeling the most?",
+  "ts": "2026-11-04T09:00:56.082412+00:00"
  }
 ]
