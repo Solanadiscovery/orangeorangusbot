@@ -734,5 +734,13 @@
   "platform": "telegram",
   "text": "🧠 When was the Bitcoin whitepaper published?",
   "ts": "2026-11-04T17:00:52.407724+00:00"
+ },
+ {
+  "id": "tg-quiz-gas-name",
+  "concept": "gas-name",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 On Ethereum, transaction fees are called...",
+  "ts": "2026-11-04T21:00:21.406187+00:00"
  }
 ]
