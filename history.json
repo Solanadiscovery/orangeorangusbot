@@ -726,5 +726,13 @@
   "platform": "telegram",
   "text": "🦧 Lore quiz: what are OrangeOrangus community members called?",
   "ts": "2026-11-04T13:00:17.002165+00:00"
+ },
+ {
+  "id": "tg-quiz-satoshi-paper",
+  "concept": "satoshi-paper",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 When was the Bitcoin whitepaper published?",
+  "ts": "2026-11-04T17:00:52.407724+00:00"
  }
 ]
