@@ -251,6 +251,23 @@
    "invites": 0,
    "first": "2026-11-02T13:50:03.562648+00:00",
    "badges": []
+  },
+  "8180522362": {
+   "name": "Chibuike",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-04",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-04T06:01:56.374111+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
