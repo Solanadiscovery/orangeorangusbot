@@ -718,5 +718,13 @@
   "platform": "telegram",
   "text": "🎨 Which colour should lead the next Orango artwork?",
   "ts": "2026-11-04T11:03:52.639112+00:00"
+ },
+ {
+  "id": "tg-quiz-troop-name",
+  "concept": "troop-name",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🦧 Lore quiz: what are OrangeOrangus community members called?",
+  "ts": "2026-11-04T13:00:17.002165+00:00"
  }
 ]
