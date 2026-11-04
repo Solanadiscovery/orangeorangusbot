@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Orange Stake Club · Devnet Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070a;--card:rgba(14,18,24,.92);--edge:rgba(255,154,31,.35);--neo:#ff8a00;--gold:#ffd23f;--lime:#b6ff3b;--ink:#eef2f6;--muted:#9aa6b3;--red:#ff5a4a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Rajdhani,system-ui,sans-serif;font-weight:500;font-size:17px;color:var(--ink);background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(255,138,0,.16),transparent 70%),var(--bg);min-height:100vh;line-height:1.45}
+.wrap{width:min(980px,100% - 32px);margin:0 auto;padding:22px 0 60px}
+h1,h2,h3,.mono{font-family:Orbitron,sans-serif;letter-spacing:1px}
+h1{font-size:clamp(1.3rem,4.6vw,2.1rem);font-weight:900;text-shadow:0 0 18px rgba(255,138,0,.7)}
+h1 span{color:var(--gold)}
+h2{font-size:.85rem;color:#ffd9a3;margin-bottom:12px}
+.warn{margin:14px 0 18px;padding:12px 14px;border:1px solid var(--red);border-left:3px solid var(--red);border-radius:10px;background:rgba(255,90,74,.08);font-size:.98rem}
+.warn b{font-family:Orbitron,sans-serif;font-size:.72rem;letter-spacing:1.5px;color:#ffb0a6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-top:2px solid var(--neo);border-radius:12px;padding:16px;min-width:0}
+.row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.07);font-size:1rem}
+.row:last-child{border:0}
+.row span:first-child{color:var(--muted)}
+.row span:last-child{text-align:right;overflow-wrap:anywhere}
+.big{font-family:Orbitron,sans-serif;font-weight:900;font-size:1.5rem;color:#fff;text-shadow:0 0 14px rgba(255,138,0,.7)}
+input,textarea{width:100%;background:#0b0f14;border:1px solid rgba(255,255,255,.18);color:var(--ink);border-radius:8px;padding:.6em .7em;font:inherit}
+input:focus,textarea:focus{outline:2px solid var(--neo);outline-offset:1px}
+label{display:block;font-size:.85rem;color:var(--muted);margin:8px 0 4px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+button{font-family:Orbitron,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;border:0;border-radius:6px;padding:.85em 1.1em;cursor:pointer;color:#140800;background:linear-gradient(90deg,#ff7a00,#ffb000)}
+button.line{background:rgba(255,255,255,.04);color:#ffe2b8;border:1px solid var(--edge)}
+button.danger{background:rgba(255,90,74,.12);color:#ffb0a6;border:1px solid var(--red)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pill{font-family:Orbitron,sans-serif;font-size:.62rem;letter-spacing:2px;padding:.35em .7em;border-radius:4px;border:1px solid var(--lime);color:var(--lime)}
+.pill.off{border-color:var(--red);color:#ffb0a6}
+#log{margin-top:14px;font-size:.92rem;max-height:220px;overflow:auto}
+#log div{padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.07);overflow-wrap:anywhere}
+#log .err{color:#ffb0a6}#log .ok{color:var(--lime)}
+a{color:var(--gold)}
+.muted{color:var(--muted);font-size:.92rem}
+details.card summary{cursor:pointer;font-family:Orbitron,sans-serif;font-size:.85rem;color:#ffd9a3}
+details.card[open] summary{margin-bottom:10px}
+.sub{border-top:1px dashed rgba(255,255,255,.1);margin-top:14px;padding-top:12px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <h1>ORANGE <span>STAKE CLUB</span></h1>
+    <button id="btnConnect" type="button">Connect wallet</button>
+  </div>
+  <div class="warn" role="alert"><b>⚠ DEVNET TEST ONLY.</b> This page runs on Solana <b>devnet</b> with test tokens that have <b>no value</b>. No real rewards, no airdrop for testers. Set your wallet (Phantom or Solflare) to <b>Devnet</b>. The team will never ask for your seed phrase or private key.</div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h2>TEST POOL</h2>
+    <label for="mint">Test token address (from the team)</label>
+    <input id="mint" placeholder="Paste the test token mint address" autocomplete="off" spellcheck="false">
+    <div class="btns"><button id="btnLoad" type="button" class="line">Load pool</button><button id="btnShare" type="button" class="line" disabled>Copy test link</button></div>
+  </div>
+
+  <div class="grid">
+    <section class="card" aria-labelledby="h-pool">
+      <h2 id="h-pool">POOL STATUS</h2>
+      <div class="row"><span>Status</span><span id="pStatus">–</span></div>
+      <div class="row"><span>Total staked</span><span id="pTotal">–</span></div>
+      <div class="row"><span>Rewards per day (whole pool)</span><span id="pRate">–</span></div>
+      <div class="row"><span>Reward period ends</span><span id="pEnd">–</span></div>
+      <div class="row"><span>Minimum lock</span><span id="pLock">–</span></div>
+    </section>
+    <section class="card" aria-labelledby="h-me">
+      <h2 id="h-me">MY POSITION</h2>
+      <div class="row"><span>Wallet</span><span id="mWallet">not connected</span></div>
+      <div class="row"><span>Devnet SOL</span><span id="mSol">–</span></div>
+      <div class="row"><span>Test tokens in wallet</span><span id="mBal">–</span></div>
+      <div class="row"><span>Staked</span><span id="mStaked">–</span></div>
+      <div class="row"><span>Unlocks at</span><span id="mUnlock">–</span></div>
+      <div class="row"><span>Claimable now</span><span class="big" id="mPending">–</span></div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:14px" aria-labelledby="h-act">
+    <h2 id="h-act">ACTIONS</h2>
+    <label for="amount">Amount</label>
+    <input id="amount" inputmode="decimal" placeholder="e.g. 100">
+    <div class="btns">
+      <button id="btnStake" type="button" disabled>Stake</button>
+      <button id="btnUnstake" type="button" class="line" disabled>Unstake</button>
+      <button id="btnClaim" type="button" class="line" disabled>Claim rewards</button>
+      <button id="btnEmergency" type="button" class="danger" disabled>Emergency withdraw</button>
+    </div>
+    <p class="muted" style="margin-top:8px">Need devnet SOL for fees? Get it free at <a href="https://faucet.solana.com" target="_blank" rel="noopener">faucet.solana.com</a>. Emergency withdraw returns your whole stake at once and gives up unclaimed rewards.</p>
+    <div id="log" aria-live="polite"></div>
+  </section>
+
+  <details class="card" style="margin-top:14px" id="admin">
+    <summary>ADMIN TOOLS (team only)</summary>
+    <p class="muted">Only the wallet that deployed the program can create the pool. Only the pool admin can pause it or add rewards. Only the token creator can send test tokens.</p>
+    <div class="sub">
+      <h2>1 · CREATE A TEST TOKEN</h2>
+      <label for="aSupply">Supply for your wallet</label><input id="aSupply" value="1000000000">
+      <div class="btns"><button id="btnMint" type="button" class="line">Create test token</button></div>
+    </div>
+    <div class="sub">
+      <h2>2 · CREATE THE POOL</h2>
+      <label for="aLock">Minimum lock (hours)</label><input id="aLock" value="1">
+      <div class="btns"><button id="btnInit" type="button" class="line">Create pool (starts paused)</button></div>
+    </div>
+    <div class="sub">
+      <h2>3 · ADD REWARDS</h2>
+      <label for="aFund">Reward tokens</label><input id="aFund" value="100000">
+      <label for="aDays">Spread over (days)</label><input id="aDays" value="7">
+      <div class="btns"><button id="btnFund" type="button" class="line">Add rewards</button></div>
+    </div>
+    <div class="sub">
+      <h2>4 · OPEN OR PAUSE</h2>
+      <div class="btns"><button id="btnUnpause" type="button" class="line">Open pool</button><button id="btnPause" type="button" class="danger">Pause pool</button></div>
+    </div>
+    <div class="sub">
+      <h2>5 · SEND TEST TOKENS TO TESTERS</h2>
+      <label for="aList">Wallet addresses, one per line (max 8 per click)</label><textarea id="aList" rows="4"></textarea>
+      <label for="aEach">Tokens each</label><input id="aEach" value="10000">
+      <div class="btns"><button id="btnSend" type="button" class="line">Send test tokens</button></div>
+    </div>
+    <div class="sub">
+      <h2>6 · REWARD BOT (OPTIONAL)</h2>
+      <label for="aBot">Bot wallet address (it can only add rewards). Leave empty to disable.</label><input id="aBot" placeholder="Bot public address">
+      <div class="btns"><button id="btnBot" type="button" class="line">Set reward bot</button></div>
+    </div>
+  </details>
+</main>
+
+<script src="https://unpkg.com/@solana/web3.js@1.98.4/lib/index.iife.min.js" integrity="sha384-I45YF+S0YGWIolUyTksLk9TNtTqaDgZg8e6T1OoBoJvvFmphqYNIPZw3Kl0TkZNN" crossorigin="anonymous"></script>
+<script src="staking-core.js"></script>
+<script>
+(function () {
+  'use strict';
+  const W = window.solanaWeb3, C = window.OrangeStakeCore;
+  const MODE = new URLSearchParams(location.search).get('rpc');
+  const PROXY = MODE === 'proxy', LOCAL = MODE === 'local' || PROXY;
+  const RPC = PROXY ? location.origin + '/rpc' : LOCAL ? 'http://127.0.0.1:8899' : 'https://api.devnet.solana.com';
+  const CLUSTER_Q = LOCAL ? '?cluster=custom&customUrl=http%3A%2F%2F127.0.0.1%3A8899' : '?cluster=devnet';
+  const conn = new W.Connection(RPC, PROXY ? { commitment: 'confirmed', wsEndpoint: location.origin.replace(/^http/, 'ws') + '/ws' } : 'confirmed');
+  const $ = id => document.getElementById(id);
+  const ERR = ['Only the admin can do this', 'The pool is paused', 'Amount must be greater than zero', 'Invalid duration',
+    'Not enough staked', 'Your tokens are still locked', 'Nothing to claim yet', 'Reward amount too small for that period',
+    'Reward vault does not hold enough tokens', 'Rewards are still streaming', 'Math overflow', 'Unexpected transfer amount', 'Token type not supported'];
+  const S = { wallet: null, pk: null, mint: null, decimals: 6, cfg: null, user: null };
+
+  function log(msg, cls, sig) {
+    const d = document.createElement('div'); d.className = cls || '';
+    d.textContent = new Date().toLocaleTimeString() + ' · ' + msg + ' ';
+    if (sig) { const a = document.createElement('a'); a.href = 'https://explorer.solana.com/tx/' + sig + CLUSTER_Q; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'view'; d.appendChild(a); }
+    $('log').prepend(d);
+  }
+  function niceError(e) {
+    const s = String((e && (e.message || e)) || e);
+    const m = s.match(/custom program error: 0x([0-9a-f]+)/i);
+    if (m) { const n = parseInt(m[1], 16) - 6000; if (ERR[n]) return ERR[n]; }
+    if (/User rejected|rejected the request/i.test(s)) return 'Request cancelled in the wallet';
+    if (/insufficient (funds|lamports)|0x1\b/i.test(s)) return 'Not enough devnet SOL or tokens';
+    return s.slice(0, 220);
+  }
+  const fmt = v => C.fromUnits(BigInt(v), S.decimals);
+  const date = t => new Date(Number(t) * 1000).toLocaleString();
+  const short = k => k.slice(0, 4) + '…' + k.slice(-4);
+
+  async function send(ixs, extraSigners, label) {
+    if (!S.pk) throw new Error('Connect your wallet first');
+    const tx = new W.Transaction().add(...ixs);
+    tx.feePayer = S.pk;
+    const { blockhash, lastValidBlockHeight } = await conn.getLatestBlockhash();
+    tx.recentBlockhash = blockhash;
+    if (extraSigners && extraSigners.length) tx.partialSign(...extraSigners);
+    const signed = await S.wallet.signTransaction(tx);
+    const sig = await conn.sendRawTransaction(signed.serialize());
+    log(label + ': sent, waiting…', '', sig);
+    const r = await conn.confirmTransaction({ signature: sig, blockhash, lastValidBlockHeight }, 'confirmed');
+    if (r.value.err) throw new Error(JSON.stringify(r.value.err));
+    log(label + ': done ✓', 'ok', sig);
+    return sig;
+  }
+  async function run(btn, label, fn) {
+    const all = document.querySelectorAll('button'); all.forEach(b => b.dataset.was = b.disabled); all.forEach(b => b.disabled = true);
+    try { await fn(); } catch (e) { log(label + ': ' + niceError(e), 'err'); console.error(e); }
+    finally { all.forEach(b => b.disabled = b.dataset.was === 'true'); await refresh(); }
+  }
+
+  // ---------- wallet
+  function provider() { return (window.phantom && window.phantom.solana) || window.solflare || window.solana || null; }
+  $('btnConnect').onclick = async () => {
+    const p = provider();
+    if (!p) { log('No Solana wallet found. Install Phantom or Solflare, then reload.', 'err'); return; }
+    try {
+      const r = await p.connect();
+      S.wallet = p; S.pk = new W.PublicKey(((r && r.publicKey) || p.publicKey).toString());
+      $('btnConnect').textContent = short(S.pk.toBase58());
+      log('Wallet connected. Make sure it is set to Devnet.', 'ok');
+      await refresh();
+    } catch (e) { log('Connect: ' + niceError(e), 'err'); }
+  };
+
+  // ---------- pool
+  function setMint(v) {
+    try { S.mint = new W.PublicKey(v.trim()); } catch (e) { S.mint = null; }
+    $('btnShare').disabled = !S.mint;
+    if (S.mint) { try { localStorage.setItem('osc-mint', S.mint.toBase58()); } catch (e) {} }
+  }
+  $('btnLoad').onclick = async () => { setMint($('mint').value); if (!S.mint) log('That is not a valid address', 'err'); await refresh(); };
+  $('btnShare').onclick = async () => {
+    const u = location.href.split('?')[0] + '?mint=' + S.mint.toBase58();
+    try { await navigator.clipboard.writeText(u); log('Test link copied: ' + u, 'ok'); } catch (e) { log(u); }
+  };
+
+  async function refresh() {
+    try {
+      if (S.pk) { const sol = await conn.getBalance(S.pk); $('mSol').textContent = (sol / 1e9).toFixed(3); $('mWallet').textContent = short(S.pk.toBase58()); }
+      if (!S.mint) return render();
+      const p = C.pdas(S.mint);
+      const keys = [S.mint, p.config];
+      if (S.pk) keys.push(C.userPda(p.config, S.pk), C.ata(S.pk, S.mint));
+      const accs = await conn.getMultipleAccountsInfo(keys);
+      if (accs[0] && C.useTokenProgram(accs[0].owner)) return refresh();
+      const dec = accs[0] && C.mintDecimals(accs[0].data); if (dec !== null && dec !== undefined) S.decimals = dec;
+      S.cfg = accs[1] ? C.decodeConfig(accs[1].data) : null;
+      S.user = S.pk && accs[2] ? C.decodeUser(accs[2].data) : null;
+      S.bal = S.pk && accs[3] ? C.tokenAmount(accs[3].data) : 0n;
+      if (!accs[0]) log('Token not found on devnet. Check the address and that your wallet is on Devnet.', 'err');
+    } catch (e) { log('Refresh: ' + niceError(e), 'err'); }
+    render();
+  }
+  function render() {
+    const c = S.cfg, u = S.user, now = Math.floor(Date.now() / 1000);
+    $('pStatus').innerHTML = !S.mint ? '–' : !c ? '<span class="pill off">NO POOL YET</span>' : c.paused ? '<span class="pill off">PAUSED</span>' : '<span class="pill">OPEN</span>';
+    $('pTotal').textContent = c ? fmt(c.totalStaked) : '–';
+    $('pRate').textContent = c ? (Number(c.rewardEnd) > now ? fmt(c.rewardRate * 86400n) : '0 (no active rewards)') : '–';
+    $('pEnd').textContent = c && c.rewardRate > 0n ? date(c.rewardEnd) : '–';
+    $('pLock').textContent = c ? (Number(c.minLockSecs) / 3600).toFixed(2).replace(/\.00$/, '') + ' h' : '–';
+    $('mBal').textContent = S.pk && S.mint ? fmt(S.bal || 0n) : '–';
+    $('mStaked').textContent = u ? fmt(u.amount) : (S.pk && c ? '0' : '–');
+    $('mUnlock').textContent = u && u.amount > 0n ? (Number(u.unlockAt) <= now ? 'unlocked' : date(u.unlockAt)) : '–';
+    $('mPending').textContent = u && c ? fmt(C.estimatePending(c, u, BigInt(now))) : '–';
+    const ready = !!(S.pk && c);
+    $('btnStake').disabled = !ready || c.paused;
+    $('btnClaim').disabled = !ready || c.paused || !u;
+    $('btnUnstake').disabled = !ready || !u || u.amount === 0n;
+    $('btnEmergency').disabled = !ready || !u || u.amount === 0n;
+  }
+  setInterval(() => { if (S.cfg && S.user) render(); }, 1000);
+  setInterval(() => { if (S.mint) refresh(); }, 20000);
+
+  const amt = () => { const v = C.toUnits($('amount').value, S.decimals); if (v <= 0n) throw new Error('Enter an amount'); return v; };
+  $('btnStake').onclick = () => run(null, 'Stake', () => send([C.stake(S.pk, S.mint, amt())], [], 'Stake'));
+  $('btnUnstake').onclick = () => run(null, 'Unstake', () => send([C.createAtaIdempotent(S.pk, S.pk, S.mint), C.unstake(S.pk, S.mint, amt())], [], 'Unstake'));
+  $('btnClaim').onclick = () => run(null, 'Claim', () => send([C.createAtaIdempotent(S.pk, S.pk, S.cfg.rewardMint), C.claim(S.pk, S.mint, S.cfg.rewardMint)], [], 'Claim'));
+  $('btnEmergency').onclick = () => {
+    if (!confirm('Withdraw your whole stake now and give up unclaimed rewards?')) return;
+    run(null, 'Emergency withdraw', () => send([C.createAtaIdempotent(S.pk, S.pk, S.mint), C.emergencyWithdraw(S.pk, S.mint)], [], 'Emergency withdraw'));
+  };
+
+  // ---------- admin
+  const num = (id, min) => { const v = Number($(id).value); if (!isFinite(v) || v < min) throw new Error('Check the value in ' + id); return v; };
+  $('btnMint').onclick = () => run(null, 'Create token', async () => {
+    const mint = W.Keypair.generate(), rent = await conn.getMinimumBalanceForRentExemption(C.MINT_SIZE);
+    await send([...C.createMint(S.pk, mint.publicKey, 6, rent), C.createAtaIdempotent(S.pk, S.pk, mint.publicKey),
+      C.mintTo(mint.publicKey, C.ata(S.pk, mint.publicKey), S.pk, C.toUnits($('aSupply').value, 6))], [mint], 'Create test token');
+    $('mint').value = mint.publicKey.toBase58(); setMint($('mint').value);
+    log('Test token: ' + mint.publicKey.toBase58() + ' (saved in the field above)', 'ok');
+  });
+  $('btnInit').onclick = () => run(null, 'Create pool', () => {
+    if (!S.mint) throw new Error('Create or load a test token first');
+    return send([C.initialize(S.pk, S.mint, S.mint, Math.round(num('aLock', 0) * 3600))], [], 'Create pool');
+  });
+  $('btnFund').onclick = () => run(null, 'Add rewards', () =>
+    send([C.fundRewards(S.pk, S.mint, S.cfg.rewardMint, C.toUnits($('aFund').value, S.decimals), Math.round(num('aDays', 0.001) * 86400))], [], 'Add rewards'));
+  $('btnBot').onclick = () => run(null, 'Set reward bot', () => { const v = $('aBot').value.trim(); return send([C.setFunder(S.pk, S.mint, v ? new W.PublicKey(v) : W.PublicKey.default)], [], 'Set reward bot'); });
+  $('btnUnpause').onclick = () => run(null, 'Open pool', () => send([C.setPaused(S.pk, S.mint, false)], [], 'Open pool'));
+  $('btnPause').onclick = () => run(null, 'Pause pool', () => send([C.setPaused(S.pk, S.mint, true)], [], 'Pause pool'));
+  $('btnSend').onclick = () => run(null, 'Send test tokens', async () => {
+    const list = $('aList').value.split(/\s+/).filter(Boolean);
+    if (!list.length || list.length > 8) throw new Error('Paste 1 to 8 addresses');
+    const each = C.toUnits($('aEach').value, S.decimals), ixs = [];
+    for (const a of list) { const to = new W.PublicKey(a); ixs.push(C.createAtaIdempotent(S.pk, to, S.mint), C.mintTo(S.mint, C.ata(to, S.mint), S.pk, each)); }
+    await send(ixs, [], 'Send to ' + list.length + ' tester(s)');
+  });
+
+  // ---------- start
+  const q = new URLSearchParams(location.search).get('mint');
+  let saved = null; try { saved = localStorage.getItem('osc-mint'); } catch (e) {}
+  if (q || saved) { $('mint').value = q || saved; setMint($('mint').value); }
+  if (!W || !C) log('Could not load the Solana library. Check your connection and reload.', 'err');
+  refresh();
+})();
+</script>
+</body>
+</html>
