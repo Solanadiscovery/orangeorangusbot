@@ -1258,5 +1258,645 @@
    "The people 🫂",
    "Orango himself 🦧"
   ]
+ },
+ {
+  "id": "tg-quiz-eth-founder",
+  "type": "quiz",
+  "concept": "eth-founder",
+  "question": "🧠 Who proposed Ethereum in a 2013 whitepaper?",
+  "options": [
+   "Charles Hoskinson",
+   "Satoshi Nakamoto",
+   "Vitalik Buterin",
+   "Anatoly Yakovenko"
+  ],
+  "correct": 2,
+  "explanation": "Vitalik published the Ethereum whitepaper in late 2013."
+ },
+ {
+  "id": "tg-quiz-sol-founder",
+  "type": "quiz",
+  "concept": "sol-founder",
+  "question": "🧠 Who co-founded Solana and wrote its Proof of History paper?",
+  "options": [
+   "Gavin Wood",
+   "Vitalik Buterin",
+   "Changpeng Zhao",
+   "Anatoly Yakovenko"
+  ],
+  "correct": 3,
+  "explanation": "Anatoly Yakovenko described Proof of History in 2017."
+ },
+ {
+  "id": "tg-quiz-seed-words",
+  "type": "quiz",
+  "concept": "seed-words",
+  "question": "🛡 How many words does a standard seed phrase usually have?",
+  "options": [
+   "12 or 24",
+   "4 or 6",
+   "100",
+   "50"
+  ],
+  "correct": 0,
+  "explanation": "Most wallets use 12 or 24 BIP-39 words."
+ },
+ {
+  "id": "tg-quiz-sol-wallet-key",
+  "type": "quiz",
+  "concept": "sol-wallet-key",
+  "question": "🛡 Which one should you NEVER share with anyone?",
+  "options": [
+   "Your X handle",
+   "Your favourite meme",
+   "Your public address",
+   "Your seed phrase"
+  ],
+  "correct": 3,
+  "explanation": "Your seed phrase gives full control of your wallet."
+ },
+ {
+  "id": "tg-quiz-orangutan-name",
+  "type": "quiz",
+  "concept": "orangutan-name",
+  "question": "🦧 What does 'orangutan' roughly mean in Malay?",
+  "options": [
+   "Tree jumper",
+   "Person of the forest",
+   "Orange monkey",
+   "Fruit eater"
+  ],
+  "correct": 1,
+  "explanation": "From 'orang' (person) and 'hutan' (forest)."
+ },
+ {
+  "id": "tg-quiz-orangutan-islands",
+  "type": "quiz",
+  "concept": "orangutan-islands",
+  "question": "🌴 Wild orangutans live only on which islands?",
+  "options": [
+   "Hawaii and Fiji",
+   "Sicily and Sardinia",
+   "Borneo and Sumatra",
+   "Madagascar and Java"
+  ],
+  "correct": 2,
+  "explanation": "They are native to Borneo and Sumatra."
+ },
+ {
+  "id": "tg-quiz-orange-vitc",
+  "type": "quiz",
+  "concept": "orange-vitc",
+  "question": "🍊 Oranges are famous for which vitamin?",
+  "options": [
+   "Vitamin D",
+   "Vitamin K",
+   "Vitamin B12",
+   "Vitamin C"
+  ],
+  "correct": 3,
+  "explanation": "One orange covers most of a day's vitamin C."
+ },
+ {
+  "id": "tg-quiz-banana-berry",
+  "type": "quiz",
+  "concept": "banana-berry",
+  "question": "🍌 Botanically speaking, a banana is a...",
+  "options": [
+   "Seed",
+   "Berry",
+   "Vegetable",
+   "Nut"
+  ],
+  "correct": 1,
+  "explanation": "Botanists classify bananas as berries."
+ },
+ {
+  "id": "tg-quiz-orangutan-arms",
+  "type": "quiz",
+  "concept": "orangutan-arms",
+  "question": "🦧 An adult orangutan's arm span can reach about...",
+  "options": [
+   "2 metres",
+   "4 metres",
+   "1 metre",
+   "50 cm"
+  ],
+  "correct": 0,
+  "explanation": "Up to around 2 metres, perfect for swinging."
+ },
+ {
+  "id": "tg-quiz-racing-tracks-count",
+  "type": "quiz",
+  "concept": "racing-tracks-count",
+  "question": "🏁 How many tracks can you race in the current Orange Racing demo?",
+  "options": [
+   "Three",
+   "Twenty",
+   "Ten",
+   "One"
+  ],
+  "correct": 0,
+  "explanation": "Dusty Canyon, Misty Falls and Orange Ring."
+ },
+ {
+  "id": "tg-quiz-blockchain-block",
+  "type": "quiz",
+  "concept": "blockchain-block",
+  "question": "🧠 What links each block in a blockchain to the previous one?",
+  "options": [
+   "An email",
+   "Its hash",
+   "Its colour",
+   "A password"
+  ],
+  "correct": 1,
+  "explanation": "Each block stores the previous block's hash."
+ },
+ {
+  "id": "tg-meme-orango-s-cardio-running-from-bear-market",
+  "type": "meme",
+  "concept": "meme-orango-s-cardio-running-from-bear-market",
+  "text": "Orango's cardio: running from bear markets and toward bananas. 🏃🍌"
+ },
+ {
+  "id": "tg-meme-me-i-ll-go-to-sleep-early-the-group-at-2",
+  "type": "meme",
+  "concept": "meme-me-i-ll-go-to-sleep-early-the-group-at-2",
+  "text": "Me: I'll go to sleep early.\nThe group at 2 AM: new meme dropped. 🦧🌙"
+ },
+ {
+  "id": "tg-meme-orango-doesn-t-panic-orango-peels",
+  "type": "meme",
+  "concept": "meme-orango-doesn-t-panic-orango-peels",
+  "text": "Orango doesn't panic. Orango peels. 🍊🧘"
+ },
+ {
+  "id": "tg-meme-my-portfolio-my-brain-my-diet-something",
+  "type": "meme",
+  "concept": "meme-my-portfolio-my-brain-my-diet-something",
+  "text": "My portfolio: 🍊\nMy brain: 🍊\nMy diet: 🍊\nSomething tells me I'm in the right group."
+ },
+ {
+  "id": "tg-meme-pov-you-explain-memecoins-to-your-parent",
+  "type": "meme",
+  "concept": "meme-pov-you-explain-memecoins-to-your-parent",
+  "text": "POV: you explain memecoins to your parents and they ask 'but is it a fruit?' 🍊🤔"
+ },
+ {
+  "id": "tg-meme-orango-tried-meditation-lasted-4-seconds",
+  "type": "meme",
+  "concept": "meme-orango-tried-meditation-lasted-4-seconds",
+  "text": "Orango tried meditation. Lasted 4 seconds before checking the group. 🧘‍♂️📱"
+ },
+ {
+  "id": "tg-meme-rug-gorilla-s-favourite-exercise-pulling",
+  "type": "meme",
+  "concept": "meme-rug-gorilla-s-favourite-exercise-pulling",
+  "text": "Rug Gorilla's favourite exercise? Pulling. 🦍🧶 Stay safe, Peelers."
+ },
+ {
+  "id": "tg-meme-some-apes-collect-nfts-orango-collects-o",
+  "type": "meme",
+  "concept": "meme-some-apes-collect-nfts-orango-collects-o",
+  "text": "Some apes collect NFTs. Orango collects orange peels. Same energy. 🍊"
+ },
+ {
+  "id": "tg-meme-when-someone-says-just-one-more-race-in",
+  "type": "meme",
+  "concept": "meme-when-someone-says-just-one-more-race-in",
+  "text": "When someone says 'just one more race' in the Orange Racing demo... it's never one. 🏁😅"
+ },
+ {
+  "id": "tg-meme-orango-s-morning-routine-1-gm-2-banana-3",
+  "type": "meme",
+  "concept": "meme-orango-s-morning-routine-1-gm-2-banana-3",
+  "text": "Orango's morning routine:\n1. gm\n2. Banana\n3. Memes\n4. Repeat 🦧☀️"
+ },
+ {
+  "id": "tg-meme-touch-grass-orango-touches-leaves-vines",
+  "type": "meme",
+  "concept": "meme-touch-grass-orango-touches-leaves-vines",
+  "text": "Touch grass? Orango touches leaves, vines and occasionally bananas. 🌿🍌"
+ },
+ {
+  "id": "tg-meme-hardware-wallet-orango-keeps-his-seed-ph",
+  "type": "meme",
+  "concept": "meme-hardware-wallet-orango-keeps-his-seed-ph",
+  "text": "Hardware wallet? Orango keeps his seed phrase inside a coconut. Don't be like Orango. Use a real one. 🥥🔐"
+ },
+ {
+  "id": "tg-meme-rule-1-of-the-jungle-admins-never-dm-fir",
+  "type": "meme",
+  "concept": "meme-rule-1-of-the-jungle-admins-never-dm-fir",
+  "text": "Rule #1 of the jungle: admins never DM first. Rule #2: see rule #1. 🛡🦧"
+ },
+ {
+  "id": "tg-meme-orango-after-a-5-minute-nap-what-did-i-m",
+  "type": "meme",
+  "concept": "meme-orango-after-a-5-minute-nap-what-did-i-m",
+  "text": "Orango after a 5-minute nap: 'What did I miss?'\nThe group: 400 messages. 🫠"
+ },
+ {
+  "id": "tg-meme-the-orange-you-peel-today-is-the-meme-yo",
+  "type": "meme",
+  "concept": "meme-the-orange-you-peel-today-is-the-meme-yo",
+  "text": "The orange you peel today is the meme you post tomorrow. Ancient jungle wisdom. 🍊📜"
+ },
+ {
+  "id": "tg-meme-my-friends-why-orange-me-why-not-orange",
+  "type": "meme",
+  "concept": "meme-my-friends-why-orange-me-why-not-orange",
+  "text": "My friends: 'Why orange?'\nMe: 'Why not orange?' 🍊🤷"
+ },
+ {
+  "id": "tg-meme-orango-hit-the-wall-on-dusty-canyon-7-ti",
+  "type": "meme",
+  "concept": "meme-orango-hit-the-wall-on-dusty-canyon-7-ti",
+  "text": "Orango hit the wall on Dusty Canyon 7 times. Called it 'aggressive cornering'. 🏜💥"
+ },
+ {
+  "id": "tg-meme-monkeys-climb-trees-orangutans-climb-mem",
+  "type": "meme",
+  "concept": "meme-monkeys-climb-trees-orangutans-climb-mem",
+  "text": "Monkeys climb trees. Orangutans climb meme charts. 🦧📈"
+ },
+ {
+  "id": "tg-meme-me-reading-the-fine-print-before-clickin",
+  "type": "meme",
+  "concept": "meme-me-reading-the-fine-print-before-clickin",
+  "text": "Me reading the fine print before clicking any link: 🧐\nScammers: 😭"
+ },
+ {
+  "id": "tg-meme-orango-s-love-language-memes-sent-at-3-a",
+  "type": "meme",
+  "concept": "meme-orango-s-love-language-memes-sent-at-3-a",
+  "text": "Orango's love language: memes sent at 3 AM. 💌🦧"
+ },
+ {
+  "id": "tg-meme-vitamin-c-levels-in-this-group-criticall",
+  "type": "meme",
+  "concept": "meme-vitamin-c-levels-in-this-group-criticall",
+  "text": "Vitamin C levels in this group: critically high. 🍊🍊🍊"
+ },
+ {
+  "id": "tg-meme-orango-built-a-kart-out-of-bamboo-and-pu",
+  "type": "meme",
+  "concept": "meme-orango-built-a-kart-out-of-bamboo-and-pu",
+  "text": "Orango built a kart out of bamboo and pure hope. Results may vary. 🏎🌿"
+ },
+ {
+  "id": "tg-meme-i-don-t-always-peel-oranges-but-when-i-d",
+  "type": "meme",
+  "concept": "meme-i-don-t-always-peel-oranges-but-when-i-d",
+  "text": "I don't always peel oranges, but when I do, I post about it. 🍊😎"
+ },
+ {
+  "id": "tg-meme-weekend-forecast-90-memes-10-sleeping-in",
+  "type": "meme",
+  "concept": "meme-weekend-forecast-90-memes-10-sleeping-in",
+  "text": "Weekend forecast: 90% memes, 10% sleeping in a hammock. 🌴"
+ },
+ {
+  "id": "tg-meme-orango-s-two-moods-gm-and-gn-nothing-in",
+  "type": "meme",
+  "concept": "meme-orango-s-two-moods-gm-and-gn-nothing-in",
+  "text": "Orango's two moods: 'gm' and 'gn'. Nothing in between. ☀️🌙"
+ },
+ {
+  "id": "tg-meme-plot-twist-the-real-treasure-of-the-jung",
+  "type": "meme",
+  "concept": "meme-plot-twist-the-real-treasure-of-the-jung",
+  "text": "Plot twist: the real treasure of the jungle was the Troop we made along the way. 🫂🍊"
+ },
+ {
+  "id": "tg-meme-orango-tried-to-explain-proof-of-history",
+  "type": "meme",
+  "concept": "meme-orango-tried-to-explain-proof-of-history",
+  "text": "Orango tried to explain Proof of History. Ended up telling a story about bananas. 📜🍌"
+ },
+ {
+  "id": "tg-meme-fake-support-dm-verify-your-wallet-orang",
+  "type": "meme",
+  "concept": "meme-fake-support-dm-verify-your-wallet-orang",
+  "text": "Fake 'support' DM: 'Verify your wallet!'\nOrango: *blocks in 0.2 seconds* 🚫"
+ },
+ {
+  "id": "tg-meme-peeling-an-orange-in-one-piece-is-a-skil",
+  "type": "meme",
+  "concept": "meme-peeling-an-orange-in-one-piece-is-a-skil",
+  "text": "Peeling an orange in one piece is a skill. So is staying patient. 🍊🧘"
+ },
+ {
+  "id": "tg-meme-mango-tried-to-join-the-troop-we-said-on",
+  "type": "meme",
+  "concept": "meme-mango-tried-to-join-the-troop-we-said-on",
+  "text": "Mango tried to join the Troop. We said 'only if you're orange inside'. 🥭😂"
+ },
+ {
+  "id": "tg-meme-if-you-can-read-this-you-re-officially-a",
+  "type": "meme",
+  "concept": "meme-if-you-can-read-this-you-re-officially-a",
+  "text": "If you can read this, you're officially a Peeler. No refunds on the vibes. 🍊"
+ },
+ {
+  "id": "tg-meme-orango-s-gaming-setup-one-phone-one-bana",
+  "type": "meme",
+  "concept": "meme-orango-s-gaming-setup-one-phone-one-bana",
+  "text": "Orango's gaming setup: one phone, one banana, zero chill. 📱🍌"
+ },
+ {
+  "id": "tg-meme-misty-falls-lap-record-orango-s-still-lo",
+  "type": "meme",
+  "concept": "meme-misty-falls-lap-record-orango-s-still-lo",
+  "text": "Misty Falls lap record? Orango's still looking for the finish line in the fog. 🌫🏁"
+ },
+ {
+  "id": "tg-meme-rug-gorilla-tried-to-join-the-group-the",
+  "type": "meme",
+  "concept": "meme-rug-gorilla-tried-to-join-the-group-the",
+  "text": "Rug Gorilla tried to join the group. The Troop's scam radar beeped instantly. 🦍📡"
+ },
+ {
+  "id": "tg-meme-orango-s-favourite-chart-the-fruit-bowl",
+  "type": "meme",
+  "concept": "meme-orango-s-favourite-chart-the-fruit-bowl",
+  "text": "Orango's favourite chart: the fruit bowl inventory. 🍊🍌🍍"
+ },
+ {
+  "id": "tg-meme-being-orange-isn-t-a-colour-it-s-a-lifes",
+  "type": "meme",
+  "concept": "meme-being-orange-isn-t-a-colour-it-s-a-lifes",
+  "text": "Being orange isn't a colour. It's a lifestyle. 🧡"
+ },
+ {
+  "id": "tg-meme-sunday-plan-hang-from-a-vine-and-think-a",
+  "type": "meme",
+  "concept": "meme-sunday-plan-hang-from-a-vine-and-think-a",
+  "text": "Sunday plan: hang from a vine and think about nothing. 🌿🦧"
+ },
+ {
+  "id": "tg-meme-me-i-ll-only-post-one-meme-today-also-me",
+  "type": "meme",
+  "concept": "meme-me-i-ll-only-post-one-meme-today-also-me",
+  "text": "Me: I'll only post one meme today.\nAlso me: *posts 12* 😅"
+ },
+ {
+  "id": "tg-meme-orango-s-secret-never-skip-breakfast-esp",
+  "type": "meme",
+  "concept": "meme-orango-s-secret-never-skip-breakfast-esp",
+  "text": "Orango's secret? Never skip breakfast. Especially if breakfast is oranges. 🍊🥣"
+ },
+ {
+  "id": "tg-meme-the-jungle-never-sleeps-orango-does-a-lo",
+  "type": "meme",
+  "concept": "meme-the-jungle-never-sleeps-orango-does-a-lo",
+  "text": "The jungle never sleeps. Orango does, a lot. 😴🌴"
+ },
+ {
+  "id": "tg-engage-played-the-orange-racing-demo-yet-drop-y",
+  "type": "engage",
+  "concept": "engage-played-the-orange-racing-demo-yet-drop-y",
+  "text": "🏁 Played the Orange Racing demo yet? Drop your best lap time below and tell us your favourite track: https://orangeorangus-racingdemo.netlify.app"
+ },
+ {
+  "id": "tg-engage-finish-the-sentence-orango-walks-into-a",
+  "type": "engage",
+  "concept": "engage-finish-the-sentence-orango-walks-into-a",
+  "text": "✍️ Finish the sentence: 'Orango walks into a jungle bar and...' Best answer gets pinned. 🦧"
+ },
+ {
+  "id": "tg-engage-artists-of-the-troop-draw-orango-in-your",
+  "type": "engage",
+  "concept": "engage-artists-of-the-troop-draw-orango-in-your",
+  "text": "🎨 Artists of the Troop: draw Orango in your own style and share it here. Every style is welcome."
+ },
+ {
+  "id": "tg-engage-one-word-to-describe-orangeorangus-go",
+  "type": "engage",
+  "concept": "engage-one-word-to-describe-orangeorangus-go",
+  "text": "🗣 One word to describe OrangeOrangus? Go! 🍊"
+ },
+ {
+  "id": "tg-engage-lore-time-what-do-you-think-rug-gorilla",
+  "type": "engage",
+  "concept": "engage-lore-time-what-do-you-think-rug-gorilla",
+  "text": "📜 Lore time: what do you think Rug Gorilla is planning next? Wildest theory wins. 🦍"
+ },
+ {
+  "id": "tg-engage-quick-mission-like-and-repost-our-latest",
+  "type": "engage",
+  "concept": "engage-quick-mission-like-and-repost-our-latest",
+  "text": "🐦 Quick mission: like and repost our latest post on X and leave a comment. Every bit of support helps: https://x.com/orangeorangus"
+ },
+ {
+  "id": "tg-engage-got-a-skill-to-share-memes-art-video-cod",
+  "type": "engage",
+  "concept": "engage-got-a-skill-to-share-memes-art-video-cod",
+  "text": "🤝 Got a skill to share? Memes, art, video, code, translations? Tell us how you'd like to help build the jungle."
+ },
+ {
+  "id": "tg-engage-what-feature-should-we-add-to-the-racing",
+  "type": "engage",
+  "concept": "engage-what-feature-should-we-add-to-the-racing",
+  "text": "🎮 What feature should we add to the racing demo next? Your ideas go straight to the dev notes."
+ },
+ {
+  "id": "tg-engage-where-in-the-world-are-you-reading-this",
+  "type": "engage",
+  "concept": "engage-where-in-the-world-are-you-reading-this",
+  "text": "🌍 Where in the world are you reading this from? Drop your country flag! 🗺"
+ },
+ {
+  "id": "tg-engage-caption-this-orango-staring-at-a-giant-o",
+  "type": "engage",
+  "concept": "engage-caption-this-orango-staring-at-a-giant-o",
+  "text": "😂 Caption this: Orango staring at a giant orange that's bigger than him. Best caption gets featured."
+ },
+ {
+  "id": "tg-engage-safety-check-share-one-tip-that-helped-y",
+  "type": "engage",
+  "concept": "engage-safety-check-share-one-tip-that-helped-y",
+  "text": "🛡 Safety check: share one tip that helped you avoid a scam. Let's keep each other safe."
+ },
+ {
+  "id": "tg-engage-if-orangeorangus-had-a-theme-song-what-w",
+  "type": "engage",
+  "concept": "engage-if-orangeorangus-had-a-theme-song-what-w",
+  "text": "🎵 If OrangeOrangus had a theme song, what would it be? Drop a song."
+ },
+ {
+  "id": "tg-engage-show-us-your-orange-any-orange-object-ne",
+  "type": "engage",
+  "concept": "engage-show-us-your-orange-any-orange-object-ne",
+  "text": "📸 Show us your orange! Any orange object near you right now counts. 🍊"
+ },
+ {
+  "id": "tg-engage-what-made-you-join-the-troop-tell-us-in",
+  "type": "engage",
+  "concept": "engage-what-made-you-join-the-troop-tell-us-in",
+  "text": "💬 What made you join the Troop? Tell us in one sentence."
+ },
+ {
+  "id": "tg-engage-who-s-the-funniest-meme-maker-in-this-gr",
+  "type": "engage",
+  "concept": "engage-who-s-the-funniest-meme-maker-in-this-gr",
+  "text": "🏆 Who's the funniest meme maker in this group right now? Tag them! 😄"
+ },
+ {
+  "id": "tg-engage-if-orango-had-a-catchphrase-besides-peel",
+  "type": "engage",
+  "concept": "engage-if-orango-had-a-catchphrase-besides-peel",
+  "text": "🦧 If Orango had a catchphrase besides 'Peel the hype', what would it be?"
+ },
+ {
+  "id": "tg-engage-describe-your-perfect-jungle-day-in-thre",
+  "type": "engage",
+  "concept": "engage-describe-your-perfect-jungle-day-in-thre",
+  "text": "🌴 Describe your perfect jungle day in three emojis."
+ },
+ {
+  "id": "tg-engage-invite-a-friend-who-loves-racing-games-a",
+  "type": "engage",
+  "concept": "engage-invite-a-friend-who-loves-racing-games-a",
+  "text": "🔁 Invite a friend who loves racing games and send them the demo link: https://orangeorangus-racingdemo.netlify.app"
+ },
+ {
+  "id": "tg-engage-new-here-say-hi-and-tell-us-your-favouri",
+  "type": "engage",
+  "concept": "engage-new-here-say-hi-and-tell-us-your-favouri",
+  "text": "🎉 New here? Say hi and tell us your favourite fruit. Old Peelers, give them a warm welcome! 👋"
+ },
+ {
+  "id": "tg-engage-what-would-you-like-to-see-more-of-here",
+  "type": "engage",
+  "concept": "engage-what-would-you-like-to-see-more-of-here",
+  "text": "💡 What would you like to see more of here: memes, game updates, lore or quizzes?"
+ },
+ {
+  "id": "tg-quiz-sol-ticker",
+  "type": "quiz",
+  "concept": "sol-ticker",
+  "question": "🧠 What is the ticker of Solana's native coin?",
+  "options": [
+   "SOLA",
+   "SLN",
+   "SUN",
+   "SOL"
+  ],
+  "correct": 3,
+  "explanation": "SOL pays fees and secures the network via staking."
+ },
+ {
+  "id": "tg-quiz-phishing",
+  "type": "quiz",
+  "concept": "phishing",
+  "question": "🛡 A site looks like your wallet but the URL is slightly different. It's probably...",
+  "options": [
+   "A new feature",
+   "A bonus",
+   "Phishing",
+   "An update"
+  ],
+  "correct": 2,
+  "explanation": "Always check the exact URL before connecting a wallet."
+ },
+ {
+  "id": "tg-quiz-airdrop-scam",
+  "type": "quiz",
+  "concept": "airdrop-scam",
+  "question": "🛡 A random token appears in your wallet with a link to 'claim'. Best move?",
+  "options": [
+   "Click the link fast",
+   "Send it to a friend",
+   "Ignore it, don't click",
+   "Share your seed to claim"
+  ],
+  "correct": 2,
+  "explanation": "Unknown tokens with claim links are a classic drainer trick."
+ },
+ {
+  "id": "tg-quiz-orangutan-diet",
+  "type": "quiz",
+  "concept": "orangutan-diet",
+  "question": "🦧 What makes up most of a wild orangutan's diet?",
+  "options": [
+   "Fish",
+   "Grass",
+   "Insects only",
+   "Fruit"
+  ],
+  "correct": 3,
+  "explanation": "Fruit is their favourite; they also eat leaves and bark."
+ },
+ {
+  "id": "tg-quiz-orangutan-nest",
+  "type": "quiz",
+  "concept": "orangutan-nest",
+  "question": "🦧 Where do orangutans usually sleep?",
+  "options": [
+   "In nests they build in trees",
+   "In caves",
+   "On the ground",
+   "In rivers"
+  ],
+  "correct": 0,
+  "explanation": "They build a fresh leafy nest almost every night."
+ },
+ {
+  "id": "tg-quiz-orange-origin",
+  "type": "quiz",
+  "concept": "orange-origin",
+  "question": "🍊 Sweet oranges originally come from which region?",
+  "options": [
+   "Southern China and Southeast Asia",
+   "Central Africa",
+   "Northern Europe",
+   "Antarctica"
+  ],
+  "correct": 0,
+  "explanation": "They spread west along trade routes centuries ago."
+ },
+ {
+  "id": "tg-quiz-pineapple-name",
+  "type": "quiz",
+  "concept": "pineapple-name",
+  "question": "🍍 What's the word for pineapple in most European languages?",
+  "options": [
+   "Banane",
+   "Ananas",
+   "Piña",
+   "Pomme"
+  ],
+  "correct": 1,
+  "explanation": "Spanish and English are the odd ones out."
+ },
+ {
+  "id": "tg-quiz-pubkey",
+  "type": "quiz",
+  "concept": "pubkey",
+  "question": "🧠 What is safe to share so someone can send you crypto?",
+  "options": [
+   "Your wallet password",
+   "Your public address",
+   "Your private key",
+   "Your seed phrase"
+  ],
+  "correct": 1,
+  "explanation": "Public address: share. Seed and private key: never."
+ },
+ {
+  "id": "tg-quiz-meme-doge",
+  "type": "quiz",
+  "concept": "meme-doge",
+  "question": "😂 Which dog breed became crypto's most famous meme?",
+  "options": [
+   "Husky",
+   "Poodle",
+   "Bulldog",
+   "Shiba Inu"
+  ],
+  "correct": 3,
+  "explanation": "The 'Doge' meme features a Shiba Inu."
  }
 ]
