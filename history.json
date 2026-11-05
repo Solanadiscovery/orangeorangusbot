@@ -750,5 +750,13 @@
   "platform": "telegram",
   "text": "🛡 A hardware (cold) wallet is mainly used to...",
   "ts": "2026-11-05T09:00:04.735454+00:00"
+ },
+ {
+  "id": "tg-poll-recruit",
+  "concept": "recruit",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "👥 How did you find OrangeOrangus?",
+  "ts": "2026-11-05T11:00:36.353894+00:00"
  }
 ]
