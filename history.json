@@ -758,5 +758,13 @@
   "platform": "telegram",
   "text": "👥 How did you find OrangeOrangus?",
   "ts": "2026-11-05T11:00:36.353894+00:00"
+ },
+ {
+  "id": "tg-quiz-phishing-link",
+  "concept": "phishing-link",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🛡 A DM says 'claim your free OrangeOrangus tokens' with a link. It's most likely...",
+  "ts": "2026-11-05T13:00:50.815097+00:00"
  }
 ]
