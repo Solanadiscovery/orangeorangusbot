@@ -790,5 +790,13 @@
   "platform": "telegram",
   "text": "🏁 Favourite track in the Orange Racing demo?",
   "ts": "2026-11-06T11:03:30.820771+00:00"
+ },
+ {
+  "id": "tg-meme-orango-doesn-t-panic-orango-peels",
+  "concept": "meme-orango-doesn-t-panic-orango-peels",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Orango doesn't panic. Orango peels. 🍊🧘",
+  "ts": "2026-11-06T13:00:03.096458+00:00"
  }
 ]
