@@ -806,5 +806,13 @@
   "platform": "telegram",
   "text": "My portfolio: 🍊\nMy brain: 🍊\nMy diet: 🍊\nSomething tells me I'm in the right group.",
   "ts": "2026-11-06T17:00:04.817129+00:00"
+ },
+ {
+  "id": "tg-meme-pov-you-explain-memecoins-to-your-parent",
+  "concept": "meme-pov-you-explain-memecoins-to-your-parent",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "POV: you explain memecoins to your parents and they ask 'but is it a fruit?' 🍊🤔",
+  "ts": "2026-11-06T21:00:01.312280+00:00"
  }
 ]
