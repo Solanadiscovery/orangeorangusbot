@@ -782,5 +782,13 @@
   "platform": "telegram",
   "text": "Me: I'll go to sleep early.\nThe group at 2 AM: new meme dropped. 🦧🌙",
   "ts": "2026-11-06T09:00:44.052997+00:00"
+ },
+ {
+  "id": "tg-poll-race-track",
+  "concept": "race-track",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🏁 Favourite track in the Orange Racing demo?",
+  "ts": "2026-11-06T11:03:30.820771+00:00"
  }
 ]
