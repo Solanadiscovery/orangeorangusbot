@@ -142,11 +142,11 @@
   },
   "group_filters": {
     "/x": "🐦 Follow us on X: https://x.com/orangeorangus",
-    "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeorangus-racingdemo.netlify.app",
+    "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeracing.duckdns.org/",
     "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
     "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V",
-    "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangusofficial.netlify.app/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeorangus-racingdemo.netlify.app",
-    "/web": "🌐 OrangeOrangus official website: https://orangeorangusofficial.netlify.app/"
+    "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeracing.duckdns.org/",
+    "/web": "🌐 OrangeOrangus official website: https://orangeorangus.duckdns.org/"
   },
   "antiflood": {
     "enabled": true,
@@ -161,6 +161,8 @@
     }
   },
   "group_filters_rev": {
-    "/social": 2
+    "/social": 3,
+    "/demo": 1,
+    "/web": 1
   }
 }

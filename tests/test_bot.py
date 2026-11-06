@@ -256,7 +256,7 @@ class BotTest(unittest.TestCase):
         state["filters_seeded"] = ["/x", "/demo", "/social"]
         (self.dir / "state.json").write_text(json.dumps(state))
         b = bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC))
-        self.assertIn("orangeorangusofficial.netlify.app", b.group.filters["/social"])
+        self.assertIn("orangeorangus.duckdns.org", b.group.filters["/social"])
         self.assertEqual(b.group.filters["/x"], "my x")  # defaults without a new revision are left alone
         b.group.filters["/social"] = "admin edit"
         self.assertEqual(b.group.filters["/social"], "admin edit")  # and the update is applied only once
@@ -316,7 +316,7 @@ class BotTest(unittest.TestCase):
 
     def test_lock_links_deletes_only_non_admin_links(self):
         b, fake = self.run_updates([self.group_msg(1, 1, "/lock links"), self.group_msg(3, 2, "join https://evil.example now"),
-                                    self.group_msg(3, 3, "hello"), self.group_msg(1, 4, "see https://orangeorangusofficial.netlify.app")])
+                                    self.group_msg(3, 3, "hello"), self.group_msg(1, 4, "see https://orangeorangus.duckdns.org")])
         self.assertEqual([f["message_id"] for m, f in fake.calls if m == "deleteMessage"], [2])
 
     def test_lock_all_restores_the_saved_permissions(self):
@@ -340,8 +340,8 @@ class BotTest(unittest.TestCase):
             bot.Bot(now=datetime.datetime(2026, 10, 20, 6, 0, tzinfo=UTC)).commands()
         sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
         self.assertIn("https://x.com/orangeorangus", sent[0])
-        self.assertIn("orangeorangus-racingdemo.netlify.app", sent[1])
-        for link in ("orangeorangusofficial.netlify.app", "x.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "racingdemo.netlify.app"):
+        self.assertIn("orangeracing.duckdns.org", sent[1])
+        for link in ("orangeorangus.duckdns.org", "x.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "orangeracing.duckdns.org"):
             self.assertIn(link, sent[2])  # /social lists every official link
 
     def test_og_announcement_once(self):
