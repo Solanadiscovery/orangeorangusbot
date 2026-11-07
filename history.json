@@ -822,5 +822,13 @@
   "platform": "telegram",
   "text": "Orango tried meditation. Lasted 4 seconds before checking the group. 🧘‍♂️📱",
   "ts": "2026-11-07T09:00:10.179024+00:00"
+ },
+ {
+  "id": "tg-poll-race-next-track",
+  "concept": "race-next-track",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🗺 Which setting should the next racing track have?",
+  "ts": "2026-11-07T11:01:01.958183+00:00"
  }
 ]
