@@ -886,5 +886,13 @@
   "platform": "telegram",
   "text": "Hardware wallet? Orango keeps his seed phrase inside a coconut. Don't be like Orango. Use a real one. 🥥🔐",
   "ts": "2026-11-08T17:00:00.720010+00:00"
+ },
+ {
+  "id": "tg-meme-rule-1-of-the-jungle-admins-never-dm-fir",
+  "concept": "meme-rule-1-of-the-jungle-admins-never-dm-fir",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Rule #1 of the jungle: admins never DM first. Rule #2: see rule #1. 🛡🦧",
+  "ts": "2026-11-08T21:00:16.537391+00:00"
  }
 ]
