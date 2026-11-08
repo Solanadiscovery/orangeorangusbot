@@ -101,6 +101,8 @@ class Bot:
                 self.safe_points(lambda cb=u["callback_query"]: self.points.on_callback(cb))
                 continue
             cm = u.get("chat_member")
+            if cm and not self.group.is_main(cm.get("chat", {})):  # altri gruppi (es. Racing): ingressi ignorati
+                continue
             if cm and cm["new_chat_member"]["status"] == "member" and cm["old_chat_member"]["status"] in ("left", "kicked"):
                 user = cm["new_chat_member"]["user"]
                 if not self.safe_group(lambda u=user: self.raid.on_join(u)):
@@ -108,6 +110,10 @@ class Bot:
                 self.safe_points(lambda cm=cm: self.points.on_join(cm))
                 continue
             msg = u.get("message") or {}
+            chat = msg.get("chat", {})
+            if chat.get("type") in ("group", "supergroup") and not self.group.is_main(chat):
+                self.safe_group(lambda m=msg: self.group.on_other_group(m))  # altri gruppi: solo /social
+                continue
             if msg.get("new_chat_members"):  # gruppi: ingresso segnalato anche come messaggio di servizio
                 joined += [m.get("first_name") or "Peeler" for m in msg["new_chat_members"]
                            if not m.get("is_bot") and not self.safe_group(lambda u=m: self.raid.on_join(u))]

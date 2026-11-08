@@ -61,8 +61,15 @@ class GroupFilters:
         cache[user_id] = (ok, ts)
         return ok
 
+    def on_other_group(self, msg):
+        """Groups other than the main one (e.g. the Racing news group): the bot answers only /social."""
+        if ((msg.get("text") or "").split() or [""])[0].split("@")[0].lower() != "/social":
+            return
+        if self.cooled(f"social:{msg['chat']['id']}", 30):
+            self.say(msg, self.filters["/social"])
+
     def say(self, msg, text):
-        tg.call("sendMessage", {"chat_id": self.bot.chat, "text": text, "reply_to_message_id": msg["message_id"],
+        tg.call("sendMessage", {"chat_id": msg.get("chat", {}).get("id") or self.bot.chat, "text": text, "reply_to_message_id": msg["message_id"],
                                 "allow_sending_without_reply": True, "link_preview_options": {"is_disabled": True}})
 
     def cooled(self, key, seconds):
