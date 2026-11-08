@@ -145,7 +145,7 @@
     "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeracing.duckdns.org/",
     "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
     "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V",
-    "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeracing.duckdns.org/",
+    "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🏎️ OrangeRacing News: https://t.me/OrangeRacingNews\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeracing.duckdns.org/",
     "/web": "🌐 OrangeOrangus official website: https://orangeorangus.duckdns.org/"
   },
   "antiflood": {
@@ -161,7 +161,7 @@
     }
   },
   "group_filters_rev": {
-    "/social": 5,
+    "/social": 6,
     "/demo": 1,
     "/web": 1
   }
