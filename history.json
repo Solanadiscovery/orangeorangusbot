@@ -862,5 +862,13 @@
   "platform": "telegram",
   "text": "Orango's morning routine:\n1. gm\n2. Banana\n3. Memes\n4. Repeat 🦧☀️",
   "ts": "2026-11-08T09:00:32.641373+00:00"
+ },
+ {
+  "id": "tg-poll-race-kart-colour",
+  "concept": "race-kart-colour",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🏎 Paint job for Orango's kart?",
+  "ts": "2026-11-08T11:00:18.025827+00:00"
  }
 ]
