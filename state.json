@@ -11,9 +11,9 @@
   "telegram_poll": "2026-11-08 12:00"
  },
  "x_intro_done": true,
- "update_offset": 166180599,
+ "update_offset": 166180602,
  "og_existing_done": true,
- "welcome_id": 6487,
+ "welcome_id": 6553,
  "last_type": {
   "x": "hype",
   "telegram": "meme",
@@ -24,7 +24,7 @@
   "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeracing.duckdns.org/",
   "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
   "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V",
-  "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeracing.duckdns.org/",
+  "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🏎️ Racing news: https://t.me/OrangeOrangusRacing\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeracing.duckdns.org/",
   "/web": "🌐 OrangeOrangus official website: https://orangeorangus.duckdns.org/"
  },
  "filters_seeded": [
@@ -35,9 +35,9 @@
   "/social",
   "/web"
  ],
- "members_public": 197,
+ "members_public": 198,
  "filters_rev": {
-  "/social": 3,
+  "/social": 4,
   "/demo": 1,
   "/web": 1
  },
