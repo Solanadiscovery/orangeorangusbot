@@ -128,9 +128,6 @@
         {
           "name": "jungle-lounge",
           "old_name": "giungla-italiana"
-        },
-        {
-          "name": "bump"
         }
       ]
     },
@@ -220,10 +217,5 @@
   },
   "trusted_roles": [
     "Project Manager"
-  ],
-  "bump": {
-    "channel": "bump",
-    "hours": 2,
-    "text": "⏰ **Time to bump!**\nType `/bump` here (DISBOARD) to push OrangeOrangus up the server list and help new apes find the jungle. 🦧🍊\n👉 https://disboard.org/it/server/1562783804610056282"
-  }
+  ]
 }

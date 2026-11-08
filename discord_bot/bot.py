@@ -17,7 +17,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 OG_FILE = Path(__file__).parent / "og_members.json"
-VERSION = "2026-11-08"
+VERSION = "2026-10-31c"
 RAID_FILE = Path(__file__).parent / "raid_points.json"
 OG_ROLE_FILE = Path(__file__).parent / "og_role.json"
 COUNTER_PREFIX = CFG["member_counter"].split("{")[0]
@@ -58,8 +58,6 @@ async def on_ready():
     print(f"Connected as {client.user}")
     if not refresh_counters.is_running():
         refresh_counters.start()
-    if not bump_reminder.is_running():
-        bump_reminder.start()
     if not client.guilds:
         print("⚠️ The bot is not in any server: invite it with the OAuth2 link (scopes bot + applications.commands).")
     # Per-server sync so /setup shows up immediately.
@@ -173,28 +171,6 @@ async def update_counter(guild):
 async def refresh_counters():
     for guild in client.guilds:
         await update_counter(guild)
-
-
-last_bump = {}
-
-
-@tasks.loop(hours=CFG["bump"]["hours"])
-async def bump_reminder():
-    """Reminds members to /bump on DISBOARD. Only a reminder: bumping itself must be done by a person."""
-    for guild in client.guilds:
-        channel = find(guild.text_channels, CFG["bump"]["channel"])
-        if not channel:
-            continue
-        old = last_bump.get(guild.id)
-        if old:
-            try:
-                await old.delete()  # Keep the channel tidy: only the latest reminder stays.
-            except discord.HTTPException:
-                pass
-        try:
-            last_bump[guild.id] = await channel.send(CFG["bump"]["text"], suppress_embeds=True)
-        except discord.HTTPException as e:
-            print(f"⚠️ Bump reminder not sent: {e}")
 
 
 @client.event
