@@ -902,5 +902,13 @@
   "platform": "telegram",
   "text": "Orango after a 5-minute nap: 'What did I miss?'\nThe group: 400 messages. 🫠",
   "ts": "2026-11-09T09:00:23.505746+00:00"
+ },
+ {
+  "id": "tg-poll-race-controls",
+  "concept": "race-controls",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🎮 How do you play the racing demo?",
+  "ts": "2026-11-09T11:00:50.897951+00:00"
  }
 ]
