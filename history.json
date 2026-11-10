@@ -942,5 +942,13 @@
   "platform": "telegram",
   "text": "Monkeys climb trees. Orangutans climb meme charts. 🦧📈",
   "ts": "2026-11-10T09:00:03.620936+00:00"
+ },
+ {
+  "id": "tg-poll-race-rival",
+  "concept": "race-rival",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "😤 Who should be the toughest CPU rival?",
+  "ts": "2026-11-10T11:00:58.436220+00:00"
  }
 ]
