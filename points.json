@@ -131,11 +131,11 @@
   },
   "996383996": {
    "name": "Sbraun91",
-   "pts": 230,
+   "pts": 235,
    "x": "brunorinarelli",
-   "checkin": "2026-11-09",
+   "checkin": "2026-11-10",
    "day": {
-    "d": "2026-11-09",
+    "d": "2026-11-10",
     "p": 5
    },
    "joined": true,
@@ -146,10 +146,11 @@
     "first",
     "voice",
     "streak3",
-    "megaphone"
+    "megaphone",
+    "streak7"
    ],
-   "streak": 6,
-   "best_streak": 6,
+   "streak": 7,
+   "best_streak": 7,
    "x_changed": false,
    "link": "https://t.me/+eo0Cc2SQ5jo5MDc0",
    "level": 2
