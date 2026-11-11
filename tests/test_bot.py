@@ -341,7 +341,7 @@ class BotTest(unittest.TestCase):
         sent = [f["text"] for m, f in fake.calls if m == "sendMessage"]
         self.assertIn("https://x.com/orangeorangus", sent[0])
         self.assertIn("orangeracing.duckdns.org", sent[1])
-        for link in ("orangeorangus.duckdns.org", "x.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "orangeracing.duckdns.org"):
+        for link in ("orangeorangus.duckdns.org", "x.com/orangeorangus", "instagram.com/orangeorangus", "t.me/OrangeOrangus", "discord.gg/", "orangeracing.duckdns.org"):
             self.assertIn(link, sent[2])  # /social lists every official link
 
     def test_og_announcement_once(self):
