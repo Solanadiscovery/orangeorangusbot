@@ -271,6 +271,23 @@
     "first"
    ],
    "x_changed": false
+  },
+  "8848522792": {
+   "name": "Light",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-11",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-11T05:09:32.263099+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
