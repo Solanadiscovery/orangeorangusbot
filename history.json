@@ -1006,5 +1006,13 @@
   "platform": "telegram",
   "text": "Weekend forecast: 90% memes, 10% sleeping in a hammock. 🌴",
   "ts": "2026-11-11T17:00:31.645089+00:00"
+ },
+ {
+  "id": "tg-meme-orango-s-two-moods-gm-and-gn-nothing-in",
+  "concept": "meme-orango-s-two-moods-gm-and-gn-nothing-in",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Orango's two moods: 'gm' and 'gn'. Nothing in between. ☀️🌙",
+  "ts": "2026-11-11T21:00:35.291384+00:00"
  }
 ]
