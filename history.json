@@ -982,5 +982,13 @@
   "platform": "telegram",
   "text": "Orango built a kart out of bamboo and pure hope. Results may vary. 🏎🌿",
   "ts": "2026-11-11T09:00:02.841164+00:00"
+ },
+ {
+  "id": "tg-poll-race-powerup",
+  "concept": "race-powerup",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "⚡ Best power-up idea for the races?",
+  "ts": "2026-11-11T11:00:14.944296+00:00"
  }
 ]
