@@ -42,10 +42,10 @@
     "friday": {
       "time": "16:00",
       "texts": [
-        "🍊 PEEL FRIDAY 🍊\n\nDrop your best OrangeOrangus meme in this group. Make it funny, make it jungle.\n\n🔥 The meme with the most fire reactions by Sunday gets featured on our X and earns a special role on Discord: https://discord.gg/GeHsvWM6V\n\nOriginal memes only. Let's go! 🦧",
-        "🍌 PEEL FRIDAY IS HERE 🍌\n\nShow us your best jungle meme and let the Troop vote with 🔥.\n\nThe winner by Sunday gets a shout-out on X and a special role on Discord: https://discord.gg/GeHsvWM6V\n\nYour move, Peelers! 🍊",
-        "🏁 PEEL FRIDAY 🏁\n\nRacing memes, orangutan memes, demo memes: post them all here.\n\n🔥 React to the ones you love. The top meme by Sunday is featured on our X, and its creator gets a special Discord role: https://discord.gg/GeHsvWM6V\n\nOriginal memes only! 🦧",
-        "🍊 IT'S PEEL FRIDAY 🍊\n\nThe jungle wants your funniest meme. Post it below and vote with 🔥.\n\nMost fire by Sunday: featured on X plus a special role on Discord: https://discord.gg/GeHsvWM6V\n\nMake us laugh, Troop! 🦧🏁"
+        "🍊 PEEL FRIDAY 🍊\n\nDrop your best OrangeOrangus meme in this group. Make it funny, make it jungle.\n\n🔥 The meme with the most fire reactions by Sunday gets featured on our X and earns a special role on Discord: https://discord.gg/MGrSxW2pMQ\n\nOriginal memes only. Let's go! 🦧",
+        "🍌 PEEL FRIDAY IS HERE 🍌\n\nShow us your best jungle meme and let the Troop vote with 🔥.\n\nThe winner by Sunday gets a shout-out on X and a special role on Discord: https://discord.gg/MGrSxW2pMQ\n\nYour move, Peelers! 🍊",
+        "🏁 PEEL FRIDAY 🏁\n\nRacing memes, orangutan memes, demo memes: post them all here.\n\n🔥 React to the ones you love. The top meme by Sunday is featured on our X, and its creator gets a special Discord role: https://discord.gg/MGrSxW2pMQ\n\nOriginal memes only! 🦧",
+        "🍊 IT'S PEEL FRIDAY 🍊\n\nThe jungle wants your funniest meme. Post it below and vote with 🔥.\n\nMost fire by Sunday: featured on X plus a special role on Discord: https://discord.gg/MGrSxW2pMQ\n\nMake us laugh, Troop! 🦧🏁"
       ]
     }
   },
@@ -144,8 +144,8 @@
     "/x": "🐦 Follow us on X: https://x.com/orangeorangus",
     "/demo": "🏁 Play the OrangeOrangus Racing demo: https://orangeracing.duckdns.org/",
     "/tlg": "👉 Join the Troop: https://t.me/OrangeOrangus",
-    "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/GeHsvWM6V",
-    "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n📸 Instagram: https://www.instagram.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🏎️ OrangeRacing News: https://t.me/OrangeRacingNews\n🎮 Discord: https://discord.gg/GeHsvWM6V\n🏁 Demo: https://orangeracing.duckdns.org/",
+    "/discord": "💬 Join the OrangeOrangus Discord: https://discord.gg/MGrSxW2pMQ",
+    "/social": "🍊🦧 OrangeOrangus official links:\n\n🌐 Website: https://orangeorangus.duckdns.org/\n🐦 X: https://x.com/orangeorangus\n📸 Instagram: https://www.instagram.com/orangeorangus\n💬 Telegram: https://t.me/OrangeOrangus\n🏎️ OrangeRacing News: https://t.me/OrangeRacingNews\n🎮 Discord: https://discord.gg/MGrSxW2pMQ\n🏁 Demo: https://orangeracing.duckdns.org/",
     "/web": "🌐 OrangeOrangus official website: https://orangeorangus.duckdns.org/"
   },
   "antiflood": {
@@ -162,6 +162,7 @@
   },
   "group_filters_rev": {
     "/social": 9,
+    "/discord": 1,
     "/demo": 1,
     "/web": 1
   }
