@@ -1046,5 +1046,13 @@
   "platform": "telegram",
   "text": "Fake 'support' DM: 'Verify your wallet!'\nOrango: *blocks in 0.2 seconds* 🚫",
   "ts": "2026-11-12T17:00:08.465778+00:00"
+ },
+ {
+  "id": "tg-meme-peeling-an-orange-in-one-piece-is-a-skil",
+  "concept": "meme-peeling-an-orange-in-one-piece-is-a-skil",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Peeling an orange in one piece is a skill. So is staying patient. 🍊🧘",
+  "ts": "2026-11-12T21:00:41.988123+00:00"
  }
 ]
