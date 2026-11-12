@@ -3,7 +3,8 @@
  "counter_created": true,
  "announced": [
   50,
-  100
+  100,
+  250
  ],
  "slots": {
   "telegram": "2026-11-12 14:00",
@@ -35,7 +36,7 @@
   "/social",
   "/web"
  ],
- "members_public": 249,
+ "members_public": 253,
  "filters_rev": {
   "/social": 9,
   "/demo": 1,
