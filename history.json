@@ -1038,5 +1038,13 @@
   "platform": "telegram",
   "text": "Orango tried to explain Proof of History. Ended up telling a story about bananas. 📜🍌",
   "ts": "2026-11-12T13:00:31.071876+00:00"
+ },
+ {
+  "id": "tg-meme-fake-support-dm-verify-your-wallet-orang",
+  "concept": "meme-fake-support-dm-verify-your-wallet-orang",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Fake 'support' DM: 'Verify your wallet!'\nOrango: *blocks in 0.2 seconds* 🚫",
+  "ts": "2026-11-12T17:00:08.465778+00:00"
  }
 ]
