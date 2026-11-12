@@ -1022,5 +1022,13 @@
   "platform": "telegram",
   "text": "Plot twist: the real treasure of the jungle was the Troop we made along the way. 🫂🍊",
   "ts": "2026-11-12T09:00:14.994254+00:00"
+ },
+ {
+  "id": "tg-poll-race-mode-wish",
+  "concept": "race-mode-wish",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🏆 Which race mode do you want most?",
+  "ts": "2026-11-12T11:00:41.247357+00:00"
  }
 ]
