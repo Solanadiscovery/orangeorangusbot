@@ -1030,5 +1030,13 @@
   "platform": "telegram",
   "text": "🏆 Which race mode do you want most?",
   "ts": "2026-11-12T11:00:41.247357+00:00"
+ },
+ {
+  "id": "tg-meme-orango-tried-to-explain-proof-of-history",
+  "concept": "meme-orango-tried-to-explain-proof-of-history",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Orango tried to explain Proof of History. Ended up telling a story about bananas. 📜🍌",
+  "ts": "2026-11-12T13:00:31.071876+00:00"
  }
 ]
