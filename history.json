@@ -1070,5 +1070,13 @@
   "platform": "telegram",
   "text": "⏱ Be honest: how good is your best lap?",
   "ts": "2026-11-13T11:00:07.077217+00:00"
+ },
+ {
+  "id": "tg-meme-if-you-can-read-this-you-re-officially-a",
+  "concept": "meme-if-you-can-read-this-you-re-officially-a",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "If you can read this, you're officially a Peeler. No refunds on the vibes. 🍊",
+  "ts": "2026-11-13T13:00:23.611679+00:00"
  }
 ]
