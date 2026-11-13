@@ -1054,5 +1054,13 @@
   "platform": "telegram",
   "text": "Peeling an orange in one piece is a skill. So is staying patient. 🍊🧘",
   "ts": "2026-11-12T21:00:41.988123+00:00"
+ },
+ {
+  "id": "tg-meme-mango-tried-to-join-the-troop-we-said-on",
+  "concept": "meme-mango-tried-to-join-the-troop-we-said-on",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "Mango tried to join the Troop. We said 'only if you're orange inside'. 🥭😂",
+  "ts": "2026-11-13T09:00:53.737366+00:00"
  }
 ]
