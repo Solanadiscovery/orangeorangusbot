@@ -1062,5 +1062,13 @@
   "platform": "telegram",
   "text": "Mango tried to join the Troop. We said 'only if you're orange inside'. 🥭😂",
   "ts": "2026-11-13T09:00:53.737366+00:00"
+ },
+ {
+  "id": "tg-poll-race-best-lap",
+  "concept": "race-best-lap",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "⏱ Be honest: how good is your best lap?",
+  "ts": "2026-11-13T11:00:07.077217+00:00"
  }
 ]
