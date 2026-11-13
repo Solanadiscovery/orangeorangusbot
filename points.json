@@ -325,6 +325,23 @@
    "badges": [
     "first"
    ]
+  },
+  "9063103903": {
+   "name": "Mex",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-13",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-13T20:27:04.441995+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
