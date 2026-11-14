@@ -1118,5 +1118,13 @@
   "platform": "telegram",
   "text": "Orango's favourite chart: the fruit bowl inventory. 🍊🍌🍍",
   "ts": "2026-11-14T13:00:13.929449+00:00"
+ },
+ {
+  "id": "tg-engage-played-the-orange-racing-demo-yet-drop-y",
+  "concept": "engage-played-the-orange-racing-demo-yet-drop-y",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🏁 Played the Orange Racing demo yet? Drop your best lap time below and tell us your favourite track: https://orangeracing.duckdns.org/",
+  "ts": "2026-11-14T21:00:04.744406+00:00"
  }
 ]
