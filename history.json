@@ -1102,5 +1102,13 @@
   "platform": "telegram",
   "text": "Rug Gorilla tried to join the group. The Troop's scam radar beeped instantly. 🦍📡",
   "ts": "2026-11-14T09:00:31.243204+00:00"
+ },
+ {
+  "id": "tg-poll-race-music",
+  "concept": "race-music",
+  "type": "poll",
+  "platform": "telegram",
+  "text": "🎵 Race soundtrack vibe?",
+  "ts": "2026-11-14T11:00:19.647492+00:00"
  }
 ]
