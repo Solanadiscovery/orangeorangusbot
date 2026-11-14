@@ -12,7 +12,7 @@
   "telegram_poll": "2026-11-14 12:00"
  },
  "x_intro_done": true,
- "update_offset": 166182641,
+ "update_offset": 166182642,
  "og_existing_done": true,
  "welcome_id": 9924,
  "last_type": {
@@ -52,5 +52,8 @@
  "alerts": {
   "low_telegram_poll": 1793530847.730227,
   "empty_telegram": 1793898004.769799
+ },
+ "doc_ids": {
+  "daily_reward:2766766": "AgACAgQAAxkDAAIBZmr4kogoOY1bb-D94PR-6UGYx6qfAALLEGsb_e_JUzJSdVLerrvZAQADAgADdwADPQQ"
  }
 }
