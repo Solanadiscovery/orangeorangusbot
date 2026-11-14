@@ -26,20 +26,22 @@
     "times": [
       "10:00",
       "14:00",
-      "18:00",
       "22:00"
     ],
     "rotation": [
       "quiz",
       "meme",
-      "meme",
       "engage"
     ],
+    "slot_types": {
+      "10:00": "quiz",
+      "14:00": "meme",
+      "22:00": "engage"
+    },
     "footer": "🍊 Peel the hype. Release the ape.\n🐦 Follow us on X: https://x.com/orangeorangus\n⚠️ Official links only in pinned messages. Admins never DM first.",
-    "poll_times": [
-      "12:00"
-    ],
+    "poll_times": [],
     "friday": {
+      "enabled": false,
       "time": "16:00",
       "texts": [
         "🍊 PEEL FRIDAY 🍊\n\nDrop your best OrangeOrangus meme in this group. Make it funny, make it jungle.\n\n🔥 The meme with the most fire reactions by Sunday gets featured on our X and earns a special role on Discord: https://discord.gg/MGrSxW2pMQ\n\nOriginal memes only. Let's go! 🦧",
@@ -47,33 +49,27 @@
         "🏁 PEEL FRIDAY 🏁\n\nRacing memes, orangutan memes, demo memes: post them all here.\n\n🔥 React to the ones you love. The top meme by Sunday is featured on our X, and its creator gets a special Discord role: https://discord.gg/MGrSxW2pMQ\n\nOriginal memes only! 🦧",
         "🍊 IT'S PEEL FRIDAY 🍊\n\nThe jungle wants your funniest meme. Post it below and vote with 🔥.\n\nMost fire by Sunday: featured on X plus a special role on Discord: https://discord.gg/MGrSxW2pMQ\n\nMake us laugh, Troop! 🦧🏁"
       ]
-    }
+    },
+    "_help": "18:00 = promemoria giornaliero Orange Racing (sezione daily_reward), non uno slot di contenuti. slot_types: tipo fisso per orario; se i contenuti di quel tipo finiscono si usa la rotazione. poll_times vuoto = nessun sondaggio giornaliero. friday.enabled false = Peel Friday spento."
   },
-  "x": {
-    "_enabled_help": "false = post automatici su X in pausa (Telegram non cambia). Rimetti true per riattivarli.",
-    "enabled": false,
-    "times": [
-      "11:30",
-      "19:30"
-    ],
-    "rotation": [
-      "hype"
-    ],
-    "footer": "Telegram in bio 👆",
-    "cashtag": "$ORANGU",
-    "hashtags": [
-      "#OrangeOrangus"
-    ],
-    "allowed_hashtags": [
-      "#Solana",
-      "#HODL",
-      "#Bitcoin",
-      "#Dogecoin",
-      "#CryptoSecurity",
-      "#DYOR"
-    ],
-    "max_topic_hashtags": 2,
-    "min_gap_minutes": 360
+  "daily_reward": {
+    "_help": "Promemoria quotidiano Orange Racing. time = ora locale nel fuso 'timezone'; chat_id vuoto = CHAT_ID (il gruppo ufficiale); catch_up_hours = se il bot era fermo all'orario, invia appena riparte entro queste ore (mai due volte nello stesso giorno). Se l'immagine manca si invia solo testo. {url} nei messaggi = link del gioco.",
+    "enabled": true,
+    "time": "18:00",
+    "timezone": "Europe/Rome",
+    "chat_id": "",
+    "catch_up_hours": 3,
+    "image": "assets/daily-reward.png",
+    "url": "https://orangeracing.duckdns.org",
+    "button_text": "🏎️ Play Orange Racing",
+    "messages": [
+      "🍊 Daily pit stop, Peelers! 🦧\n\nYour free calendar reward is waiting in Orange Racing. Log in, tap today's box, done. Takes less time than peeling a banana 🍌\n\n🏁 {url}",
+      "🦧 Ape alert! 🚨\n\nToday's free reward in the Orange Racing calendar is still unclaimed. Don't leave it parked in the garage: hop in and grab it 🏎️🍊\n\n👉 {url}",
+      "🏁 Lights out and away we go!\n\nBefore your next race, swing by the daily calendar in Orange Racing and claim today's free reward. Keep that streak alive, Troop 🦧🔥\n\n{url}",
+      "🍌 Knock knock. Who's there? Your free daily reward 🎁\n\nIt's sitting in the Orange Racing calendar waiting for you. Log in and claim it before the day runs out 🦧\n\n🏎️ {url}",
+      "🌴 Jungle reminder from your favourite orangutan 🦧\n\nOne login, one tap, one free calendar reward in Orange Racing. Easiest lap of the day 🏁🍊\n\n{url}",
+      "⏰ Daily check-in time, Peelers!\n\nOrange Racing has a fresh free reward in today's calendar slot. Claim it, then show the jungle who's fastest 🏎️💨\n\n👉 {url}"
+    ]
   },
   "welcome": {
     "enabled": true,

@@ -1,11 +1,11 @@
-"""Test offline: le chiamate a Telegram e X sono simulate. Esegui con: python -m unittest discover tests"""
+"""Test offline: le chiamate a Telegram sono simulate. Esegui con: python -m unittest discover tests"""
 import datetime, json, os, shutil, sys, tempfile, unittest
 from pathlib import Path
 from unittest import mock
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
-import bot, content, countdown, tg, xapi
+import bot, content, countdown, tg
 
 UTC = datetime.timezone.utc
 
@@ -26,9 +26,9 @@ class FakeTelegram:
             return {"pinned_message": {"message_id": 30}}
         if method == "editMessageText" and self.edit_error:
             raise tg.TelegramError(400, self.edit_error)
-        if method in ("sendMessage", "sendPoll"):
+        if method in ("sendMessage", "sendPoll", "sendPhoto"):
             self.next_id += 1
-            return {"message_id": self.next_id}
+            return {"message_id": self.next_id, "photo": [{"file_id": "small"}, {"file_id": "PHOTO_ID"}]}
         return True
 
     def methods(self):
@@ -39,7 +39,6 @@ class BotTest(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp())
         cfg = json.loads((REPO / "config.json").read_text())
-        cfg["x"]["enabled"] = True  # tests never depend on the live X pause switch
         (self.dir / "config.json").write_text(json.dumps(cfg))
         (self.dir / "history.json").write_text("[]")  # never the live history: its real dates would make tests time-dependent
         shutil.copytree(REPO / "content", self.dir / "content")
@@ -160,18 +159,6 @@ class BotTest(unittest.TestCase):
         self.assertNotIn("sendPoll", fake.methods())
         self.assertIn("editMessageText", fake.methods())
 
-    def test_x_and_telegram_get_different_content(self):
-        fake = FakeTelegram()
-        sent = []
-        env = {k: "k" for k in xapi.KEYS}
-        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", lambda item, footer: sent.append(item)):
-            self.make(datetime.datetime(2026, 10, 20, 8, 5, tzinfo=UTC), fake)
-            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)  # 11:35 a Roma: slot X
-        self.assertEqual(len(sent), 1)
-        hist = json.loads((self.dir / "history.json").read_text())
-        tg_item = [h for h in hist if h["platform"] == "telegram"][-1]
-        self.assertLess(content.similarity(tg_item["text"], content.text_of(sent[0])), 0.72)
-
     def test_welcome_one_message_and_previous_deleted(self):
         join = lambda uid, name: {"update_id": uid, "chat_member": {
             "old_chat_member": {"status": "left"}, "new_chat_member": {"status": "member", "user": {"first_name": name}}}}
@@ -261,21 +248,90 @@ class BotTest(unittest.TestCase):
         b.group.filters["/social"] = "admin edit"
         self.assertEqual(b.group.filters["/social"], "admin edit")  # and the update is applied only once
 
-    # --- sondaggio giornaliero e Peel Friday ------------------------------------
-    def test_daily_poll_once_and_friday_post_with_x_link(self):
+    # --- programma: niente sondaggio delle 12, niente Peel Friday, niente X ----------
+    ROME = bot.ZoneInfo("Europe/Rome")
+
+    def group_posts(self, fake, since=0):
+        return [(m, f) for m, f in fake.calls[since:] if m in ("sendPoll", "sendMessage", "sendPhoto") and f["chat_id"] == "@test"]
+
+    def test_daily_schedule_quiz_meme_reward_engage(self):
+        fake, got = FakeTelegram(), {}
+        for h in (10, 12, 14, 16, 18, 22):
+            before = len(fake.calls)
+            self.make(datetime.datetime(2026, 11, 20, h, 5, tzinfo=self.ROME), fake)  # 20/11/2026 è un venerdì
+            got[h] = self.group_posts(fake, before)
+        hist = json.loads((self.dir / "history.json").read_text(encoding="utf-8"))
+        self.assertEqual([(x["ts"][11:13], x["type"]) for x in hist], [("10", "quiz"), ("14", "meme"), ("22", "engage")])
+        self.assertEqual(got[12], [])  # nessun sondaggio a mezzogiorno
+        self.assertEqual(got[16], [])  # nessun Peel Friday
+        self.assertEqual(len(got[18]), 1)  # alle 18:00 solo il promemoria Orange Racing
+        self.assertIn("orangeracing.duckdns.org", got[18][0][1]["text"])
+        self.assertFalse(any("PEEL FRIDAY" in f.get("text", "").upper() for _, f in fake.calls))
+
+    def test_x_posting_removed(self):
+        self.assertFalse((REPO / "xapi.py").exists())
+        self.assertTrue((REPO / "content" / "x.json").exists())  # contenuti X conservati come archivio
+        self.assertNotIn("x", json.loads((REPO / "config.json").read_text(encoding="utf-8")))
         fake = FakeTelegram()
-        friday = datetime.datetime(2026, 10, 23, 10, 0, tzinfo=UTC)  # 12:00 in Rome, a Friday: poll slot
-        self.make(friday, fake)
-        self.make(friday + datetime.timedelta(minutes=1), fake)  # same slot: no second poll
-        self.assertEqual([f["question"] for m, f in fake.calls if m == "sendPoll"].__len__(), 1)
-        self.make(friday.replace(hour=14), fake)  # 16:00 in Rome: Peel Friday
-        self.make(friday.replace(hour=14, minute=1), fake)
-        texts = [f["text"] for m, f in fake.calls if m == "sendMessage" and "PEEL FRIDAY" in f.get("text", "").upper()]
-        self.assertEqual(len(texts), 1)
-        self.assertIn("https://x.com/orangeorangus", texts[0])  # every text post links to X through the footer
-        fake2 = FakeTelegram()
-        self.make(datetime.datetime(2026, 10, 22, 14, 0, tzinfo=UTC), fake2)  # a Thursday: no Peel Friday
-        self.assertFalse([1 for m, f in fake2.calls if m == "sendMessage" and "PEEL FRIDAY" in f.get("text", "").upper()])
+        with mock.patch.dict(os.environ, {"X_API_KEY": "k", "X_API_SECRET": "k", "X_ACCESS_TOKEN": "k", "X_ACCESS_SECRET": "k"}):
+            for h in range(24):  # tutta la giornata, compresi i vecchi orari X 11:30 e 19:30
+                self.make(datetime.datetime(2026, 11, 16, h, 31, tzinfo=self.ROME), fake)
+        hist = json.loads((self.dir / "history.json").read_text(encoding="utf-8"))
+        self.assertFalse([x for x in hist if x["platform"] != "telegram"])
+
+    # --- promemoria giornaliero Orange Racing ----------------------------------------
+    def rewards(self, fake):
+        return [(m, f) for m, f in fake.calls if m in ("sendPhoto", "sendMessage") and "orangeracing" in f.get("caption", f.get("text", ""))]
+
+    def test_daily_reward_text_only_when_image_missing(self):
+        fake = FakeTelegram()
+        self.make(datetime.datetime(2026, 11, 14, 18, 0, tzinfo=self.ROME), fake)
+        r = self.rewards(fake)
+        self.assertEqual([m for m, _ in r], ["sendMessage"])
+        self.assertEqual(r[0][1]["chat_id"], "@test")
+        self.assertEqual(r[0][1]["reply_markup"]["inline_keyboard"][0][0]["url"], "https://orangeracing.duckdns.org")
+
+    def test_daily_reward_photo_once_per_day_survives_restart_and_rotates(self):
+        (self.dir / "assets").mkdir()
+        (self.dir / "assets/daily-reward.png").write_bytes(b"PNG fake")
+        fake, uploads = FakeTelegram(), []
+        def upload(method, fields, field, path, **_):
+            uploads.append((method, field, Path(path).name, json.loads(fields["reply_markup"])))
+            return {"message_id": 1, "photo": [{"file_id": "small"}, {"file_id": "PHOTO_ID"}]}
+        day1 = datetime.datetime(2026, 11, 14, 18, 1, tzinfo=self.ROME)
+        with mock.patch.object(tg, "upload", upload):
+            for minutes in (0, 1, 30, 120):  # ogni make() = nuovo Bot = riavvio
+                self.make(day1 + datetime.timedelta(minutes=minutes), fake)
+            self.make(day1 + datetime.timedelta(days=1), fake)
+        self.assertEqual([u[:3] for u in uploads], [("sendPhoto", "photo", "daily-reward.png")])  # caricata una volta
+        self.assertEqual(uploads[0][3]["inline_keyboard"][0][0]["url"], "https://orangeracing.duckdns.org")
+        again = [f for m, f in fake.calls if m == "sendPhoto"]
+        self.assertEqual([f["photo"] for f in again], ["PHOTO_ID"])  # il giorno dopo: stesso file_id
+        self.assertEqual([m for m, _ in self.rewards(fake)], ["sendPhoto"])  # nessun testo di ripiego in più
+
+    def test_daily_reward_not_before_time_and_catch_up_after_downtime(self):
+        fake = FakeTelegram()
+        self.make(datetime.datetime(2026, 11, 14, 17, 59, tzinfo=self.ROME), fake)
+        self.assertEqual(self.rewards(fake), [])
+        self.make(datetime.datetime(2026, 11, 14, 20, 30, tzinfo=self.ROME), fake)  # ripartito dopo una pausa
+        self.make(datetime.datetime(2026, 11, 14, 20, 31, tzinfo=self.ROME), fake)
+        self.assertEqual(len(self.rewards(fake)), 1)
+        self.make(datetime.datetime(2026, 11, 15, 23, 0, tzinfo=self.ROME), fake)  # oltre la finestra: niente invio tardivo
+        self.assertEqual(len(self.rewards(fake)), 1)
+        texts = [f["text"] for _, f in self.rewards(fake)]
+        self.assertFalse(any(w in t.lower() for t in texts for w in ("token", "earn", "$orangu", "profit")))
+
+    def test_daily_reward_preview_goes_to_admin_and_test_command(self):
+        state = json.loads((self.dir / "state.json").read_text())
+        state["preview"] = True
+        (self.dir / "state.json").write_text(json.dumps(state))
+        fake = FakeTelegram()
+        self.make(datetime.datetime(2026, 11, 14, 18, 0, tzinfo=self.ROME), fake)
+        self.assertEqual([f["chat_id"] for _, f in self.rewards(fake)], ["1"])
+        fake.updates = [[{"update_id": 9, "message": {"chat": {"type": "private", "id": 1}, "from": {"id": 1}, "text": "/reward_test"}}]]
+        b = self.make(datetime.datetime(2026, 11, 15, 9, 0, tzinfo=self.ROME), fake)
+        self.assertEqual([f["chat_id"] for _, f in self.rewards(fake)], ["1", "1"])
+        self.assertEqual(b.state["daily_reward_index"], 0)  # il test non consuma la rotazione
 
     # --- anti-raid -----------------------------------------------------------
     def group_msg(self, uid, i, text, **extra):
@@ -373,94 +429,6 @@ class BotTest(unittest.TestCase):
             self.assertEqual(tg.call("getChatMemberCount", {}, sleep=slept.append), 5)
         self.assertEqual(slept, [3])
 
-    def test_x_error_does_not_cause_duplicate_post(self):
-        fake = FakeTelegram()
-        env = {k: "k" for k in xapi.KEYS}
-        calls = []
-
-        def boom(item, cfg):
-            calls.append(item["id"])
-            raise RuntimeError("X 503")
-        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", boom):
-            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)      # slot 11:30: fails
-            self.make(datetime.datetime(2026, 10, 20, 9, 40, tzinfo=UTC), fake)      # same slot, restart: no retry
-        self.assertEqual(len(calls), 1)
-        hist = json.loads((self.dir / "history.json").read_text())
-        self.assertEqual([h["id"] for h in hist if h["platform"] == "x"].count(calls[0]), 1)
-
-    def test_x_min_gap_blocks_bursts(self):
-        fake = FakeTelegram()
-        env = {k: "k" for k in xapi.KEYS}
-        sent = []
-        cfg = json.loads((self.dir / "config.json").read_text())
-        cfg["x"]["times"] = ["11:30", "12:00"]  # misconfigured: two posts 30 min apart
-        (self.dir / "config.json").write_text(json.dumps(cfg))
-        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", lambda item, c: sent.append(item)):
-            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)      # 11:35
-            self.make(datetime.datetime(2026, 10, 20, 10, 5, tzinfo=UTC), fake)      # 12:05
-        self.assertEqual(len(sent), 1)
-
-    def test_x_only_hype_never_quiz_or_poll(self):
-        fake = FakeTelegram()
-        env = {k: "k" for k in xapi.KEYS}
-        sent = []
-        with mock.patch.dict(os.environ, env), mock.patch.object(xapi, "post", lambda item, c: sent.append(item)):
-            for day in range(20, 26):
-                for hh in (9, 13, 17, 21):  # UTC: after every X slot (min gap is honoured)
-                    self.make(datetime.datetime(2026, 10, day, hh, 35, tzinfo=UTC), fake)
-        self.assertGreater(len(sent), 4)
-        self.assertTrue(all(i["type"] == "hype" for i in sent))
-        self.assertEqual(len({i["id"] for i in sent}), len(sent))
-
-    def test_x_disabled_in_config_pauses_only_x(self):
-        fake = FakeTelegram()
-        sent = []
-        cfg = json.loads((self.dir / "config.json").read_text())
-        cfg["x"]["enabled"] = False
-        (self.dir / "config.json").write_text(json.dumps(cfg))
-        with mock.patch.dict(os.environ, {k: "k" for k in xapi.KEYS}), mock.patch.object(xapi, "post", lambda item, c: sent.append(item)):
-            self.make(datetime.datetime(2026, 10, 20, 9, 35, tzinfo=UTC), fake)  # 11:35, X slot
-        self.assertEqual(sent, [])
-
-
-class XNoLinks(unittest.TestCase):
-    def test_links_stripped(self):
-        b = xapi.body_for({"type": "text", "text": "Join us https://t.me/OrangeOrangus now t.me/x"}, "#OrangeOrangus")
-        self.assertNotIn("t.me", b["text"]); self.assertNotIn("http", b["text"])
-
-    def test_footer_telegram_in_bio(self):
-        f = "Telegram in bio 👆 #OrangeOrangus"
-        self.assertIn("Telegram in bio", xapi.body_for({"type": "poll", "question": "Pick one", "options": ["a", "b"]}, f)["text"])
-        t = xapi.body_for({"type": "text", "text": "Join the Troop (link in bio)."}, f)["text"]
-        self.assertEqual(t.lower().count("in bio"), 1)
-
-    def test_x_hashtags_topical_allowed_and_not_repetitive(self):
-        cfg = json.load(open(REPO / "config.json"))["x"]
-        pool = json.load(open(REPO / "content" / "x.json"))
-        combos = set()
-        for item in pool:
-            text = xapi.body_for(item, cfg)["text"]
-            tags = [w for w in text.splitlines()[-1].split() if w.startswith("#")]
-            self.assertLessEqual(xapi.weight(text), 280)
-            self.assertNotIn("http", text)
-            self.assertIn("Telegram in bio", text) if "in bio" not in item.get("text", "").lower() else None
-            self.assertLessEqual(len(tags), 1 + cfg["max_topic_hashtags"])
-            allowed = {h.lower() for h in cfg["allowed_hashtags"] + cfg["hashtags"]}
-            self.assertTrue(all(h.lower().rstrip('.!?,') in allowed for h in tags), tags)
-            combos.add(tuple(tags))
-        # a generic post gets no extra hashtag; an off-list or untagged one is ignored
-        plain = xapi.body_for({"type": "text", "text": "Orango peels."}, cfg)["text"]
-        self.assertNotIn("#Solana", plain)
-        rogue = xapi.body_for({"type": "text", "text": "Orango peels.", "tags": ["#100x", "#Solana"]}, cfg)["text"]
-        self.assertNotIn("#100x", rogue)
-        self.assertIn("#Solana", rogue)
-        self.assertGreater(len(combos), 2)  # not the same combination everywhere
-
-    def test_x_text_never_cut_when_long(self):
-        cfg = json.load(open(REPO / "config.json"))["x"]
-        long = xapi.body_for({"type": "text", "text": "x" * 250, "tags": ["#Solana"]}, cfg)["text"]
-        self.assertTrue(long.startswith("x" * 250))
-        self.assertLessEqual(xapi.weight(long), 280)
 
 
 if __name__ == "__main__":

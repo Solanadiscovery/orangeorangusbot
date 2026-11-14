@@ -1,11 +1,13 @@
-# OrangeOrangus bot (Telegram + X)
+# OrangeOrangus bot (Telegram)
 
 Un solo processo sempre attivo (workflow **Live bot**) che ogni minuto:
 1. legge i comandi dell'admin;
 2. aggiorna il **countdown fissato** modificando sempre lo stesso messaggio (mai uno nuovo);
-3. pubblica i contenuti programmati su Telegram e su X, **senza mai ripetere** un contenuto già usato.
+3. pubblica i contenuti programmati su Telegram, **senza mai ripetere** un contenuto già usato, e il promemoria giornaliero Orange Racing.
 
-Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: €0 su GitHub (repo pubblico), X a consumo.
+La pubblicazione automatica su X è stata rimossa: `content/x.json` resta solo come archivio (il modulo `xapi.py` è recuperabile dalla storia git).
+
+Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: €0 su GitHub (repo pubblico).
 
 ## File
 | File | Cosa contiene |
@@ -15,11 +17,11 @@ Si riavvia da solo ogni ~5h40 (più un riavvio di riserva ogni 5 ore). Costo: �
 | `history.json` | tutto ciò che è stato pubblicato (testo, tipo, concetto, data) |
 | `members.json` | numero membri Telegram pubblico, letto dal sito web (aggiornato solo quando cambia) |
 | `state.json` | ID del messaggio countdown, slot pubblicati, traguardi, pausa/anteprima |
-| `bot.py` | ciclo principale; `groupfilters.py` (filtri/regole), `antiraid.py` (anti-raid), `tg.py`, `xapi.py`, `content.py`, `countdown.py` moduli |
+| `bot.py` | ciclo principale; `groupfilters.py` (filtri/regole), `antiraid.py` (anti-raid), `tg.py`, `content.py`, `countdown.py` moduli |
 | `tests/` | test offline (`python -m unittest discover tests`), eseguiti a ogni avvio |
 
 ## Secrets (Settings → Secrets → Actions)
-`BOT_TOKEN`, `CHAT_ID`, `ADMIN_USER_ID` (il tuo ID Telegram numerico, da @userinfobot), `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`.
+`BOT_TOKEN`, `CHAT_ID`, `ADMIN_USER_ID` (il tuo ID Telegram numerico, da @userinfobot). I secret `X_*` non sono più usati dal bot.
 
 ## Comandi admin (scrivi al bot in privato)
 `/status` stato e contenuti rimasti · `/pause` `/resume` pubblicazioni · `/preview_on` `/preview_off` i post arrivano solo a te · `/next` prossimi contenuti.
@@ -33,8 +35,18 @@ Antiflood: chi invia più di 6 messaggi in 10 secondi viene silenziato per 10 mi
 ## Anti-raid (come Rose)
 Comandi per gli admin del gruppo: `/antiraid` (attiva/disattiva) · `/antiraid 2h` · `/antiraid off` bannano per un po' chi entra (ban temporaneo, `/raidactiontime 1h`; durata standard `/raidtime 6h`) · `/autoantiraid 10` lo attiva da solo se entrano 10 persone in un minuto (di base è spento, per non fermare gli ingressi veri) · `/lock all` / `/unlock all` blocca e riapre la chat · `/lock links` / `/unlock links` cancella i link dei non admin · `/locks` mostra lo stato. Il bot deve essere admin con "Bannare utenti", "Eliminare messaggi" e "Modificare info gruppo". Codice in `antiraid.py`.
 
-## Sondaggio giornaliero e Peel Friday (Telegram)
-Ogni giorno alle 12:00 (ora di Roma, `telegram.poll_times`) esce un sondaggio dal pool `poll` di `content/telegram.json`, in uno slot a parte: la rotazione normale (quiz, meme, engage) non cambia. Ogni venerdì alle 16:00 (`telegram.friday`) esce il post "Peel Friday" per il contest dei meme; il testo ruota ogni settimana tra le 4 varianti in `config.json`. Ogni post di testo finisce con il link a X (`telegram.footer`); i sondaggi e i quiz di Telegram non possono contenere link. Il bot avvisa l'admin quando restano pochi sondaggi: servono nuovi `poll` in `content/telegram.json`. Tutti i contenuti pubblici sono in inglese.
+## Programma giornaliero (Telegram, ora di Roma)
+| Ora | Post |
+|---|---|
+| 10:00 | quiz |
+| 14:00 | meme |
+| 18:00 | promemoria Orange Racing (foto + pulsante) |
+| 22:00 | engage |
+
+Il tipo di ogni orario è fisso (`telegram.slot_types`); se i contenuti di quel tipo finiscono si usa la rotazione normale. Il sondaggio giornaliero è spento (`telegram.poll_times` vuoto) e Peel Friday è disattivato (`telegram.friday.enabled: false`): per riattivarli basta rimettere un orario o `true`. Ogni post di testo finisce con il link a X (`telegram.footer`). Tutti i contenuti pubblici sono in inglese.
+
+## Promemoria giornaliero Orange Racing
+Sezione `daily_reward` di `config.json`: una volta al giorno (default 18:00 Europe/Rome) il bot invia nel gruppo la foto `assets/daily-reward.png` con didascalia a rotazione (6 varianti) e il pulsante verso https://orangeracing.duckdns.org. Se l'immagine manca invia solo testo e pulsante. Il giorno è salvato in `state.json` **prima** dell'invio, quindi mai due promemoria nello stesso giorno, anche dopo un riavvio; se il bot era fermo all'orario recupera entro `catch_up_hours` (3). Rispetta `/pause` e `/preview_on`. Prova: scrivi `/reward_test` al bot in privato (arriva solo a te).
 
 ## Anti-ripetizione
 Prima di pubblicare, ogni contenuto è confrontato con tutto lo storico (entrambe le piattaforme):
@@ -47,7 +59,7 @@ Si aggiorna ogni minuto (limiti Telegram), solo se il testo cambia. Se il messag
 Il bot non annuncia mai da solo un lancio: a fine countdown mostra solo il testo di completamento.
 
 ## Aggiungere contenuti
-Aggiungi elementi a `content/*.json` con `id` e `concept` unici. Tipi Telegram: `quiz`, `poll`, `meme`, `engage`. Tipi X: `meme`, `community`, `question`, `teaser`, `challenge`, `poll`, `culture`.
+Aggiungi elementi a `content/*.json` con `id` e `concept` unici. Tipi Telegram: `quiz`, `poll`, `meme`, `engage`.
 
 ## Peel Points (punti della community)
 

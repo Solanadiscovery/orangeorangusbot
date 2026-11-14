@@ -1,10 +1,11 @@
 """OrangeOrangus bot: processo sempre attivo su GitHub Actions.
 
 Ogni minuto: comandi admin, countdown fissato (modificato sul posto), traguardi membri,
-pubblicazioni programmate su Telegram e X con controllo anti-ripetizione.
+pubblicazioni programmate su Telegram con controllo anti-ripetizione, promemoria giornaliero Orange Racing.
+La pubblicazione automatica su X è stata rimossa (content/x.json resta solo come archivio).
 Stato e storico sono salvati nel repository (state.json, history.json), quindi sopravvivono ai riavvii.
 
-Variabili: BOT_TOKEN, CHAT_ID, ADMIN_USER_ID (facoltativo), X_* (facoltative), GITHUB_TOKEN (riavvio).
+Variabili: BOT_TOKEN, CHAT_ID, ADMIN_USER_ID (facoltativo), GITHUB_TOKEN (riavvio).
 Uso: python bot.py            -> processo continuo
      python bot.py --preview  -> mostra i prossimi contenuti senza pubblicare
 """
@@ -12,7 +13,7 @@ import datetime, json, os, subprocess, sys, time, urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-import antiraid, content, countdown, groupfilters, points, tg, xapi
+import antiraid, content, countdown, groupfilters, points, tg
 
 ROOT = Path(__file__).parent
 RUN_SECONDS = 5 * 3600 + 40 * 60
@@ -22,11 +23,12 @@ COMMAND_POLL = 4  # secondi: i comandi in privato ricevono risposta quasi subito
 HELP = """🦧 Comandi admin OrangeOrangus
 
 /status → stato del bot: pausa, anteprima, countdown, contenuti nuovi rimasti, ultimi post
-/pause → ferma i post su Telegram e X (il countdown continua ad aggiornarsi)
+/pause → ferma i post su Telegram e il promemoria giornaliero (il countdown continua ad aggiornarsi)
 /resume → riattiva i post
-/preview_on → modalità prova: i post arrivano solo a te in privato, non sul canale né su X
-/preview_off → torna a pubblicare sul canale e su X
+/preview_on → modalità prova: i post arrivano solo a te in privato, non nel gruppo
+/preview_off → torna a pubblicare nel gruppo
 /next → mostra i prossimi contenuti che verranno pubblicati
+/reward_test → ti invia in privato il prossimo promemoria Orange Racing (non tocca il gruppo né la rotazione)
 /help → questo elenco
 
 Nel gruppo (admin del gruppo): /filter parola testo · /filters · /stop parola · /setrules testo · /rules (tutti)
@@ -51,7 +53,7 @@ class Bot:
         self.points = points.Points(self, load("points.json", {}))
         self.group = groupfilters.GroupFilters(self)
         self.raid = antiraid.AntiRaid(self)
-        self.pools = {p: load(f"content/{p}.json") for p in ("telegram", "x")}
+        self.pools = {"telegram": load("content/telegram.json")}  # X rimosso: content/x.json resta solo come archivio
         self.chat = os.environ.get("CHAT_ID", "").strip()
         self.admin = os.environ.get("ADMIN_USER_ID", "").strip()
         self.dirty = False
@@ -171,20 +173,25 @@ class Bot:
             return "⏸ Pubblicazioni in pausa (il countdown continua)." if self.state["paused"] else "▶️ Pubblicazioni riattivate."
         if cmd in ("/preview_on", "/preview_off"):
             self.state["preview"] = cmd == "/preview_on"
-            return "👀 Anteprima ON: i post arrivano solo a te." if self.state["preview"] else "✅ Anteprima OFF: si pubblica sul canale e su X."
+            return "👀 Anteprima ON: i post arrivano solo a te." if self.state["preview"] else "✅ Anteprima OFF: si pubblica nel gruppo."
         if cmd == "/next":
             return self.preview_text()
+        if cmd == "/reward_test":
+            if not self.cfg.get("daily_reward"):
+                return "Promemoria giornaliero non configurato."
+            self.send_reward(self.admin, self.reward_text(advance=False))
+            return None
         if cmd == "/status":
             left = {p: content.remaining(self.pools[p], self.history, self.cfg["similarity_threshold"]) for p in self.pools}
             return (f"Pausa: {self.flag('paused')} | Anteprima: {self.flag('preview')}\n"
                     f"Countdown: modalità {self.cfg['countdown']['mode']}, messaggio {self.state.get('counter_id')}\n"
-                    f"Contenuti nuovi rimasti: Telegram {left['telegram']}, X {left['x']}\n"
+                    f"Contenuti nuovi rimasti: Telegram {left['telegram']}\n"
                     f"Ultimi slot: {self.state.get('slots', {})}")
         return HELP
 
     def preview_text(self):
         out = []
-        for p in ("telegram", "x"):
+        for p in self.pools:
             item = content.pick(self.pools[p], self.history, self.cfg[p]["rotation"],
                                 self.state.get("last_type", {}).get(p), self.cfg["similarity_threshold"])
             out.append(f"[{p.upper()}] " + (f"{item['type']}: {content.text_of(item)}" if item else "nessun contenuto nuovo"))
@@ -301,14 +308,15 @@ class Bot:
         slots = self.state.setdefault("slots", {})
         if not key or slots.get(slot_name) == key or self.flag("paused"):
             return
-        if platform == "x" and (not xapi.enabled() or not self.cfg["x"].get("enabled", True)):
-            return
         if self.too_soon(platform) and not poll:
             slots[platform] = key  # the slot is skipped, never delayed into a burst
             return self.persist(f"{platform} {key}: troppo vicino al post precedente")
         threshold = self.cfg["similarity_threshold"]
-        item = content.pick(self.pools[platform], self.history, ["poll"] if poll else self.cfg[platform]["rotation"],
-                            self.state.get("last_type", {}).get(slot_name), threshold)
+        fixed = None if poll else self.cfg[platform].get("slot_types", {}).get(key[-5:])  # tipo fisso per orario (10:00 → quiz)
+        item = content.pick(self.pools[platform], self.history, [fixed], None, threshold) if fixed else None
+        if item is None:  # nessun tipo fisso, o contenuti di quel tipo finiti: rotazione normale
+            item = content.pick(self.pools[platform], self.history, ["poll"] if poll else self.cfg[platform]["rotation"],
+                                self.state.get("last_type", {}).get(slot_name), threshold)
         slots[slot_name] = key
         if item is None:
             self.persist(f"{platform} {key}: nessun contenuto")
@@ -321,10 +329,8 @@ class Bot:
                 if self.admin:
                     tg.call("sendMessage", {"chat_id": self.admin,
                                             "text": f"[ANTEPRIMA {platform.upper()}] {item['type']}\n{content.text_of(item)}"})
-            elif platform == "telegram":
-                self.send_telegram(item)
             else:
-                xapi.post(item, self.cfg["x"])
+                self.send_telegram(item)
             print(f"Pubblicato {platform} {item['id']}", flush=True)
         except Exception as e:
             self.alert(f"publish_{platform}", f"Pubblicazione {platform} fallita ({item['id']}): {e}")
@@ -337,7 +343,7 @@ class Bot:
         """Peel Friday: a fixed weekly meme-contest invitation on Telegram (text rotates by week, same format every week)."""
         c = self.cfg["telegram"].get("friday")
         local = self.clock().astimezone(ZoneInfo(self.cfg["timezone"]))
-        if not c or local.weekday() != 4 or self.flag("paused"):
+        if not c or not c.get("enabled", True) or local.weekday() != 4 or self.flag("paused"):
             return
         h, m = map(int, c["time"].split(":"))
         start = local.replace(hour=h, minute=m, second=0, microsecond=0)
@@ -356,10 +362,68 @@ class Bot:
         except Exception as e:
             self.alert("publish_friday", f"Peel Friday non pubblicato: {e}")
 
+    # --- promemoria giornaliero Orange Racing (ricompensa gratuita del calendario) -----
+    def reward_text(self, advance=True):
+        """Varianti a rotazione; advance=False guarda la prossima senza consumarla (/reward_test)."""
+        c = self.cfg["daily_reward"]
+        i = (self.state.get("daily_reward_index", -1) + 1) % len(c["messages"])
+        if advance:
+            self.state["daily_reward_index"], self.dirty = i, True
+        return c["messages"][i].format(url=c["url"])
+
+    def send_reward(self, chat, text):
+        """Foto + didascalia + pulsante; se l'immagine manca (o Telegram la rifiuta) invia solo il testo."""
+        c = self.cfg["daily_reward"]
+        markup = {"inline_keyboard": [[{"text": c["button_text"], "url": c["url"]}]]}
+        img = ROOT / c.get("image", "assets/daily-reward.png")
+        if img.is_file():
+            key = f"daily_reward:{img.stat().st_size}"  # immagine cambiata = nuova chiave = nuovo caricamento
+            ids = self.state.setdefault("doc_ids", {})
+            fields = {"chat_id": chat, "caption": text[:1024]}
+            try:
+                if key in ids:
+                    try:
+                        return tg.call("sendPhoto", {**fields, "photo": ids[key], "reply_markup": markup})
+                    except tg.TelegramError:
+                        ids.pop(key)  # file_id non più valido: si ricarica l'immagine
+                sent = tg.upload("sendPhoto", {**fields, "reply_markup": json.dumps(markup)}, "photo", str(img))
+                ids[key], self.dirty = sent["photo"][-1]["file_id"], True
+                return sent
+            except tg.TelegramError as e:  # rifiutata da Telegram = non inviata: solo testo, nessun doppione
+                print(f"Foto promemoria non inviata ({e.description}): invio solo testo", flush=True)
+        else:
+            print(f"Immagine promemoria assente ({img}): invio solo testo", flush=True)
+        return tg.call("sendMessage", {"chat_id": chat, "text": text, "reply_markup": markup,
+                                       "link_preview_options": {"is_disabled": True}})
+
+    def daily_reward(self):
+        """Una volta al giorno all'orario di config (default 18:00 Europe/Rome); recupera entro catch_up_hours dopo un riavvio."""
+        c = self.cfg.get("daily_reward", {})
+        if not c.get("enabled") or self.flag("paused"):
+            return
+        local = self.clock().astimezone(ZoneInfo(c.get("timezone") or self.cfg["timezone"]))
+        h, m = map(int, c.get("time", "18:00").split(":"))
+        slot = local.replace(hour=h, minute=m, second=0, microsecond=0)
+        today = local.strftime("%Y-%m-%d")
+        if self.state.get("daily_reward_date") == today or not slot <= local < slot + datetime.timedelta(hours=c.get("catch_up_hours", 3)):
+            return
+        text = self.reward_text()
+        self.state["daily_reward_date"] = today
+        self.persist(f"telegram daily reward {today}")  # salvato PRIMA dell'invio: mai due promemoria nello stesso giorno
+        preview = self.flag("preview")
+        target = self.admin if preview else (str(c.get("chat_id") or "") or self.chat)
+        if not target:
+            return
+        try:
+            self.send_reward(target, text)
+            print(f"Promemoria giornaliero inviato ({'anteprima' if preview else 'gruppo'})", flush=True)
+        except Exception as e:
+            self.alert("daily_reward", f"Promemoria giornaliero Orange Racing non inviato: {e}")
+
     # --- ciclo -------------------------------------------------------------------
     def tick(self):
         for step in (self.commands, lambda: self.safe_points(self.points.tick), lambda: self.publish("telegram"),
-                     lambda: self.publish("telegram", "poll"), self.publish_friday, lambda: self.publish("x")):
+                     lambda: self.publish("telegram", "poll"), self.publish_friday, self.daily_reward):
             try:
                 step()
             except Exception as e:
