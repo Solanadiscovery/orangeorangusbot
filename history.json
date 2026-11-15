@@ -1142,5 +1142,13 @@
   "platform": "telegram",
   "text": "Being orange isn't a colour. It's a lifestyle. 🧡",
   "ts": "2026-11-15T13:00:10.254253+00:00"
+ },
+ {
+  "id": "tg-engage-finish-the-sentence-orango-walks-into-a",
+  "concept": "engage-finish-the-sentence-orango-walks-into-a",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "✍️ Finish the sentence: 'Orango walks into a jungle bar and...' Best answer gets pinned. 🦧",
+  "ts": "2026-11-15T21:00:37.006025+00:00"
  }
 ]
