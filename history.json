@@ -1126,5 +1126,13 @@
   "platform": "telegram",
   "text": "🏁 Played the Orange Racing demo yet? Drop your best lap time below and tell us your favourite track: https://orangeracing.duckdns.org/",
   "ts": "2026-11-14T21:00:04.744406+00:00"
+ },
+ {
+  "id": "tg-quiz-eth-founder",
+  "concept": "eth-founder",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 Who proposed Ethereum in a 2013 whitepaper?",
+  "ts": "2026-11-15T09:00:23.915779+00:00"
  }
 ]
