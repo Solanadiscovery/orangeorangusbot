@@ -1150,5 +1150,13 @@
   "platform": "telegram",
   "text": "✍️ Finish the sentence: 'Orango walks into a jungle bar and...' Best answer gets pinned. 🦧",
   "ts": "2026-11-15T21:00:37.006025+00:00"
+ },
+ {
+  "id": "tg-quiz-sol-founder",
+  "concept": "sol-founder",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 Who co-founded Solana and wrote its Proof of History paper?",
+  "ts": "2026-11-16T09:00:31.847563+00:00"
  }
 ]
