@@ -1190,5 +1190,13 @@
   "platform": "telegram",
   "text": "Me: I'll only post one meme today.\nAlso me: *posts 12* 😅",
   "ts": "2026-11-17T13:00:17.557501+00:00"
+ },
+ {
+  "id": "tg-engage-one-word-to-describe-orangeorangus-go",
+  "concept": "engage-one-word-to-describe-orangeorangus-go",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🗣 One word to describe OrangeOrangus? Go! 🍊",
+  "ts": "2026-11-17T21:00:16.731143+00:00"
  }
 ]
