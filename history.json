@@ -1198,5 +1198,13 @@
   "platform": "telegram",
   "text": "🗣 One word to describe OrangeOrangus? Go! 🍊",
   "ts": "2026-11-17T21:00:16.731143+00:00"
+ },
+ {
+  "id": "tg-quiz-sol-wallet-key",
+  "concept": "sol-wallet-key",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🛡 Which one should you NEVER share with anyone?",
+  "ts": "2026-11-18T09:00:58.780568+00:00"
  }
 ]
