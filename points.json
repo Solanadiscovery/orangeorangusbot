@@ -131,16 +131,16 @@
   },
   "996383996": {
    "name": "Sbraun91",
-   "pts": 380,
+   "pts": 410,
    "x": "brunorinarelli",
    "checkin": "2026-11-17",
    "day": {
     "d": "2026-11-18",
-    "p": 60
+    "p": 90
    },
    "joined": true,
    "strikes": 0,
-   "invites": 6,
+   "invites": 7,
    "first": "2026-10-27T16:21:18.715722+00:00",
    "badges": [
     "first",
@@ -154,7 +154,7 @@
    "best_streak": 8,
    "x_changed": false,
    "link": "https://t.me/+eo0Cc2SQ5jo5MDc0",
-   "level": 2
+   "level": 3
   },
   "6300728687": {
    "name": "Zaidra 👻",
@@ -524,11 +524,6 @@
   "https://t.me/+eo0Cc2SQ5jo5MDc0": "996383996"
  },
  "refs": [
-  {
-   "inviter": "996383996",
-   "invitee": "7718724598",
-   "ts": "2026-11-17T10:26:57.863708+00:00"
-  },
   {
    "inviter": "996383996",
    "invitee": "6768434016",
