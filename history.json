@@ -1214,5 +1214,13 @@
   "platform": "telegram",
   "text": "Orango's secret? Never skip breakfast. Especially if breakfast is oranges. 🍊🥣",
   "ts": "2026-11-18T13:00:32.592774+00:00"
+ },
+ {
+  "id": "tg-engage-lore-time-what-do-you-think-rug-gorilla",
+  "concept": "engage-lore-time-what-do-you-think-rug-gorilla",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "📜 Lore time: what do you think Rug Gorilla is planning next? Wildest theory wins. 🦍",
+  "ts": "2026-11-18T21:00:08.585330+00:00"
  }
 ]
