@@ -131,16 +131,16 @@
   },
   "996383996": {
    "name": "Sbraun91",
-   "pts": 350,
+   "pts": 380,
    "x": "brunorinarelli",
    "checkin": "2026-11-17",
    "day": {
     "d": "2026-11-18",
-    "p": 30
+    "p": 60
    },
    "joined": true,
    "strikes": 0,
-   "invites": 5,
+   "invites": 6,
    "first": "2026-10-27T16:21:18.715722+00:00",
    "badges": [
     "first",
@@ -524,11 +524,6 @@
   "https://t.me/+eo0Cc2SQ5jo5MDc0": "996383996"
  },
  "refs": [
-  {
-   "inviter": "996383996",
-   "invitee": "881028595",
-   "ts": "2026-11-17T06:45:49.463283+00:00"
-  },
   {
    "inviter": "996383996",
    "invitee": "7718724598",
