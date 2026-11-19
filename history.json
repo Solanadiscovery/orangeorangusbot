@@ -1230,5 +1230,13 @@
   "platform": "telegram",
   "text": "🦧 What does 'orangutan' roughly mean in Malay?",
   "ts": "2026-11-19T09:00:54.205264+00:00"
+ },
+ {
+  "id": "tg-meme-the-jungle-never-sleeps-orango-does-a-lo",
+  "concept": "meme-the-jungle-never-sleeps-orango-does-a-lo",
+  "type": "meme",
+  "platform": "telegram",
+  "text": "The jungle never sleeps. Orango does, a lot. 😴🌴",
+  "ts": "2026-11-19T13:00:46.822579+00:00"
  }
 ]
