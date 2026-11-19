@@ -1222,5 +1222,13 @@
   "platform": "telegram",
   "text": "📜 Lore time: what do you think Rug Gorilla is planning next? Wildest theory wins. 🦍",
   "ts": "2026-11-18T21:00:08.585330+00:00"
+ },
+ {
+  "id": "tg-quiz-orangutan-name",
+  "concept": "orangutan-name",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🦧 What does 'orangutan' roughly mean in Malay?",
+  "ts": "2026-11-19T09:00:54.205264+00:00"
  }
 ]
