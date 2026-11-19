@@ -1238,5 +1238,13 @@
   "platform": "telegram",
   "text": "The jungle never sleeps. Orango does, a lot. 😴🌴",
   "ts": "2026-11-19T13:00:46.822579+00:00"
+ },
+ {
+  "id": "tg-engage-quick-mission-like-and-repost-our-latest",
+  "concept": "engage-quick-mission-like-and-repost-our-latest",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🐦 Quick mission: like and repost our latest post on X and leave a comment. Every bit of support helps: https://x.com/orangeorangus",
+  "ts": "2026-11-19T21:00:45.528910+00:00"
  }
 ]
