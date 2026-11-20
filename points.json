@@ -480,6 +480,23 @@
    ],
    "streak": 1,
    "best_streak": 1
+  },
+  "7839701667": {
+   "name": "can i get stay here?",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T02:51:57.980048+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
