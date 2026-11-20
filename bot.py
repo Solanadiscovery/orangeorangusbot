@@ -28,6 +28,7 @@ HELP = """🦧 Comandi admin OrangeOrangus
 /preview_on → modalità prova: i post arrivano solo a te in privato, non nel gruppo
 /preview_off → torna a pubblicare nel gruppo
 /next → mostra i prossimi contenuti che verranno pubblicati
+/countdown_reset → crea e fissa un NUOVO countdown (solo se quello vecchio è stato cancellato)
 /reward_test → ti invia in privato il prossimo promemoria Orange Racing (non tocca il gruppo né la rotazione)
 /help → questo elenco
 
@@ -181,6 +182,8 @@ class Bot:
                 return "Promemoria giornaliero non configurato."
             self.send_reward(self.admin, self.reward_text(advance=False))
             return None
+        if cmd == "/countdown_reset":
+            return self.reset_countdown()
         if cmd == "/status":
             left = {p: content.remaining(self.pools[p], self.history, self.cfg["similarity_threshold"]) for p in self.pools}
             return (f"Pausa: {self.flag('paused')} | Anteprima: {self.flag('preview')}\n"
@@ -235,6 +238,21 @@ class Bot:
             else:
                 raise
         self.mem["counter_text"] = text
+
+    def reset_countdown(self):
+        """Solo su comando admin: dimentica il vecchio messaggio, ne crea uno nuovo e lo fissa."""
+        old = self.state.get("counter_id")
+        self.state.pop("counter_id", None)
+        self.state["counter_created"] = False
+        self.state.get("alerts", {}).pop("countdown_missing", None)
+        self.state.get("alerts", {}).pop("pin_failed", None)
+        self.mem.pop("counter_text", None)
+        self.dirty = True
+        try:
+            self.update_countdown(self.member_count())
+        except tg.TelegramError as e:
+            return f"❌ Non riesco a creare il countdown: {e.description}"
+        return f"✅ Nuovo countdown creato e fissato (messaggio {self.state.get('counter_id')}, prima era {old})."
 
     def ensure_pinned(self):
         ts = self.clock().timestamp()

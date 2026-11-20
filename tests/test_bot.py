@@ -102,6 +102,20 @@ class BotTest(unittest.TestCase):
         self.assertEqual(sends[0]["chat_id"], "1")  # solo l'avviso all'admin
         self.assertNotIn("pinChatMessage", fake.methods())
 
+    def test_countdown_reset_command_creates_and_pins_new_message(self):
+        fake = FakeTelegram(edit_error="Bad Request: message to edit not found")
+        b = self.make(datetime.datetime(2026, 10, 19, 6, 0, tzinfo=UTC), fake)
+        fake.calls.clear()
+        with mock.patch.object(tg, "call", fake):
+            reply = b.handle("/countdown_reset")
+        sends = [f for m, f in fake.calls if m == "sendMessage"]
+        self.assertEqual(len(sends), 1)
+        self.assertEqual(sends[0]["chat_id"], "@test")
+        pins = [f for m, f in fake.calls if m == "pinChatMessage"]
+        self.assertEqual(pins[0]["message_id"], b.state["counter_id"])
+        self.assertNotEqual(b.state["counter_id"], 30)
+        self.assertIn("Nuovo countdown", reply)
+
     def test_time_mode_uses_absolute_target(self):
         cfg = {"countdown": {"mode": "time", "target": "2026-11-01T20:00:00+01:00",
                              "text_time": "{d}d {h}h {m}m", "text_done_time": "done"}}
