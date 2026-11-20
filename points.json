@@ -1071,6 +1071,23 @@
    "badges": [
     "first"
    ]
+  },
+  "7354951743": {
+   "name": "Raiyan",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:22:02.769226+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
