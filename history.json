@@ -1254,5 +1254,13 @@
   "platform": "telegram",
   "text": "🌴 Wild orangutans live only on which islands?",
   "ts": "2026-11-20T09:00:58.553388+00:00"
+ },
+ {
+  "id": "tg-engage-got-a-skill-to-share-memes-art-video-cod",
+  "concept": "engage-got-a-skill-to-share-memes-art-video-cod",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🤝 Got a skill to share? Memes, art, video, code, translations? Tell us how you'd like to help build the jungle.",
+  "ts": "2026-11-20T13:00:45.573660+00:00"
  }
 ]
