@@ -484,7 +484,7 @@
   "7839701667": {
    "name": "can i get stay here?",
    "pts": 15,
-   "x": "",
+   "x": "syrif101225",
    "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
@@ -499,7 +499,8 @@
    ],
    "link": "https://t.me/+fWZMdRvKWVYzMjM0",
    "streak": 1,
-   "best_streak": 1
+   "best_streak": 1,
+   "x_changed": false
   },
   "6424915694": {
    "name": "zeon || @airdroperso",
