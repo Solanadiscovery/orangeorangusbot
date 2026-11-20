@@ -483,19 +483,20 @@
   },
   "7839701667": {
    "name": "can i get stay here?",
-   "pts": 15,
+   "pts": 35,
    "x": "syrif101225",
    "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 15
+    "p": 35
    },
    "joined": true,
    "strikes": 0,
    "invites": 0,
    "first": "2026-11-20T02:51:57.980048+00:00",
    "badges": [
-    "first"
+    "first",
+    "voice"
    ],
    "link": "https://t.me/+fWZMdRvKWVYzMjM0",
    "streak": 1,
@@ -746,6 +747,13 @@
    "status": "approved",
    "pts": 20,
    "url": "https://x.com/brunorinarelli/status/2118982253082517907"
+  },
+  "2123614905035272619": {
+   "uid": "7839701667",
+   "day": "2026-11-20",
+   "status": "approved",
+   "pts": 20,
+   "url": "https://x.com/syrif101225/status/2123614905035272619"
   }
  },
  "links": {
