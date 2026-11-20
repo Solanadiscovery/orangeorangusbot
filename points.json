@@ -1037,6 +1037,23 @@
    "badges": [
     "first"
    ]
+  },
+  "8803264778": {
+   "name": "Liza",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:21:33.488815+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
