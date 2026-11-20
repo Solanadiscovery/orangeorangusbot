@@ -599,12 +599,12 @@
   },
   "6207238957": {
    "name": "Rangga",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -612,7 +612,9 @@
    "first": "2026-11-20T03:10:06.477104+00:00",
    "badges": [
     "first"
-   ]
+   ],
+   "streak": 1,
+   "best_streak": 1
   },
   "7425858790": {
    "name": "Kuy",
@@ -652,12 +654,12 @@
   },
   "6851812648": {
    "name": "RADENRAA⚡️ Orexn",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -665,7 +667,9 @@
    "first": "2026-11-20T03:10:43.297996+00:00",
    "badges": [
     "first"
-   ]
+   ],
+   "streak": 1,
+   "best_streak": 1
   }
  },
  "tweets": {
