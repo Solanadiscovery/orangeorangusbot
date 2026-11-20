@@ -553,16 +553,17 @@
     "first"
    ],
    "streak": 1,
-   "best_streak": 1
+   "best_streak": 1,
+   "link": "https://t.me/+m6KrM26e221kYzQ0"
   },
   "5961883095": {
    "name": "∅reo ||",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -570,7 +571,9 @@
    "first": "2026-11-20T03:09:16.530301+00:00",
    "badges": [
     "first"
-   ]
+   ],
+   "streak": 1,
+   "best_streak": 1
   },
   "5014769514": {
    "name": "RoziqinKhoir",
@@ -631,7 +634,8 @@
   "https://t.me/+8J5rs3rojp1jMjk0": "1487424404",
   "https://t.me/+eo0Cc2SQ5jo5MDc0": "996383996",
   "https://t.me/+fWZMdRvKWVYzMjM0": "7839701667",
-  "https://t.me/+H6tuAJ3W3rxjMjE0": "6424915694"
+  "https://t.me/+H6tuAJ3W3rxjMjE0": "6424915694",
+  "https://t.me/+m6KrM26e221kYzQ0": "6871428840"
  },
  "refs": [
   {
