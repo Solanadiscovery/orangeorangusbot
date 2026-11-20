@@ -1171,12 +1171,12 @@
   },
   "8510945015": {
    "name": "Langkah kecil",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -1185,7 +1185,9 @@
    "badges": [
     "first"
    ],
-   "link": "https://t.me/+sKS1UkH8VN9iNDU0"
+   "link": "https://t.me/+sKS1UkH8VN9iNDU0",
+   "streak": 1,
+   "best_streak": 1
   }
  },
  "tweets": {
