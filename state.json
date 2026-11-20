@@ -1,5 +1,4 @@
 {
- "counter_id": 30,
  "counter_created": true,
  "announced": [
   50,
@@ -13,7 +12,7 @@
   "telegram_poll": "2026-11-14 12:00"
  },
  "x_intro_done": true,
- "update_offset": 166186307,
+ "update_offset": 166186308,
  "og_existing_done": true,
  "welcome_id": 13760,
  "last_type": {
@@ -52,13 +51,12 @@
  "friday_done": "2026-11-13",
  "alerts": {
   "low_telegram_poll": 1793530847.730227,
-  "empty_telegram": 1793898004.769799,
-  "pin_failed": 1795180208.12053,
-  "countdown_missing": 1795180607.873217
+  "empty_telegram": 1793898004.769799
  },
  "doc_ids": {
   "daily_reward:2766766": "AgACAgQAAxkDAAIBZmr4kogoOY1bb-D94PR-6UGYx6qfAALLEGsb_e_JUzJSdVLerrvZAQADAgADdwADPQQ"
  },
  "daily_reward_index": 5,
- "daily_reward_date": "2026-11-19"
+ "daily_reward_date": "2026-11-19",
+ "counter_id": 13777
 }
