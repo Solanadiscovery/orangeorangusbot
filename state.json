@@ -13,7 +13,7 @@
   "telegram_poll": "2026-11-14 12:00"
  },
  "x_intro_done": true,
- "update_offset": 166186202,
+ "update_offset": 166186205,
  "og_existing_done": true,
  "welcome_id": 13676,
  "last_type": {
@@ -37,7 +37,7 @@
   "/social",
   "/web"
  ],
- "members_public": 398,
+ "members_public": 365,
  "filters_rev": {
   "/social": 9,
   "/demo": 1,
