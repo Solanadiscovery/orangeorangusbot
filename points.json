@@ -538,18 +538,20 @@
   },
   "6871428840": {
    "name": "Fr",
-   "pts": 0,
+   "pts": 10,
    "x": "",
    "checkin": "",
    "day": {
-    "d": "",
-    "p": 0
+    "d": "2026-11-20",
+    "p": 10
    },
-   "joined": false,
+   "joined": true,
    "strikes": 0,
    "invites": 0,
    "first": "2026-11-20T03:08:55.406887+00:00",
-   "badges": []
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
