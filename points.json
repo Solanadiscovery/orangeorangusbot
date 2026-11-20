@@ -968,6 +968,40 @@
    "badges": [
     "first"
    ]
+  },
+  "8491450577": {
+   "name": "Cornwall",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:21:05.530938+00:00",
+   "badges": [
+    "first"
+   ]
+  },
+  "8412767455": {
+   "name": "Tonika",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:21:06.716143+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
