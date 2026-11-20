@@ -37,7 +37,7 @@
   "/social",
   "/web"
  ],
- "members_public": 313,
+ "members_public": 314,
  "filters_rev": {
   "/social": 9,
   "/demo": 1,
@@ -53,7 +53,8 @@
  "alerts": {
   "low_telegram_poll": 1793530847.730227,
   "empty_telegram": 1793898004.769799,
-  "pin_failed": 1795169119.522052
+  "pin_failed": 1795169119.522052,
+  "countdown_missing": 1795169617.628582
  },
  "doc_ids": {
   "daily_reward:2766766": "AgACAgQAAxkDAAIBZmr4kogoOY1bb-D94PR-6UGYx6qfAALLEGsb_e_JUzJSdVLerrvZAQADAgADdwADPQQ"
