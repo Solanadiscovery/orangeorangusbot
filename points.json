@@ -950,6 +950,23 @@
    "badges": [
     "first"
    ]
+  },
+  "6630435543": {
+   "name": "0x",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:20:46.153138+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
