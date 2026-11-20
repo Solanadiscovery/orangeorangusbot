@@ -522,7 +522,7 @@
   "8505416745": {
    "name": "elzee",
    "pts": 15,
-   "x": "",
+   "x": "zzzzzz91199",
    "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
@@ -536,7 +536,8 @@
     "first"
    ],
    "streak": 1,
-   "best_streak": 1
+   "best_streak": 1,
+   "x_changed": false
   },
   "6871428840": {
    "name": "Fr",
@@ -685,6 +686,23 @@
    "strikes": 0,
    "invites": 0,
    "first": "2026-11-20T03:10:57.896887+00:00",
+   "badges": [
+    "first"
+   ]
+  },
+  "7029761011": {
+   "name": "Febriyan93",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:11:13.614444+00:00",
    "badges": [
     "first"
    ]
