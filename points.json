@@ -1168,6 +1168,23 @@
    ],
    "streak": 1,
    "best_streak": 1
+  },
+  "8510945015": {
+   "name": "Langkah kecil",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T05:14:00.192802+00:00",
+   "badges": [
+    "first"
+   ]
   }
  },
  "tweets": {
