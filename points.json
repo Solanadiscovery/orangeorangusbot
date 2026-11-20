@@ -845,19 +845,20 @@
   },
   "1343439381": {
    "name": "🐾 MD Sahid",
-   "pts": 15,
+   "pts": 35,
    "x": "salom626o1",
    "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 15
+    "p": 35
    },
    "joined": true,
    "strikes": 0,
    "invites": 0,
    "first": "2026-11-20T03:15:43.919990+00:00",
    "badges": [
-    "first"
+    "first",
+    "voice"
    ],
    "streak": 1,
    "best_streak": 1,
@@ -1198,6 +1199,13 @@
    "status": "approved",
    "pts": 20,
    "url": "https://x.com/uzumaki27920/status/2123617457881678335"
+  },
+  "2123635494458360224": {
+   "uid": "1343439381",
+   "day": "2026-11-20",
+   "status": "approved",
+   "pts": 20,
+   "url": "https://x.com/salom626o1/status/2123635494458360224"
   }
  },
  "links": {
