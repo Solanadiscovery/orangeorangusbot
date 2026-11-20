@@ -52,7 +52,8 @@
  "friday_done": "2026-11-13",
  "alerts": {
   "low_telegram_poll": 1793530847.730227,
-  "empty_telegram": 1793898004.769799
+  "empty_telegram": 1793898004.769799,
+  "pin_failed": 1795169119.522052
  },
  "doc_ids": {
   "daily_reward:2766766": "AgACAgQAAxkDAAIBZmr4kogoOY1bb-D94PR-6UGYx6qfAALLEGsb_e_JUzJSdVLerrvZAQADAgADdwADPQQ"
