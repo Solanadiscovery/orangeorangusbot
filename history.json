@@ -1246,5 +1246,13 @@
   "platform": "telegram",
   "text": "🐦 Quick mission: like and repost our latest post on X and leave a comment. Every bit of support helps: https://x.com/orangeorangus",
   "ts": "2026-11-19T21:00:45.528910+00:00"
+ },
+ {
+  "id": "tg-quiz-orangutan-islands",
+  "concept": "orangutan-islands",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🌴 Wild orangutans live only on which islands?",
+  "ts": "2026-11-20T09:00:58.553388+00:00"
  }
 ]
