@@ -538,12 +538,12 @@
   },
   "6871428840": {
    "name": "Fr",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -551,7 +551,9 @@
    "first": "2026-11-20T03:08:55.406887+00:00",
    "badges": [
     "first"
-   ]
+   ],
+   "streak": 1,
+   "best_streak": 1
   },
   "5961883095": {
    "name": "∅reo ||",
@@ -566,6 +568,23 @@
    "strikes": 0,
    "invites": 0,
    "first": "2026-11-20T03:09:16.530301+00:00",
+   "badges": [
+    "first"
+   ]
+  },
+  "5014769514": {
+   "name": "RoziqinKhoir",
+   "pts": 10,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "2026-11-20",
+    "p": 10
+   },
+   "joined": true,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-20T03:09:24.533254+00:00",
    "badges": [
     "first"
    ]
