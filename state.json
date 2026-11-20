@@ -53,7 +53,7 @@
  "alerts": {
   "low_telegram_poll": 1793530847.730227,
   "empty_telegram": 1793898004.769799,
-  "pin_failed": 1795169119.522052,
+  "pin_failed": 1795172813.744153,
   "countdown_missing": 1795169617.628582
  },
  "doc_ids": {
