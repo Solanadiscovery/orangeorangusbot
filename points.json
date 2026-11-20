@@ -483,12 +483,12 @@
   },
   "7839701667": {
    "name": "can i get stay here?",
-   "pts": 10,
+   "pts": 15,
    "x": "",
-   "checkin": "",
+   "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
-    "p": 10
+    "p": 15
    },
    "joined": true,
    "strikes": 0,
@@ -497,7 +497,9 @@
    "badges": [
     "first"
    ],
-   "link": "https://t.me/+fWZMdRvKWVYzMjM0"
+   "link": "https://t.me/+fWZMdRvKWVYzMjM0",
+   "streak": 1,
+   "best_streak": 1
   }
  },
  "tweets": {
