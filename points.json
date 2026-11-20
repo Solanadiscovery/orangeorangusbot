@@ -905,7 +905,7 @@
   "7786667193": {
    "name": "cranky",
    "pts": 15,
-   "x": "",
+   "x": "doomerang00",
    "checkin": "2026-11-20",
    "day": {
     "d": "2026-11-20",
@@ -919,7 +919,8 @@
     "first"
    ],
    "streak": 1,
-   "best_streak": 1
+   "best_streak": 1,
+   "x_changed": false
   },
   "7153731518": {
    "name": "𝐑𝐨𝐧𝐞_𝐂𝐫𝐲𝐩𝐭𝐨_999 💢",
