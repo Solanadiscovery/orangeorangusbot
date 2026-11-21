@@ -505,23 +505,23 @@
   },
   "6424915694": {
    "name": "zeon || @airdroperso",
-   "pts": 130,
+   "pts": 160,
    "x": "",
    "checkin": "",
    "day": {
     "d": "2026-11-21",
-    "p": 120
+    "p": 150
    },
    "joined": true,
    "strikes": 0,
-   "invites": 4,
+   "invites": 5,
    "first": "2026-11-20T03:00:14.457383+00:00",
    "badges": [
     "first",
     "recruiter"
    ],
    "link": "https://t.me/+H6tuAJ3W3rxjMjE0",
-   "level": 1
+   "level": 2
   },
   "8505416745": {
    "name": "elzee",
@@ -1297,11 +1297,6 @@
   "https://t.me/+sKS1UkH8VN9iNDU0": "8510945015"
  },
  "refs": [
-  {
-   "inviter": "6424915694",
-   "invitee": "2100475766",
-   "ts": "2026-11-20T13:55:31.978263+00:00"
-  },
   {
    "inviter": "6424915694",
    "invitee": "2142589569",
