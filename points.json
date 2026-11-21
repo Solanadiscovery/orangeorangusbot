@@ -1207,6 +1207,21 @@
    "badges": [
     "first"
    ]
+  },
+  "9054047124": {
+   "name": "Armando",
+   "pts": 0,
+   "x": "",
+   "checkin": "",
+   "day": {
+    "d": "",
+    "p": 0
+   },
+   "joined": false,
+   "strikes": 0,
+   "invites": 0,
+   "first": "2026-11-21T12:34:34.903860+00:00",
+   "badges": []
   }
  },
  "tweets": {
