@@ -1286,5 +1286,13 @@
   "platform": "telegram",
   "text": "🌍 Where in the world are you reading this from? Drop your country flag! 🗺",
   "ts": "2026-11-21T13:01:00.472947+00:00"
+ },
+ {
+  "id": "tg-engage-caption-this-orango-staring-at-a-giant-o",
+  "concept": "engage-caption-this-orango-staring-at-a-giant-o",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "😂 Caption this: Orango staring at a giant orange that's bigger than him. Best caption gets featured.",
+  "ts": "2026-11-21T21:00:34.493668+00:00"
  }
 ]
