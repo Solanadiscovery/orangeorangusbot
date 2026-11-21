@@ -1270,5 +1270,13 @@
   "platform": "telegram",
   "text": "🎮 What feature should we add to the racing demo next? Your ideas go straight to the dev notes.",
   "ts": "2026-11-20T21:00:07.378546+00:00"
+ },
+ {
+  "id": "tg-quiz-orange-vitc",
+  "concept": "orange-vitc",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🍊 Oranges are famous for which vitamin?",
+  "ts": "2026-11-21T09:00:35.557528+00:00"
  }
 ]
