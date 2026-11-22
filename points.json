@@ -847,11 +847,11 @@
   },
   "1343439381": {
    "name": "🐾 MD Sahid",
-   "pts": 40,
+   "pts": 45,
    "x": "salom626o1",
-   "checkin": "2026-11-21",
+   "checkin": "2026-11-22",
    "day": {
-    "d": "2026-11-21",
+    "d": "2026-11-22",
     "p": 5
    },
    "joined": true,
@@ -860,10 +860,11 @@
    "first": "2026-11-20T03:15:43.919990+00:00",
    "badges": [
     "first",
-    "voice"
+    "voice",
+    "streak3"
    ],
-   "streak": 2,
-   "best_streak": 2,
+   "streak": 3,
+   "best_streak": 3,
    "x_changed": false
   },
   "5801253874": {
