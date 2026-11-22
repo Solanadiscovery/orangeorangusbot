@@ -1294,5 +1294,13 @@
   "platform": "telegram",
   "text": "😂 Caption this: Orango staring at a giant orange that's bigger than him. Best caption gets featured.",
   "ts": "2026-11-21T21:00:34.493668+00:00"
+ },
+ {
+  "id": "tg-quiz-banana-berry",
+  "concept": "banana-berry",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🍌 Botanically speaking, a banana is a...",
+  "ts": "2026-11-22T09:00:27.099087+00:00"
  }
 ]
