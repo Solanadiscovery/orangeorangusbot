@@ -1302,5 +1302,13 @@
   "platform": "telegram",
   "text": "🍌 Botanically speaking, a banana is a...",
   "ts": "2026-11-22T09:00:27.099087+00:00"
+ },
+ {
+  "id": "tg-engage-safety-check-share-one-tip-that-helped-y",
+  "concept": "engage-safety-check-share-one-tip-that-helped-y",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🛡 Safety check: share one tip that helped you avoid a scam. Let's keep each other safe.",
+  "ts": "2026-11-22T13:00:21.352571+00:00"
  }
 ]
