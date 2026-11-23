@@ -847,11 +847,11 @@
   },
   "1343439381": {
    "name": "🐾 MD Sahid",
-   "pts": 45,
+   "pts": 50,
    "x": "salom626o1",
-   "checkin": "2026-11-22",
+   "checkin": "2026-11-23",
    "day": {
-    "d": "2026-11-22",
+    "d": "2026-11-23",
     "p": 5
    },
    "joined": true,
@@ -863,9 +863,10 @@
     "voice",
     "streak3"
    ],
-   "streak": 3,
-   "best_streak": 3,
-   "x_changed": false
+   "streak": 4,
+   "best_streak": 4,
+   "x_changed": false,
+   "level": 1
   },
   "5801253874": {
    "name": "Oxflyd",
