@@ -1318,5 +1318,13 @@
   "platform": "telegram",
   "text": "🎵 If OrangeOrangus had a theme song, what would it be? Drop a song.",
   "ts": "2026-11-22T21:01:47.380721+00:00"
+ },
+ {
+  "id": "tg-quiz-orangutan-arms",
+  "concept": "orangutan-arms",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🦧 An adult orangutan's arm span can reach about...",
+  "ts": "2026-11-23T09:00:54.658820+00:00"
  }
 ]
