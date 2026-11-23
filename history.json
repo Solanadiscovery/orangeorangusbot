@@ -1334,5 +1334,13 @@
   "platform": "telegram",
   "text": "📸 Show us your orange! Any orange object near you right now counts. 🍊",
   "ts": "2026-11-23T13:00:39.390522+00:00"
+ },
+ {
+  "id": "tg-engage-what-made-you-join-the-troop-tell-us-in",
+  "concept": "engage-what-made-you-join-the-troop-tell-us-in",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "💬 What made you join the Troop? Tell us in one sentence.",
+  "ts": "2026-11-23T21:00:19.060967+00:00"
  }
 ]
