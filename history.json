@@ -1326,5 +1326,13 @@
   "platform": "telegram",
   "text": "🦧 An adult orangutan's arm span can reach about...",
   "ts": "2026-11-23T09:00:54.658820+00:00"
+ },
+ {
+  "id": "tg-engage-show-us-your-orange-any-orange-object-ne",
+  "concept": "engage-show-us-your-orange-any-orange-object-ne",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "📸 Show us your orange! Any orange object near you right now counts. 🍊",
+  "ts": "2026-11-23T13:00:39.390522+00:00"
  }
 ]
