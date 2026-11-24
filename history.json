@@ -1358,5 +1358,13 @@
   "platform": "telegram",
   "text": "🏆 Who's the funniest meme maker in this group right now? Tag them! 😄",
   "ts": "2026-11-24T13:00:40.047279+00:00"
+ },
+ {
+  "id": "tg-engage-if-orango-had-a-catchphrase-besides-peel",
+  "concept": "engage-if-orango-had-a-catchphrase-besides-peel",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🦧 If Orango had a catchphrase besides 'Peel the hype', what would it be?",
+  "ts": "2026-11-24T21:00:09.673791+00:00"
  }
 ]
