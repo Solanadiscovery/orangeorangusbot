@@ -1342,5 +1342,13 @@
   "platform": "telegram",
   "text": "💬 What made you join the Troop? Tell us in one sentence.",
   "ts": "2026-11-23T21:00:19.060967+00:00"
+ },
+ {
+  "id": "tg-quiz-racing-tracks-count",
+  "concept": "racing-tracks-count",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🏁 How many tracks can you race in the current Orange Racing demo?",
+  "ts": "2026-11-24T09:03:11.404150+00:00"
  }
 ]
