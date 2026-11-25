@@ -1374,5 +1374,13 @@
   "platform": "telegram",
   "text": "🧠 What links each block in a blockchain to the previous one?",
   "ts": "2026-11-25T09:00:23.017974+00:00"
+ },
+ {
+  "id": "tg-engage-describe-your-perfect-jungle-day-in-thre",
+  "concept": "engage-describe-your-perfect-jungle-day-in-thre",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🌴 Describe your perfect jungle day in three emojis.",
+  "ts": "2026-11-25T13:00:25.006382+00:00"
  }
 ]
