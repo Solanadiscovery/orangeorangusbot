@@ -1366,5 +1366,13 @@
   "platform": "telegram",
   "text": "🦧 If Orango had a catchphrase besides 'Peel the hype', what would it be?",
   "ts": "2026-11-24T21:00:09.673791+00:00"
+ },
+ {
+  "id": "tg-quiz-blockchain-block",
+  "concept": "blockchain-block",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What links each block in a blockchain to the previous one?",
+  "ts": "2026-11-25T09:00:23.017974+00:00"
  }
 ]
