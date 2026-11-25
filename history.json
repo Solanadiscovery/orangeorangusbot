@@ -1382,5 +1382,13 @@
   "platform": "telegram",
   "text": "🌴 Describe your perfect jungle day in three emojis.",
   "ts": "2026-11-25T13:00:25.006382+00:00"
+ },
+ {
+  "id": "tg-engage-invite-a-friend-who-loves-racing-games-a",
+  "concept": "engage-invite-a-friend-who-loves-racing-games-a",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🔁 Invite a friend who loves racing games and send them the demo link: https://orangeracing.duckdns.org/",
+  "ts": "2026-11-25T21:01:02.753718+00:00"
  }
 ]
