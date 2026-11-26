@@ -1390,5 +1390,13 @@
   "platform": "telegram",
   "text": "🔁 Invite a friend who loves racing games and send them the demo link: https://orangeracing.duckdns.org/",
   "ts": "2026-11-25T21:01:02.753718+00:00"
+ },
+ {
+  "id": "tg-quiz-sol-ticker",
+  "concept": "sol-ticker",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🧠 What is the ticker of Solana's native coin?",
+  "ts": "2026-11-26T09:00:40.219721+00:00"
  }
 ]
