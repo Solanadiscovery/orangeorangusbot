@@ -1406,5 +1406,13 @@
   "platform": "telegram",
   "text": "🎉 New here? Say hi and tell us your favourite fruit. Old Peelers, give them a warm welcome! 👋",
   "ts": "2026-11-26T13:00:51.043505+00:00"
+ },
+ {
+  "id": "tg-engage-what-would-you-like-to-see-more-of-here",
+  "concept": "engage-what-would-you-like-to-see-more-of-here",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "💡 What would you like to see more of here: memes, game updates, lore or quizzes?",
+  "ts": "2026-11-26T21:00:58.793439+00:00"
  }
 ]
