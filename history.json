@@ -1398,5 +1398,13 @@
   "platform": "telegram",
   "text": "🧠 What is the ticker of Solana's native coin?",
   "ts": "2026-11-26T09:00:40.219721+00:00"
+ },
+ {
+  "id": "tg-engage-new-here-say-hi-and-tell-us-your-favouri",
+  "concept": "engage-new-here-say-hi-and-tell-us-your-favouri",
+  "type": "engage",
+  "platform": "telegram",
+  "text": "🎉 New here? Say hi and tell us your favourite fruit. Old Peelers, give them a warm welcome! 👋",
+  "ts": "2026-11-26T13:00:51.043505+00:00"
  }
 ]
