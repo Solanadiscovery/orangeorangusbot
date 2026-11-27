@@ -1414,5 +1414,13 @@
   "platform": "telegram",
   "text": "💡 What would you like to see more of here: memes, game updates, lore or quizzes?",
   "ts": "2026-11-26T21:00:58.793439+00:00"
+ },
+ {
+  "id": "tg-quiz-phishing",
+  "concept": "phishing",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🛡 A site looks like your wallet but the URL is slightly different. It's probably...",
+  "ts": "2026-11-27T09:00:40.147598+00:00"
  }
 ]
