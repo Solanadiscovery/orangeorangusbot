@@ -1430,5 +1430,13 @@
   "platform": "telegram",
   "text": "🛡 A random token appears in your wallet with a link to 'claim'. Best move?",
   "ts": "2026-11-27T13:00:09.085457+00:00"
+ },
+ {
+  "id": "tg-quiz-orangutan-diet",
+  "concept": "orangutan-diet",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🦧 What makes up most of a wild orangutan's diet?",
+  "ts": "2026-11-27T21:00:06.030757+00:00"
  }
 ]
