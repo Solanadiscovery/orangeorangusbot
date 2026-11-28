@@ -1446,5 +1446,13 @@
   "platform": "telegram",
   "text": "🦧 Where do orangutans usually sleep?",
   "ts": "2026-11-28T09:00:29.992315+00:00"
+ },
+ {
+  "id": "tg-quiz-orange-origin",
+  "concept": "orange-origin",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🍊 Sweet oranges originally come from which region?",
+  "ts": "2026-11-28T13:00:15.453464+00:00"
  }
 ]
