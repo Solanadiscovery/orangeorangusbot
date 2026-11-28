@@ -1438,5 +1438,13 @@
   "platform": "telegram",
   "text": "🦧 What makes up most of a wild orangutan's diet?",
   "ts": "2026-11-27T21:00:06.030757+00:00"
+ },
+ {
+  "id": "tg-quiz-orangutan-nest",
+  "concept": "orangutan-nest",
+  "type": "quiz",
+  "platform": "telegram",
+  "text": "🦧 Where do orangutans usually sleep?",
+  "ts": "2026-11-28T09:00:29.992315+00:00"
  }
 ]
